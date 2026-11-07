@@ -107,3 +107,9 @@ Para el caso indicado, el mapeo POS–ERP sí existe: `CN-00015` → `ERP-PROV-M
 También se observó el caso `CN-00016` con `sku_erp: null` y `handle: null`, un problema distinto que puede impedir conciliar sus ventas físicas con costos e inventario.
 
 **Tratamiento propuesto:** preservar nulos; mantener las operaciones con estado de conciliación explícito; usar la relación POS–ERP donde esté informada y validada. No inventar un handle desde el nombre ni concluir que no hay ventas online. Si solo se dispone de handle para un cruce, no unir entre sí registros con claves nulas. Revisar las claves reales de Parquet antes de decidir alternativas. No eliminar silenciosamente ventas no conciliadas ni asignarles costo cero.
+
+**Actualización tras leer e-commerce:** el Parquet contiene `product_handle`, sin SKU POS o ERP. Hay 33 handles distintos; 27 coinciden exactamente con el mapeo (8,098 filas) y 6 no tienen correspondencia (1,849 filas). Cuatro de los no conciliados tienen sufijos coincidentes con SKU sin handle (013, 030, 032 y 052), sin que se haya confirmado la regla de sufijos. Por tanto, no adoptar «sin handle = no se vende online». Para 015 no apareció sufijo `-015`, lo que tampoco prueba ausencia de ventas. Ver [análisis](docs/analisis_ecommerce.md).
+
+## Evidencia adicional para D006 y D007
+
+Se revisaron las 11 columnas de e-commerce y no contienen una lista de precios fijados, vigencias de tarifas ni campos separados de impuestos o descuentos. Hay amount y cantidad para estudiar los importes de órdenes, sujeto a su semántica. Se documentó la venta V00000000 como [caso candidato de margen negativo](docs/casos_margen.md): 355.43 MXN frente a costo propuesto de una unidad de 466.56 MXN, margen condicionado de −111.13 MXN en T033.

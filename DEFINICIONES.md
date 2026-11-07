@@ -43,6 +43,15 @@ Glosario para interpretar las fuentes y explicar las decisiones de CaféNorte. S
 | Fecha de corte | Límite temporal fijo del análisis. | Debe basarse en la cobertura de las fuentes y quedar documentado para reproducir las ventanas del reto. |
 | Supuesto | Interpretación adoptada cuando falta información suficiente. | Debe tener justificación, impacto y estado en `DUDAS.md`; no se presenta como confirmación del cliente. |
 
+## Formatos de archivos
+
+| Formato | Qué guarda | Uso en el proyecto |
+|---|---|---|
+| Parquet | Datos en formato binario organizado por columnas, con tipos y posibilidad de estructuras anidadas. | `ecommerce_orders.parquet` es una tabla de 9,947 filas y 11 columnas. Se conserva como fuente original. |
+| CSV | Texto con filas y campos separados por un delimitador; no conserva un esquema de tipos como Parquet. | Se generó `outputs/ecommerce_orders.csv` para inspección en Excel, con encabezados, coma y UTF-8 con BOM. Los nulos se muestran vacíos. |
+
+Referencia: [Apache Parquet](https://parquet.apache.org/). Un archivo Parquet puede contener una tabla aunque no se vea como texto al abrirlo; convertirlo a CSV no determina qué representa cada fila ni valida sus importes.
+
 ## Cómo se relacionan los conceptos
 
 En Shopify, un handle puede verse como `premium-cafe-grano-057` en una ruta ilustrativa `/products/premium-cafe-grano-057`. La descripción es el texto que explica el producto y el nombre es su título; son conceptos separados. Referencia: [documentación oficial de Shopify sobre Product.handle](https://shopify.dev/docs/api/storefront/2026-01/objects/Product).

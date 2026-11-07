@@ -31,6 +31,8 @@ Las definiciones de métricas, ventanas temporales y supuestos se documentarán 
 
 ## Archivos actuales
 
+- [Análisis de e-commerce](docs/analisis_ecommerce.md): esquema, cobertura de handles y exportación CSV para Excel.
+- [Casos de margen](docs/casos_margen.md): operaciones concretas para comprobar los cálculos.
 - [DEFINICIONES.md](DEFINICIONES.md): conceptos de sistemas, importes, inventario y análisis.
 - [Historial del producto ERP-PROV-MX-057-C](docs/producto_ERP-PROV-MX-057-C.md): costos, vigencias y equivalencia POS.
 - `datos/README.md`: instrucciones para colocar los archivos originales.
@@ -40,7 +42,7 @@ Los datos originales se mantienen fuera del control de versiones mientras no se 
 
 ## Ejecución
 
-Pendiente. Se documentarán el entorno, las dependencias, los comandos de ejecución y los de validación cuando se implemente el pipeline.
+El pipeline sigue pendiente. Para leer y exportar e-commerce, consultar [los comandos de exploración](docs/analisis_ecommerce.md). El CSV de consulta se genera en `outputs/ecommerce_orders.csv` y permanece fuera de Git.
 
 ## Entregables pendientes
 

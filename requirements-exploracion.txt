@@ -1,0 +1,2 @@
+# Lectura del Parquet y exportación de consulta. Stack final del pipeline pendiente.
+pyarrow==26.0.1

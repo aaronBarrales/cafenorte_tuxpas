@@ -75,13 +75,23 @@ La revisión posterior recorrió las claves completas del JSON y no encontró li
 
 Una lectura independiente con el formato día/mes/año y hora:minuto interpretó todas las fechas actuales sin errores. Esto diferencia una incompatibilidad del parser de fechas incorrectas y no prueba que los demás campos permanezcan intactos.
 
-## Entradas pendientes durante la implementación
-
 ### Seguimiento de mapeos incompletos
 
 El autor identificó `handle: null` en `ERP-PROV-MX-015-D` y propuso que handle fuera la descripción. La IA contrastó el concepto con documentación oficial de Shopify: el handle es un identificador utilizado en la URL, distinto del título y la descripción. Verificó que el producto sí tiene nombre, Especial Cafe Molido, y mapeo POS–ERP válido informado en la fuente.
 
 Se contaron 65 registros de mapeo, 38 sin handle y 27 con handle; no se encontraron duplicados entre valores no nulos por campo. Se documentó el caso adicional de CN-00016 sin SKU ERP. No se concluyó que los productos sin handle no se vendan online: esa hipótesis sigue pendiente de contrastar con Parquet. Se actualizaron glosario, dudas y continuidad; aún no se implementaron reglas de conciliación.
+
+### Seguimiento de Parquet y caso de margen negativo
+
+El autor pidió comprobar si los handles ausentes podían tratarse como productos sin ventas online y convertir el Parquet a CSV. Durante el trabajo identificó V00000000 como venta por debajo del costo. La IA verificó esa operación y la fecha de vigencia del costo: margen candidato de −111.13 MXN para una unidad de CN-00015 en T033, sujeto a bases comparables y reglas de comprobantes.
+
+Para leer Parquet, se creó un entorno local aislado y se instaló PyArrow 26.0.1. La creación del entorno falló inicialmente bajo las restricciones de ejecución; se completó con permisos adicionales. Pip encontró un error de certificados, resuelto usando truststore sin desactivar la validación HTTPS. El esquema tiene 11 columnas, con información de clientes, pero sin SKU alternativos ni listas de precios. Los datos exportados permanecen locales y excluidos de Git.
+
+La IA generó un script de exportación y comprobó la serialización de las 9,947 filas y todas sus columnas, además del hash del original. El CSV no conserva tipos ni la distinción entre null y cadena vacía; se documentó su uso como copia de consulta.
+
+La conciliación exacta encontró 33 handles, 27 con mapeo (8,098 filas) y 6 sin mapeo (1,849 filas). Cuatro tienen sufijos compatibles con SKU sin handle; no se transformó esta coincidencia en una clave confirmada. Se mantuvo el supuesto «sin handle = sin venta online» sin adoptar, y se registraron los candidatos y las verificaciones pendientes. Las cinco solicitudes clave anteriores se conservan; estos seguimientos documentan evidencia adicional.
+
+## Entradas pendientes durante la implementación
 
 - Revisar con el autor las cinco solicitudes clave registradas y actualizar sus decisiones al implementar el pipeline.
 - Documentar decisiones de stack, conciliación, métricas y validación con evidencia.

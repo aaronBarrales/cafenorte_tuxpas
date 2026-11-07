@@ -22,7 +22,9 @@ Repositorio: https://github.com/aaronBarrales/cafenorte_tuxpas. Rama: `main`. Ya
 - Se observó `CN-00016` con SKU ERP y handle nulos. Su conciliación con inventario y costos requiere revisión separada. No inventar claves, cruzar nulos entre sí ni descartar movimientos sin reportarlos.
 - Los snapshots son existencias por día, tienda y SKU. Según la metadata, no incluyen movimientos transaccionales. Una fila ausente no demuestra stock cero.
 - `exchange_rates.csv` tiene las columnas `fecha`, `currency` y `rate_to_mxn`; aún no se ha validado su cobertura o convención de conversión.
-- El esquema de `ecommerce_orders.parquet` todavía no se ha leído: el entorno consultado no tiene `pyarrow`, `fastparquet` ni `duckdb`. No se ha descartado que e-commerce aporte campos adicionales de precio o descuento; unas órdenes tampoco equivaldrían automáticamente a una lista histórica de precios.
+- Se leyó `ecommerce_orders.parquet`: 9,947 filas, 11 columnas, 33 handles distintos y fechas entre abril de 2025 y marzo de 2026. Contiene order_id, fecha, product_handle, cantidad, amount, currency y cinco campos de clientes/envío. No incluye SKU POS/ERP, precio de lista, vigencias de tarifas ni columnas separadas de impuestos o descuentos. No se identificó una lista histórica de precios de venta entre las fuentes revisadas.
+- En e-commerce, 27 handles tienen mapeo exacto (8,098 filas) y 6 no lo tienen (1,849 filas). Cuatro de estos últimos tienen sufijos coincidentes con SKU sin handle: 013, 030, 032 y 052. Son candidatos, no relaciones confirmadas. No adoptar la regla «sin handle = sin venta online». Para 015 no apareció un handle con sufijo -015; eso no demuestra ausencia de ventas.
+- Se exportó `outputs/ecommerce_orders.csv` con todas las filas y columnas en UTF-8 con BOM, verificado contra la serialización del Parquet. Es una copia local de consulta, excluida de Git; conserva campos de clientes y representa los nulos como vacíos. El original no se modificó. Ver `docs/analisis_ecommerce.md` para esquema, conteos y reproducción.
 
 ## Diferencia entre costo y precio
 
@@ -50,6 +52,8 @@ Bajo los supuestos de monto total de línea, costo unitario comparable y vigenci
 
 La captura anterior de `CN-00003` corresponde a otro producto y contiene registros N de distintas tiendas y fechas. No mezclar ese ejemplo con el producto 057.
 
+El autor identificó además `V00000000`, del 1 de octubre de 2024, tienda T033, CN-00015, una unidad, monto 355.43 MXN, comprobante I. El mapeo lleva a ERP-PROV-MX-015-D, Especial Cafe Molido, con costo 466.56 MXN vigente desde esa fecha. Bajo las bases propuestas, margen bruto = 355.43 − 466.56 = −111.13 MXN. Se conserva como caso candidato en `docs/casos_margen.md`, sujeto a confirmar impuestos, unidades y comprobantes. No generalizarlo a todas las operaciones del producto ni llamarlo pérdida neta total.
+
 ## Supuestos todavía sin confirmar
 
 1. D001: significado y efecto de cada comprobante en ingresos y unidades.
@@ -72,7 +76,7 @@ El perfilador actual solo acepta el formato original y marca las 86,490 fechas d
 ## Próximos pasos al retomar
 
 1. Resolver la procedencia y el formato de la versión actual de sales y actualizar su perfil reproducible.
-2. Elegir el stack proporcional al reto y habilitar lectura de Parquet; revisar el esquema y contenido de e-commerce.
+2. Elegir el stack proporcional al reto; la lectura de Parquet ya está habilitada con PyArrow en `.venv`. Profundizar en granularidad, fechas, monedas y duplicados de e-commerce, cuyo perfil inicial ya se realizó.
 3. Perfilar inventario y tipos de cambio: cobertura, duplicados, unidades, mapeos faltantes o ambiguos y vigencias de costo.
 4. Documentar reglas de comprobantes, monto y costos; comparar su impacto y validar controles de origen.
 5. Revisar cobertura por fecha y tienda, valores atípicos y claves entre fuentes.
@@ -86,10 +90,15 @@ El perfilador actual solo acepta el formato original y marca las 86,490 fechas d
 - `DEFINICIONES.md`: glosario.
 - `docs/analisis_sales.md`: perfil original de ventas, con su hash.
 - `docs/producto_ERP-PROV-MX-057-C.md`: historial de costos investigado.
+- `docs/analisis_ecommerce.md`: esquema, monedas, mapeos faltantes y lectura en Excel.
+- `docs/casos_margen.md`: venta candidata a margen negativo para usar como comprobación.
+- `scripts/exportar_ecommerce.py`: exportación CSV con validación de todas las filas y hash del origen.
+- `scripts/perfil_ecommerce.py`: perfil y conciliación exacta de handles, sin mostrar datos personales.
+- `requirements-exploracion.txt`: PyArrow 26.0.1; entorno `.venv` local. Ejecutar los scripts con `.\.venv\Scripts\python.exe`.
 - `scripts/perfil_sales.py`: perfilador de CSV, biblioteca estándar de Python. Ejecutar desde la raíz con `python scripts/perfil_sales.py`, considerando la limitación de formato anterior.
 - `AI_LOG.md`: cinco prompts clave y decisiones pendientes del autor.
 - `exploracion.ipynb`: archivo local vacío, aún fuera de Git.
 
 Mantener commits por avances coherentes y actualizar este resumen al obtener nuevos hallazgos. Los datos originales, credenciales y salidas regenerables están excluidos de Git. No registrar confirmaciones del cliente o del autor que no hayan ocurrido. No se ha verificado permiso para redistribuir las fuentes.
 
-Git está instalado; `gh` no estaba disponible al iniciar. La conexión HTTPS funcionó usando el almacén de certificados de Windows con `git -c http.sslBackend=schannel push`, manteniendo activa la validación. El Python usado para la exploración fue el del runtime de dependencias de Codex; no se fijaron aún dependencias del proyecto.
+Git está instalado; `gh` no estaba disponible al iniciar. La conexión HTTPS funcionó usando el almacén de certificados de Windows con `git -c http.sslBackend=schannel push`, manteniendo activa la validación. La exploración inicial usó Python del runtime de Codex; para Parquet se creó `.venv` con el Python 3.12 instalado y se fijó PyArrow en requirements-exploracion.txt. La instalación necesitó `pip --use-feature=truststore` para validar certificados del sistema; no se desactivó HTTPS. El stack final del pipeline sigue pendiente.
