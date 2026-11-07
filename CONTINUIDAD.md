@@ -87,6 +87,7 @@ El perfilador actual solo acepta el formato original y marca las 86,490 fechas d
 
 ## Archivos útiles y hábitos de trabajo
 
+- `HALLAZGOS.md`: resumen breve de descubrimientos importantes. El autor pidió mantenerlo actualizado y resumir al máximo; conservar el detalle técnico en documentos enlazados.
 - `README.md`: alcance y estado general.
 - `DUDAS.md`: preguntas, evidencia, impacto y tratamiento propuesto.
 - `DEFINICIONES.md`: glosario.

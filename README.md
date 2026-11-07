@@ -4,6 +4,8 @@ Proyecto para integrar las ventas de tiendas físicas, las órdenes de e-commerc
 
 ## Estado
 
+Hallazgos clave resumidos en [HALLAZGOS.md](HALLAZGOS.md), actualizado conforme avance el análisis.
+
 Para retomar el trabajo, leer primero [CONTINUIDAD.md](CONTINUIDAD.md): hallazgos, supuestos, cambios de fuentes y próximos pasos. Se actualizará al avanzar el proyecto.
 
 Repositorio preparado y perfil inicial de `sales.csv` ejecutado. El pipeline, sus pruebas y la propuesta técnica están pendientes de implementación.
