@@ -93,6 +93,12 @@ La conciliación exacta encontró 33 handles, 27 con mapeo (8,098 filas) y 6 sin
 
 ## Entradas pendientes durante la implementación
 
+### Seguimiento de recuperación de relaciones handle y ERP
+
+El autor preguntó cómo intentar relacionar los handles ausentes. La IA comparó nombre normalizado y segmento numérico del SKU ERP y encontró un candidato único para cada uno de los seis handles. Los nombres solos resultaron ambiguos en cinco casos. Se añadió un script reproducible y una propuesta documentada, sin alterar las fuentes ni aplicar los enlaces.
+
+Al validar la regla, el conteo inicial de controles dio 23 coincidencias sobre 27 handles informados. La inspección de los cuatro restantes mostró SKU ERP nulos, no contradicciones: se corrigió el denominador a 23 controles completos y se registraron los cuatro mapeos incompletos por separado. Esto también reveló que reconocer un handle no garantiza que su cadena de conciliación llegue hasta el costo ERP. La regla observada se presenta como supuesto candidato, no como confirmación del cliente.
+
 - Revisar con el autor las cinco solicitudes clave registradas y actualizar sus decisiones al implementar el pipeline.
 - Documentar decisiones de stack, conciliación, métricas y validación con evidencia.
 - Registrar un caso concreto de propuesta incorrecta o subóptima de IA y la corrección realizada.

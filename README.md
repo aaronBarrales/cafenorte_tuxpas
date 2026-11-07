@@ -31,6 +31,7 @@ Las definiciones de métricas, ventanas temporales y supuestos se documentarán 
 
 ## Archivos actuales
 
+- [Candidatos de conciliación](docs/conciliacion_handles.md): evidencia para recuperar relaciones handle–ERP, sin aplicarlas automáticamente.
 - [Análisis de e-commerce](docs/analisis_ecommerce.md): esquema, cobertura de handles y exportación CSV para Excel.
 - [Casos de margen](docs/casos_margen.md): operaciones concretas para comprobar los cálculos.
 - [DEFINICIONES.md](DEFINICIONES.md): conceptos de sistemas, importes, inventario y análisis.

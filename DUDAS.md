@@ -112,4 +112,6 @@ También se observó el caso `CN-00016` con `sku_erp: null` y `handle: null`, un
 
 ## Evidencia adicional para D006 y D007
 
+**Seguimiento D008:** al combinar nombre normalizado y número del SKU ERP se identificaron candidatos únicos para los seis handles pendientes. La regla coincide con 23/23 mapeos completos existentes; cuatro mapeos con handle tienen ERP nulo y requieren revisión aparte. Las propuestas y sus límites están en [conciliación de handles](docs/conciliacion_handles.md). No se modificaron las fuentes ni se aplicaron esas relaciones como confirmadas.
+
 Se revisaron las 11 columnas de e-commerce y no contienen una lista de precios fijados, vigencias de tarifas ni campos separados de impuestos o descuentos. Hay amount y cantidad para estudiar los importes de órdenes, sujeto a su semántica. Se documentó la venta V00000000 como [caso candidato de margen negativo](docs/casos_margen.md): 355.43 MXN frente a costo propuesto de una unidad de 466.56 MXN, margen condicionado de −111.13 MXN en T033.
