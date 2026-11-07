@@ -63,6 +63,10 @@ Los cinco grupos tienen cantidades y montos positivos. Estas sumas son controles
 
 ## Siguientes pasos
 
+La revisión posterior del SKU `CN-00003` confirmó que el cociente `monto / cantidad` varía incluso dentro de los comprobantes tipo `I`. El detalle y las limitaciones se registran en D006 de [DUDAS.md](../DUDAS.md). La captura del autor contiene cuatro registros tipo `N`, con diferentes tiendas y fechas, y no demuestra por sí sola una evolución temporal del precio de venta.
+
+En inventario se identificó `catalogo.productos.cost_history`, con costos y fechas de vigencia, y `tiendas_info.timezone`. Estos campos permiten avanzar en el estudio de márgenes y zonas horarias, sujeto a validar claves, cobertura y semántica. Un historial de costos no equivale a un historial de precios de venta.
+
 1. Registrar una interpretación explícita de comprobantes, cantidades e importes.
 2. Revisar cobertura por día y tienda y posibles valores atípicos por SKU, sin descartar automáticamente precios o cantidades extremos.
 3. Comparar claves de tienda y SKU contra inventario y órdenes de e-commerce.

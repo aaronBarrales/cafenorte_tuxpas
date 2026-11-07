@@ -49,6 +49,16 @@ La primera lectura del documento mediante `ZipFile.OpenRead` falló porque el ar
 
 ## Entradas pendientes durante la implementación
 
+### Solicitud 4 — Origen del precio y diferencias por SKU
+
+**Prompt del usuario:** «Hay algo que me causa especial curiosidad, de donde sale el precio que se muestra, ya que al filtrar por sku se puede ver que un mismo sku tiene diferentes precios a lo largo del tiempo pero ninguno de los archivos entregados tiene esa información».
+
+**Trabajo de la IA:** verificó las cuatro filas de la captura en la fuente, calculó los cocientes de monto y cantidad y revisó también registros tipo `I` del mismo SKU. Encontró historial de costos y catálogo de zonas horarias dentro del JSON. Registró D006 y evidencia adicional de D004. No atribuyó las variaciones a promociones ni reconstruyó precios sin evidencia.
+
+**Error detectado y corrección:** la IA intentó importar `pyarrow` sin verificar su disponibilidad y la ejecución falló antes de leer las fuentes. Repitió el análisis de CSV y JSON con biblioteca estándar, dejando explícitamente pendiente la lectura del esquema Parquet. No presentó esa revisión parcial como inspección completa de todas las fuentes.
+
+**Decisión pendiente del autor:** confirmar o adoptar como supuesto la interpretación de monto total de línea y la metodología de margen con costo vigente. Las diferencias entre tiendas y fechas impiden atribuir la variación solo al tiempo con los ejemplos de la captura.
+
 - Ampliar las tres solicitudes registradas si nuevas decisiones justifican llegar hasta cinco prompts clave.
 - Documentar decisiones de stack, conciliación, métricas y validación con evidencia.
 - Registrar un caso concreto de propuesta incorrecta o subóptima de IA y la corrección realizada.

@@ -61,3 +61,25 @@ Registro iniciado el 7 de noviembre de 2026. Cada duda conserva su evidencia, im
 Los datos de ventas terminan el 31 de marzo de 2026. Se propone usar un corte explícito basado en la cobertura de las fuentes, en lugar de la fecha de ejecución, para que los resultados sean reproducibles. Falta decidir si el último trimestre es calendario completo o tres meses móviles y comprobar cobertura conjunta.
 
 **Tratamiento actual:** no aplicar todavía ventanas de negocio. Registrar la decisión y sus límites en el README antes de producir las cuatro respuestas. Esta ambigüedad se resolverá con criterio documentado, conforme al reto.
+
+## D006 Origen y variación del precio observado por SKU
+
+**Origen:** observación del autor al filtrar `CN-00003` en Excel. **Estado:** abierta. **Prioridad:** alta.
+
+**Pregunta:** ¿Cómo se determina el importe cobrado por SKU? ¿Existen listas de precios con vigencia, precios por tienda, promociones o descuentos? ¿Se dispone de ese historial para explicar las diferencias?
+
+**Evidencia verificada en sales:** las cuatro filas de la captura son de tipo `N`, por lo que no deben interpretarse automáticamente como ventas. Sus cantidades y montos son: 1 y 165.67; 1 y 164.09; 2 y 321.38; 2 y 326.56. Si `monto` es total de línea, los cocientes por unidad son 165.67, 164.09, 160.69 y 163.28 MXN. Cambian tanto la fecha como la tienda: estas filas no permiten atribuir la variación exclusivamente al tiempo.
+
+El SKU tiene 1,175 registros en total. Aun limitando el análisis a los 1,116 registros tipo `I`, hay 853 cocientes distintos de `monto / cantidad` antes de redondear, con mínimo 155.10 y máximo aproximado 168.528571 MXN. Esto demuestra variación del cociente, no sus causas ni que sea precio de lista.
+
+**Evidencia en inventario:** `catalogo.productos` contiene `cost_history` con `fecha_vigencia`, `costo_mxn` y `proveedor`. Es un historial de costos, no una lista de precios de venta. Existen `sku_mappings` para relacionar claves POS y ERP; su cobertura debe validarse antes de cruzar costos. En esta revisión no se logró leer el esquema de Parquet porque el entorno no tiene `pyarrow`; queda pendiente comprobar los campos de e-commerce. No se afirma que se haya descartado un historial de precios en todas las fuentes.
+
+**Impacto:** confundir monto total, precio unitario, precio de lista y costo puede distorsionar ingresos y márgenes. La variación por sí sola no prueba un error ni una promoción.
+
+**Tratamiento actual:** preservar el monto original. Usar `monto / cantidad` solo como diagnóstico condicionado a confirmar D002, y no reconstruir listas de precios. Para el margen, proponer monto de línea menos cantidad por costo unitario vigente, sujeto a confirmar impuestos, descuentos, unidades, comprobantes y cobertura de costos. Un costo ausente no se sustituirá por cero.
+
+**Resolución y evidencia de confirmación:** pendientes.
+
+## Evidencia adicional para D004
+
+La revisión de `inventory.json` encontró `tiendas_info` con `tienda_id`, `ciudad`, `region` y `timezone`. Sí existe un catálogo de zonas horarias por tienda. Queda pendiente validar su cobertura y confirmar si `fecha_hora` del POS está registrada en esa hora local; el catálogo por sí solo no lo demuestra.
