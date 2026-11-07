@@ -1,0 +1,29 @@
+# Datos originales y archivos generados
+/datos/*
+!/datos/README.md
+/outputs/
+/artifacts/
+*.duckdb
+*.duckdb.wal
+
+# Entornos y cachés de Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Credenciales y configuración local
+.env
+.env.*
+!.env.example
+.aws/
+.codex/
+.agents/
+
+# Archivos temporales
+~$*
+*.tmp
+Thumbs.db
+.DS_Store
