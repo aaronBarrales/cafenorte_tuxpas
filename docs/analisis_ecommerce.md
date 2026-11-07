@@ -1,5 +1,7 @@
 # Exploración inicial de e commerce
 
+La revisión integral posterior está en [EDA completo](EDA_COMPLETO.md): fechas, duplicados, claves hasta ERP, moneda y límites. De 8,098 filas con handle conocido, 1,139 tienen ERP nulo; solo 6,959 llegan a ERP por enlace exacto.
+
 ## Fuente y estructura
 
 `datos/ecommerce_orders.parquet` contiene una tabla de 9,947 filas y 11 columnas. Parquet es un formato binario por columnas que conserva tipos; CSV es una representación textual de filas y columnas. Para el pipeline se conservará la fuente Parquet y el CSV servirá para inspección manual. Referencia: [Apache Parquet](https://parquet.apache.org/).

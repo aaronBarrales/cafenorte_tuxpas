@@ -2,6 +2,24 @@
 
 Registro iniciado el 7 de noviembre de 2026. Cada duda conserva su evidencia, impacto, estado y eventual resolución. Una hipótesis no equivale a una regla confirmada.
 
+Banco completo de consultas: [PREGUNTAS_CLIENTE.md](PREGUNTAS_CLIENTE.md), 60 preguntas con diez prioritarias. Evidencia integral: [EDA completo](docs/EDA_COMPLETO.md). Fecha límite indicada por el autor: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México.
+
+## D009 Obtención de datos y frecuencia de actualización
+
+**Origen:** consulta del autor sobre la operación del pipeline y solicitud de agregar la pregunta. **Estado:** abierta. **Prioridad:** alta para la arquitectura productiva.
+
+**Pregunta al cliente:** ¿Cómo podemos obtener datos de cada sistema y con qué frecuencia necesitan ver los resultados?
+
+**Aspectos por confirmar:** ¿El POS, el ERP y Shopify entregarán archivos manualmente, exportaciones automáticas o acceso mediante API o base de datos de lectura? ¿Quién habilita y mantiene cada acceso? ¿La actualización debe ser diaria, por hora o con otra frecuencia? ¿A qué hora estarán disponibles todas las fuentes del mismo corte y qué hacemos si alguna no llega?
+
+**Evidencia:** el reto proporciona archivos para desarrollar el pipeline, pero no confirma los mecanismos de integración productiva ni proporciona accesos a los sistemas. Recibir archivos manualmente y procesarlos automáticamente son decisiones compatibles.
+
+**Impacto:** determina las integraciones, los permisos, la programación, los controles de disponibilidad, la prevención de duplicados, los costos y los compromisos de actualización. No se puede prometer una conexión directa al ERP sin conocer sus capacidades y accesos.
+
+**Tratamiento actual:** usar los archivos entregados para el reto. Para producción, documentar como propuesta una primera fase basada en archivos, pendiente de acordar responsables y frecuencia; evaluar conexiones directas tras confirmar su viabilidad. No presentar ninguna modalidad ni frecuencia como aceptada por el cliente.
+
+**Resolución y evidencia de confirmación:** pendientes.
+
 ## D001 Qué representa tipo_comprobante en sales
 
 **Origen:** pregunta del autor. **Estado:** abierta. **Prioridad:** alta.
@@ -115,3 +133,35 @@ También se observó el caso `CN-00016` con `sku_erp: null` y `handle: null`, un
 **Seguimiento D008:** al combinar nombre normalizado y número del SKU ERP se identificaron candidatos únicos para los seis handles pendientes. La regla coincide con 23/23 mapeos completos existentes; cuatro mapeos con handle tienen ERP nulo y requieren revisión aparte. Las propuestas y sus límites están en [conciliación de handles](docs/conciliacion_handles.md). No se modificaron las fuentes ni se aplicaron esas relaciones como confirmadas.
 
 Se revisaron las 11 columnas de e-commerce y no contienen una lista de precios fijados, vigencias de tarifas ni campos separados de impuestos o descuentos. Hay amount y cantidad para estudiar los importes de órdenes, sujeto a su semántica. Se documentó la venta V00000000 como [caso candidato de margen negativo](docs/casos_margen.md): 355.43 MXN frente a costo propuesto de una unidad de 466.56 MXN, margen condicionado de −111.13 MXN en T033.
+
+## D009 a D029 Dudas surgidas de la exploración completa
+
+Estado: abiertas, salvo las comprobaciones técnicas expresamente indicadas. Los tratamientos son propuestas para avanzar, no respuestas del cliente.
+
+| ID | Pregunta o asunto | Evidencia o impacto | Tratamiento propuesto |
+|---|---|---|---|
+| D009 | ¿Qué significa N/A en existencias y cómo se corrige? | 4,417 snapshots con texto N/A; no es cero ni null literal. | Normalizar a desconocido con bandera, conservar origen y reportar cobertura; sin imputación automática. |
+| D010 | ¿Qué surtido tienda–SKU debe aparecer en inventario y por qué hay ventas sin snapshot? | 1,268 pares completos de 182 días; 12,687 filas I del semestre con ERP exacto carecen de snapshot. | No asumir todo el catálogo activo en todas las tiendas; alinear numerador y denominador de rotación y reportar el universo no cubierto. |
+| D011 | ¿El snapshot representa cierre, inicio, stock físico o disponible y reservas? | 565 filas I coinciden con saldo cero ese día; no prueba error. | No equiparar saldo de cierre con quiebre durante todo el día; conservar definición operativa como límite. |
+| D012 | ¿Las órdenes son líneas pagadas, canceladas, reembolsadas o solo creadas y qué incluye amount? | IDs únicos, sin estado ni desglose financiero. | Tratar filas como registros de origen; explicitar supuesto de elegibilidad y monto total, sin afirmar ingreso contable validado. |
+| D013 | ¿Cuál es la convención, proveedor, fecha y precisión del tipo de cambio? | 365 tasas por moneda; cobertura diaria completa; EUR = 22.0 en 63 fechas. | Proponer amount por tasa del día y MXN identidad; documentar redondeo y no declarar anomalía de mercado sin validación externa. |
+| D014 | ¿Dónde están cancelaciones, sustituciones y vínculo entre devolución y operación original? | POS no incluye estatus ni relación entre comprobantes. | No deduplicar ni restar dos veces por semejanza; separar ajustes financieros y movimientos físicos. |
+| D015 | ¿Cuándo se autorizan ventas bajo costo y qué rangos o promociones se esperan? | 2,369 filas I dan margen candidato negativo con costo y mapeo exactos. | Mostrar casos y cobertura; no corregir precios automáticamente ni atribuir fraude/error. |
+| D016 | ¿Qué presentación o unidad distingue productos con el mismo nombre? | 23 nombres repetidos; no hay campo explícito de unidad. | Usar SKU como identidad; normalizar nombres solo para proponer relaciones y validar unidad antes de margen/rotación. |
+| D017 | ¿Qué calendario operativo y altas/bajas de tiendas debemos usar? | 476 tienda–días sin filas dentro del calendario de sales. | No convertir ausencia de actividad en falla de extracción ni inventar ventas cero confirmadas. |
+| D018 | ¿Cuál es la copia original de sales y cómo ocurrió el cambio de fechas? | Hash y formato distintos respecto al perfil inicial; segundos ya no aparecen. | El parser ya acepta ambos formatos observados; conservar hashes y no reconstruir precisión ni sobrescribir la fuente. |
+| D019 | ¿Hay claves estables y vigencias de los mapeos ante cambios de SKU o handle? | Mapeos incompletos sin fechas ni product_id/variant_id. | Versionar equivalencias y distinguir exactas, inferidas, incompletas y no conciliadas. |
+| D020 | ¿Qué política de costo se utiliza y desde qué instante aplica cada vigencia? | 282 entradas, 70 productos, sin fechas repetidas; sin método de costeo. | Última vigencia no posterior a la fecha como supuesto; no asumir FIFO o promedio de compras a partir de este historial. |
+| D021 | ¿Existen movimientos y controles de extracción para reconciliar stock? | Solo snapshots; surtido parcial por tienda. | No exigir ecuación de compras/ventas sin movimientos ni rellenar pares ausentes con cero. |
+| D022 | ¿Qué almacén surte Shopify y hay retiros/devoluciones o ventas duplicadas en POS? | Órdenes sin tienda de cumplimiento ni referencia POS. | Canal online separado; no atribuir a tienda por dirección del comprador ni incorporar sus unidades a stock físico sin enlace. |
+| D023 | ¿Se redondea por línea, pedido o total y con qué tolerancia? | amount almacenado como double; conversión produce más de dos decimales. | Decimal para cálculo; preservar originales y declarar política de redondeo antes de conciliar. |
+| D024 | ¿Quién aprueba los números y qué cierres independientes se usan como control? | Ausencia de nulos no demuestra exactitud comercial. | Conciliar contra origen y pedir reportes de referencia; documentar tolerancias, excepciones y responsable. |
+| D025 | ¿Qué puede publicarse y qué información personal requiere el modelo? | Datos de clientes en Parquet; RFC nulo en 8,462 filas, innecesario para estas métricas. | Mantener fuentes/CSV locales; usar esquema y agregados en documentación; modelo analítico con mínimos campos necesarios. |
+| D026 | ¿Cómo se extraen datos completos/incrementales, correcciones y cargas tardías? | Archivos estáticos, sin identificador de lote ni contrato de actualizaciones. | Entrega local por lotes reproducible; proponer idempotencia, manifiesto y reconciliación para producción. |
+| D027 | ¿Qué decisiones, usuarios, volúmenes y frecuencia determinan la aceptación? | El reto pide cuatro respuestas y demo, no un sistema de tiempo real. | Priorizar pipeline y resultados auditables; dimensionar producción después de confirmar operación. |
+| D028 | ¿Qué incluye el presupuesto AWS y qué recursos/región ya existen? | Objetivo de USD 200/mes, sin desglose de BI, soporte o impuestos. | Propuesta con supuestos de carga y costos verificados; no dar por existente un servicio ni tarifa. |
+| D029 | ¿Quién opera, qué recuperación es aceptable y cómo se gestionan accesos y alertas? | No hay SLA ni responsables productivos definidos. | Incluir fases, responsable, alertas y recuperación proporcional; no sobredimensionar por supuestos. |
+
+## Decisiones analíticas internas del reto
+
+D005 se resolverá con corte propuesto 2026-03-31 y ventanas de datos, sin esperar una decisión del cliente. La rotación usará una población consistente de ventas e inventario, quiebres requerirán al menos cuatro días consecutivos observados y MoM no tendrá base inventada para abril de 2025 en e-commerce. El margen por operación y el margen agregado por producto–tienda se mostrarán como conceptos distintos. Las definiciones finales y límites deben quedar en el README al implementar; ver [plan de entrega](PLAN_ENTREGA.md).

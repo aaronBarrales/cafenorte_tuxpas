@@ -17,6 +17,24 @@ Actualizado: 7 de noviembre de 2026. Mantener entradas breves; distinguir hechos
 | Cuatro mapeos con handle tienen ERP nulo: POS 006, 026, 036 y 046. | Reconocer el handle no garantiza llegar a costos del ERP. |
 | Inventario incluye zonas horarias por tienda y snapshots diarios, sin movimientos transaccionales. | Confirmar zona del POS; ausencia de snapshot no equivale a stock cero. |
 | Sales original llega a marzo de 2026; e-commerce abarca abril de 2025 a marzo de 2026. | Fijar corte con cobertura conjunta, no con la fecha de ejecución. |
-| El CSV local de sales cambió de hash y de formato de fechas; ahora usa DD/MM/YYYY HH:MM. | Adaptar lectura y revisar procedencia; no sobrescribir la fuente. |
+| El CSV local de sales cambió de hash y de formato de fechas; ahora usa DD/MM/YYYY HH:MM. | Lectura adaptada; procedencia pendiente, sin modificar la fuente. |
+
+## Exploración completa
+
+| Hallazgo | Impacto o estado |
+|---|---|
+| Inventario: 230,776 snapshots; 4,417 contienen N/A. | Desconocido, no cero. |
+| Los 1,268 pares tienda–SKU tienen filas en los 182 días; cada tienda muestra de 25 a 40 SKU. | Hay surtido parcial por tienda; no confundir fila ausente con stock cero. |
+| 12,687 filas I del semestre tienen ERP conocido pero ningún snapshot de su tienda–SKU. | La rotación exige alinear ventas e inventario y declarar cobertura. |
+| 565 filas I coinciden con stock cero el mismo día. | Puede ser saldo de cierre; no prueba inconsistencia. |
+| Se observaron tres secuencias de cuatro días en cero, en T015, T023 y T038, dentro de enero–marzo de 2026. | Evidencia parcial; N/A puede ocultar otras secuencias. |
+| POS: 12,349 filas no llegan a ERP; e-commerce: 2,988 tampoco. | No confundir handle conocido con costo conciliado. |
+| Los 70 productos tienen costos desde 2024-10-01: 282 vigencias sin conflictos de fecha detectados. | Falta confirmar unidad/base de costo. |
+| 2,369 filas I con enlace exacto dan margen candidato negativo en 18 meses; 11,797 filas I carecen de costo conciliado. | Diagnóstico condicionado, no resultado global definitivo. |
+| FX: 730 tasas positivas, una por día y moneda; ninguna orden extranjera queda sin tasa del día. | Confirmar convención y política de redondeo. |
+| EUR = 22.0 en 63 fechas. | Preguntar metodología; no declararlo error sin evidencia. |
+| E-commerce empieza en abril de 2025. | Su primer MoM no tiene mes anterior; no sustituirlo por cero. |
+
+Detalle: [EDA completo](docs/EDA_COMPLETO.md). Preguntas: [PREGUNTAS_CLIENTE.md](PREGUNTAS_CLIENTE.md), 60 consultas con diez prioritarias. Entrega: antes del martes 10 de noviembre de 2026 a las 12:00 p. m., hora CDMX.
 
 Detalle y preguntas: [DUDAS.md](DUDAS.md). Estado y próximos pasos: [CONTINUIDAD.md](CONTINUIDAD.md).

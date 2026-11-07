@@ -99,6 +99,20 @@ El autor preguntó cómo intentar relacionar los handles ausentes. La IA compar�
 
 Al validar la regla, el conteo inicial de controles dio 23 coincidencias sobre 27 handles informados. La inspección de los cuatro restantes mostró SKU ERP nulos, no contradicciones: se corrigió el denominador a 23 controles completos y se registraron los cuatro mapeos incompletos por separado. Esto también reveló que reconocer un handle no garantiza que su cadena de conciliación llegue hasta el costo ERP. La regla observada se presenta como supuesto candidato, no como confirmación del cliente.
 
+### Exploración completa y preparación de preguntas
+
+El autor pidió completar el análisis exploratorio y reunir preguntas para plantear una solución. Confirmó por consulta asíncrona entrega antes del martes a las 12:00 p. m.; se registró el martes 10 de noviembre de 2026, hora de Ciudad de México, según el calendario de la sesión.
+
+La IA creó `scripts/eda_completo.py` y perfiló todas las filas de las cuatro fuentes. Detectó 4,417 existencias N/A; 12,687 filas I del semestre con ERP conocido sin snapshot; 12,349 filas POS y 2,988 online sin enlace exacto hasta ERP; y tasas diarias completas. Documentó cobertura, controles, escenarios de comprobantes, margen candidato y episodios de cero. Las cifras financieras no se presentan como respuestas definitivas.
+
+Se actualizaron parser de sales, hallazgos, dudas y continuidad. Se crearon un banco de 60 preguntas con diez prioritarias y un plan hasta la entrega. No se enviaron mensajes al cliente ni se exigieron todas las respuestas; las ambigüedades de métricas se resolverán con supuestos documentados conforme al reto.
+
+**Caso concreto de código subóptimo de la IA:** una ampliación recalculaba min/max de 230,776 fechas de stock dentro del bucle de cada venta. La IA detectó la repetición, interrumpió la ejecución y calculó los límites una sola vez fuera del bucle. La ejecución corregida produjo el reporte y pasó seis controles. No se aceptó el código solo por ser sintácticamente válido. El autor aún no ha evaluado personalmente esta corrección; no se le atribuye esa decisión.
+
+**Validación y límites:** controles por comprobante, mes, moneda, mapeo y clave de stock; muestras de N/A y costos iniciales contrastadas con origen. Esto no sustituye cierres contables externos ni las pruebas del pipeline pendiente. Se preservaron documentos añadidos en paralelo en la carpeta compartida.
+
+También se agregó `scripts/validar_eda.py` con diez comprobaciones de hashes, controles de origen, tratamiento de N/A, episodios por ventanas de claves cero como método independiente, cobertura, compatibilidad y rechazo de fechas, caso de margen y unicidad de 60 preguntas. Las diez pasaron. La versión actual de sales volvió a perfilarse con cero fechas no interpretables.
+
 - Revisar con el autor las cinco solicitudes clave registradas y actualizar sus decisiones al implementar el pipeline.
 - Documentar decisiones de stack, conciliación, métricas y validación con evidencia.
 - Registrar un caso concreto de propuesta incorrecta o subóptima de IA y la corrección realizada.

@@ -1,5 +1,7 @@
 # Exploración inicial de sales
 
+Actualización: el [EDA completo](EDA_COMPLETO.md) usa la versión actual del CSV, con fechas DD/MM/YYYY HH:MM. Este informe conserva el perfil original y su hash. `scripts/perfil_sales.py` ya admite ambos formatos; no restaura segundos ausentes de la fuente actual.
+
 ## Alcance y reproducción
 
 Perfil de la fuente original, sin limpieza ni filtros de negocio. No constituye aún el cálculo de ventas netas ni las respuestas del reto.

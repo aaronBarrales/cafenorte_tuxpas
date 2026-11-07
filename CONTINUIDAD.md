@@ -6,7 +6,19 @@
 
 Resolver el reto Data Solutions Engineer de Tuxpas: integrar ventas físicas, inventario y e-commerce; producir cuatro respuestas de negocio; incluir pruebas, propuesta AWS con presupuesto objetivo de USD 200 al mes y bitácora de IA.
 
-Repositorio: https://github.com/aaronBarrales/cafenorte_tuxpas. Rama: `main`. Ya se subieron la documentación y la exploración inicial. El pipeline, el modelo analítico, las respuestas finales, las pruebas y la propuesta AWS siguen pendientes. La visibilidad del repositorio no se ha verificado.
+Repositorio: https://github.com/aaronBarrales/cafenorte_tuxpas. Rama: `main`. Exploración completa ejecutada con `scripts/eda_completo.py`, documentada en `docs/EDA_COMPLETO.md`; banco de 60 preguntas en `PREGUNTAS_CLIENTE.md` y fases en `PLAN_ENTREGA.md`. El pipeline, el modelo analítico, las respuestas finales, sus pruebas y la propuesta AWS siguen pendientes. La visibilidad del repositorio no se ha verificado.
+
+El autor confirmó entrega **antes del martes 10 de noviembre de 2026 a las 12:00 p. m., hora de Ciudad de México**. Objetivo interno: revisión el lunes y paquete preparado el martes antes de las 11:00 a. m. No se han enviado consultas ni correos al cliente.
+
+## Resultados de la exploración completa
+
+- Inventario: 230,776 filas; 4,417 valores N/A, 11,726 ceros numéricos y ningún stock numérico negativo. No convertir desconocidos en cero.
+- Sus 1,268 pares tienda–SKU tienen filas en los 182 días, pero cada tienda cubre entre 25 y 40 SKU. Para 12,687 registros I del semestre con ERP conocido falta snapshot del par: la rotación exige población consistente y cobertura explícita.
+- Hay 565 registros I con venta y stock cero el mismo día; puede ser saldo de cierre. Tres secuencias observadas de cuatro días en cero ocurren en T015, T023 y T038 en enero–marzo de 2026; desconocidos pueden ocultar más casos.
+- Cinco SKU POS carecen de fila de mapeo y otros cinco tienen ERP nulo. En total 12,349 filas físicas no llegan a ERP por enlace exacto. En Shopify son 2,988: 1,849 sin handle mapeado y 1,139 con handle pero ERP nulo.
+- Los 70 productos tienen costo desde 2024-10-01, con 282 vigencias sin claves de fecha conflictivas. Con reglas candidatas, 2,369 registros I físicos con costo dan margen negativo y 11,797 I quedan sin costo conciliado; son diagnósticos de 18 meses, no respuesta final agregada por producto–tienda.
+- FX tiene 730 tasas válidas, sin huecos diarios ni conflictos; todas las órdenes extranjeras tienen tasa del mismo día. EUR = 22.0 en 63 fechas requiere preguntar metodología, no declarar error. El primer MoM online carece de marzo de 2025.
+- Seis controles de conteos del EDA pasaron. Detalles y hashes en `outputs/eda_completo.json`, local y excluido de Git. El perfilador de sales ya admite ambos formatos observados, sin cambiar el archivo ni inventar segundos.
 
 ## Hallazgos confirmados
 
@@ -73,21 +85,25 @@ La propuesta es conservar los valores originales, documentar cualquier interpret
 
 El perfil original usó SHA-256 `87628a584d30a353f3bcc9dbe20c2d8f1e55c80a0036ecee88e76fce61031276` y fechas `YYYY-MM-DD HH:MM:SS`. En esta revisión el archivo tiene SHA-256 `b62180fc201e4dc01c7e58f781c0b5f55cdf003095d29ad714e708be85b80bb1` y fechas de tipo `DD/MM/YYYY HH:MM`. No se ha determinado quién ni qué proceso lo cambió ni si hubo otros cambios.
 
-El perfilador actual solo acepta el formato original y marca las 86,490 fechas de la versión actual como no interpretables por ese formato. Una comprobación independiente con `DD/MM/YYYY HH:MM` interpretó las 86,490 filas sin errores, entre 2024-10-01 07:04 y 2026-03-31 21:08. No equivale a demostrar que el contenido completo no haya cambiado. Antes de continuar, preservar o recuperar la fuente original y decidir qué formatos admitir, documentando cualquier pérdida de precisión. No sobrescribir silenciosamente los datos del autor.
+El perfilador inicialmente solo aceptaba el formato original; se actualizó durante el EDA completo para admitir también `DD/MM/YYYY HH:MM`. Las 86,490 filas actuales son interpretables, entre 2024-10-01 07:04 y 2026-03-31 21:08. La procedencia del cambio sigue abierta; no se reconstruyen segundos ni se sobrescribe la fuente. La compatibilidad de lectura no prueba que no haya otros cambios respecto al original.
 
 ## Próximos pasos al retomar
 
-1. Resolver la procedencia y el formato de la versión actual de sales y actualizar su perfil reproducible.
-2. Elegir el stack proporcional al reto; la lectura de Parquet ya está habilitada con PyArrow en `.venv`. Profundizar en granularidad, fechas, monedas y duplicados de e-commerce, cuyo perfil inicial ya se realizó.
-3. Perfilar inventario y tipos de cambio: cobertura, duplicados, unidades, mapeos faltantes o ambiguos y vigencias de costo.
-4. Documentar reglas de comprobantes, monto y costos; comparar su impacto y validar controles de origen.
-5. Revisar cobertura por fecha y tienda, valores atípicos y claves entre fuentes.
-6. Implementar modelo, cuatro respuestas y pruebas que validen cifras, no solo ejecución.
-7. Preparar propuesta AWS, estimación de costos, fases y riesgos, y revisión final con el autor de la bitácora.
+1. Leer `docs/EDA_COMPLETO.md` y `PLAN_ENTREGA.md`. No repetir la exploración salvo cambio de fuentes o reglas.
+2. Elegir el stack e implementar el pipeline con clasificación de mapeos, desconocidos y controles; PyArrow ya está disponible.
+3. Trasladar al README las reglas finales, el corte y las ventanas. No esperar las 60 respuestas para avanzar; distinguir supuestos de confirmaciones.
+4. Resolver o mostrar cobertura parcial de inventario antes de presentar rotación global. Mantener importes no conciliados visibles.
+5. Implementar consultas y pruebas de monedas, costos vigentes, ceros consecutivos y MoM sin base.
+6. Redactar propuesta AWS con precios verificados y fases, revisar AI_LOG con el autor y ensayar demo.
+7. Verificar acceso al repositorio y preparar entrega antes del límite. No enviar correos sin instrucción expresa.
 
 ## Archivos útiles y hábitos de trabajo
 
 - `HALLAZGOS.md`: resumen breve de descubrimientos importantes. El autor pidió mantenerlo actualizado y resumir al máximo; conservar el detalle técnico en documentos enlazados.
+- `docs/EDA_COMPLETO.md`: exploración integral y límites de las cuatro métricas.
+- `PREGUNTAS_CLIENTE.md`: 60 consultas, diez prioritarias; no enviadas.
+- `PLAN_ENTREGA.md`: fechas, reglas candidatas y validaciones del pipeline pendiente.
+- `scripts/eda_completo.py`: genera `outputs/eda_completo.json` con seis controles de conteos.
 - `README.md`: alcance y estado general.
 - `DUDAS.md`: preguntas, evidencia, impacto y tratamiento propuesto.
 - `DEFINICIONES.md`: glosario.
@@ -98,7 +114,7 @@ El perfilador actual solo acepta el formato original y marca las 86,490 fechas d
 - `scripts/exportar_ecommerce.py`: exportación CSV con validación de todas las filas y hash del origen.
 - `scripts/perfil_ecommerce.py`: perfil y conciliación exacta de handles, sin mostrar datos personales.
 - `requirements-exploracion.txt`: PyArrow 26.0.1; entorno `.venv` local. Ejecutar los scripts con `.\.venv\Scripts\python.exe`.
-- `scripts/perfil_sales.py`: perfilador de CSV, biblioteca estándar de Python. Ejecutar desde la raíz con `python scripts/perfil_sales.py`, considerando la limitación de formato anterior.
+- `scripts/perfil_sales.py`: perfilador de CSV con biblioteca estándar de Python; admite los dos formatos observados, sin modificar la fuente.
 - `AI_LOG.md`: cinco prompts clave y decisiones pendientes del autor.
 - `exploracion.ipynb`: archivo local vacío, aún fuera de Git.
 

@@ -8,7 +8,7 @@ Hallazgos clave resumidos en [HALLAZGOS.md](HALLAZGOS.md), actualizado conforme 
 
 Para retomar el trabajo, leer primero [CONTINUIDAD.md](CONTINUIDAD.md): hallazgos, supuestos, cambios de fuentes y próximos pasos. Se actualizará al avanzar el proyecto.
 
-Repositorio preparado y perfil inicial de `sales.csv` ejecutado. El pipeline, sus pruebas y la propuesta técnica están pendientes de implementación.
+Exploración de las cuatro fuentes ejecutada y documentada en [EDA completo](docs/EDA_COMPLETO.md), con [preguntas priorizadas](PREGUNTAS_CLIENTE.md) y [plan de entrega](PLAN_ENTREGA.md). Fecha límite: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México. El pipeline, sus pruebas y la propuesta técnica están pendientes de implementación.
 
 Consulta [el análisis inicial de ventas](docs/analisis_sales.md) y [el registro de dudas y supuestos](DUDAS.md). Para reproducir el perfil sin dependencias externas, ejecuta `python scripts/perfil_sales.py` desde la raíz del proyecto.
 
@@ -47,9 +47,17 @@ Los datos originales se mantienen fuera del control de versiones mientras no se 
 
 El pipeline sigue pendiente. Para leer y exportar e-commerce, consultar [los comandos de exploración](docs/analisis_ecommerce.md). El CSV de consulta se genera en `outputs/ecommerce_orders.csv` y permanece fuera de Git.
 
+Para regenerar la exploración completa, después de instalar `requirements-exploracion.txt` en `.venv`:
+
+```powershell
+.\.venv\Scripts\python.exe scripts/eda_completo.py
+```
+
+El reporte detallado se guarda en `outputs/eda_completo.json`, sin modificar las fuentes. El perfilador de sales admite los dos formatos de fecha observados. Las reglas candidatas y limitaciones están documentadas en el plan; todavía no se aplican como decisiones confirmadas del cliente.
+
 ## Entregables pendientes
 
-- [ ] Exploración de datos y registro de supuestos.
+- [x] Exploración de datos y registro de dudas y supuestos propuestos.
 - [ ] Elección y justificación del stack.
 - [ ] Pipeline y modelo analítico.
 - [ ] Respuestas de negocio y pruebas.

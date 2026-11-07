@@ -10,6 +10,15 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
 
+def parse_fecha(value):
+    for fmt in ("%Y-%m-%d %H:%M:%S", "%d/%m/%Y %H:%M"):
+        try:
+            return datetime.strptime(value, fmt)
+        except ValueError:
+            pass
+    raise ValueError(f"Formato de fecha no admitido: {value!r}")
+
+
 def perfil_sales(path):
     raw = path.read_bytes()
     with path.open(encoding="utf-8-sig", newline="") as source:
@@ -27,7 +36,7 @@ def perfil_sales(path):
     months = Counter()
     for row in rows:
         try:
-            date = datetime.strptime(row["fecha_hora"], "%Y-%m-%d %H:%M:%S")
+            date = parse_fecha(row["fecha_hora"])
             dates.append(date)
             months[date.strftime("%Y-%m")] += 1
         except ValueError:
