@@ -67,6 +67,14 @@ La primera lectura del documento mediante `ZipFile.OpenRead` falló porque el ar
 
 **Validación y estado:** se extrajeron los valores de la fuente sin modificarlos y se comprobó que la clave devuelve una entrada de producto y un mapeo. Las reglas de costo vigente y costo unitario son propuestas pendientes de revisión del autor, no respuestas confirmadas del cliente.
 
+### Seguimiento del autor y archivo de continuidad
+
+El autor contrastó la venta `V00009357` (dos unidades y monto 385.79 MXN) con el costo vigente propuesto de 85.94 MXN para el producto 057. La IA explicó la diferencia entre costo e importe de venta y dejó los cálculos de margen condicionados a verificar las bases. A petición del autor se creó `CONTINUIDAD.md` para mantener hallazgos, dudas, estado y siguientes pasos al retomar.
+
+La revisión posterior recorrió las claves completas del JSON y no encontró lista de precios de venta. No se generalizó esa ausencia a Parquet, cuyo esquema sigue pendiente. Se detectó un cambio de hash y formato de fechas en sales respecto al perfil original, se registró sin atribuir autoría y se preservó el archivo. El perfilador señaló incompatibilidad de formato para todas las fechas actuales; queda pendiente decidir cómo tratar esa versión.
+
+Una lectura independiente con el formato día/mes/año y hora:minuto interpretó todas las fechas actuales sin errores. Esto diferencia una incompatibilidad del parser de fechas incorrectas y no prueba que los demás campos permanezcan intactos.
+
 ## Entradas pendientes durante la implementación
 
 - Revisar con el autor las cinco solicitudes clave registradas y actualizar sus decisiones al implementar el pipeline.
