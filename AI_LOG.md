@@ -77,6 +77,12 @@ Una lectura independiente con el formato día/mes/año y hora:minuto interpretó
 
 ## Entradas pendientes durante la implementación
 
+### Seguimiento de mapeos incompletos
+
+El autor identificó `handle: null` en `ERP-PROV-MX-015-D` y propuso que handle fuera la descripción. La IA contrastó el concepto con documentación oficial de Shopify: el handle es un identificador utilizado en la URL, distinto del título y la descripción. Verificó que el producto sí tiene nombre, Especial Cafe Molido, y mapeo POS–ERP válido informado en la fuente.
+
+Se contaron 65 registros de mapeo, 38 sin handle y 27 con handle; no se encontraron duplicados entre valores no nulos por campo. Se documentó el caso adicional de CN-00016 sin SKU ERP. No se concluyó que los productos sin handle no se vendan online: esa hipótesis sigue pendiente de contrastar con Parquet. Se actualizaron glosario, dudas y continuidad; aún no se implementaron reglas de conciliación.
+
 - Revisar con el autor las cinco solicitudes clave registradas y actualizar sus decisiones al implementar el pipeline.
 - Documentar decisiones de stack, conciliación, métricas y validación con evidencia.
 - Registrar un caso concreto de propuesta incorrecta o subóptima de IA y la corrección realizada.

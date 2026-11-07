@@ -17,6 +17,9 @@ Repositorio: https://github.com/aaronBarrales/cafenorte_tuxpas. Rama: `main`. Ya
 - `inventory.json` contiene metadata, `tiendas_info`, `sku_mappings`, `catalogo` y `snapshots`.
 - El catálogo del inventario contiene `cost_history`, con `fecha_vigencia`, `costo_mxn` y `proveedor`. La revisión de todas las claves del JSON no encontró un campo de precio de venta ni una lista de precios.
 - El inventario incluye zonas horarias por tienda. Esto no confirma que las fechas del POS representen la hora local de esa tienda.
+- `sku_mappings` contiene 65 registros: 38 con handle nulo y 27 informado, sin duplicados en los valores no nulos de cada una de las tres claves. El catálogo contiene 70 productos; falta conciliar la cobertura exacta entre conjuntos.
+- El producto `ERP-PROV-MX-015-D` corresponde a `CN-00015`, tiene nombre `Especial Cafe Molido` y costos, aunque su handle sea nulo. El handle no es la descripción: en Shopify identifica al producto en su URL. Un nulo puede ser un mapeo incompleto o una ausencia de publicación online; aún no se ha determinado la causa.
+- Se observó `CN-00016` con SKU ERP y handle nulos. Su conciliación con inventario y costos requiere revisión separada. No inventar claves, cruzar nulos entre sí ni descartar movimientos sin reportarlos.
 - Los snapshots son existencias por día, tienda y SKU. Según la metadata, no incluyen movimientos transaccionales. Una fila ausente no demuestra stock cero.
 - `exchange_rates.csv` tiene las columnas `fecha`, `currency` y `rate_to_mxn`; aún no se ha validado su cobertura o convención de conversión.
 - El esquema de `ecommerce_orders.parquet` todavía no se ha leído: el entorno consultado no tiene `pyarrow`, `fastparquet` ni `duckdb`. No se ha descartado que e-commerce aporte campos adicionales de precio o descuento; unas órdenes tampoco equivaldrían automáticamente a una lista histórica de precios.
@@ -56,6 +59,7 @@ La captura anterior de `CN-00003` corresponde a otro producto y contiene registr
 5. D005: corte común y ventanas del reto, una vez revisada la cobertura conjunta.
 6. D006: origen de los importes variables y disponibilidad de tarifas o promociones históricas.
 7. D007: unidad, base y vigencia del costo; si aplica globalmente o por tienda.
+8. D008: causa de handles ausentes, claves alternativas y cobertura real de los mapeos POS–ERP–Shopify.
 
 La propuesta es conservar los valores originales, documentar cualquier interpretación y resolver las ambigüedades de las preguntas de negocio con criterio, como pide el reto. Las propuestas de la IA no se consideran automáticamente confirmadas por el autor.
 

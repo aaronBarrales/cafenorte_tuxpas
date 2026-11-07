@@ -93,3 +93,17 @@ La revisión de `inventory.json` encontró `tiendas_info` con `tienda_id`, `ciud
 **Evidencia:** el producto corresponde a `CN-00057`, Premium Cafe Grano, y tiene cinco costos con vigencia entre 2024-10-01 y 2025-11-30. Las entradas tienen fecha, costo y proveedor, sin tienda, unidad de medida ni fin explícito de vigencia. Ver [historial investigado](docs/producto_ERP-PROV-MX-057-C.md).
 
 **Tratamiento propuesto:** cruce temporal por SKU con la última vigencia no posterior a la operación, bajo supuesto documentado de costo unitario global. No usar costos futuros ni sustituir costos ausentes por cero. Confirmar la base antes de presentar márgenes como definitivos.
+
+## D008 Handles ausentes y cobertura del mapeo de productos
+
+**Origen:** el autor identificó `handle: null` para `ERP-PROV-MX-015-D`. **Estado:** abierta. **Prioridad:** alta para conciliación con e-commerce.
+
+**Pregunta:** ¿Los handles nulos representan productos que no se venden en Shopify o correspondencias incompletas? ¿Existe una clave alternativa confiable para conciliar esas órdenes? ¿Hay otras correspondencias fuera del archivo?
+
+**Evidencia:** `sku_mappings` tiene 65 registros: 38 con handle nulo y 27 con handle informado. En esta muestra no se encontraron duplicados entre las claves no nulas de cada campo `sku_pos`, `sku_erp` y `handle`. El catálogo contiene 70 productos, por lo que no debemos equiparar automáticamente el número de mapeos con el catálogo completo. No se ha realizado aún la conciliación exhaustiva de cobertura entre conjuntos.
+
+Para el caso indicado, el mapeo POS–ERP sí existe: `CN-00015` → `ERP-PROV-MX-015-D`. El catálogo tiene nombre `Especial Cafe Molido`, categoría `cafe_molido` e historial de costos. Falta de handle no equivale a falta de nombre o descripción. El handle es un identificador usado en la URL del producto en Shopify, según su [documentación oficial](https://shopify.dev/docs/api/storefront/2026-01/objects/Product); la semántica concreta del mapeo del reto aún debe contrastarse con las órdenes.
+
+También se observó el caso `CN-00016` con `sku_erp: null` y `handle: null`, un problema distinto que puede impedir conciliar sus ventas físicas con costos e inventario.
+
+**Tratamiento propuesto:** preservar nulos; mantener las operaciones con estado de conciliación explícito; usar la relación POS–ERP donde esté informada y validada. No inventar un handle desde el nombre ni concluir que no hay ventas online. Si solo se dispone de handle para un cruce, no unir entre sí registros con claves nulas. Revisar las claves reales de Parquet antes de decidir alternativas. No eliminar silenciosamente ventas no conciliadas ni asignarles costo cero.

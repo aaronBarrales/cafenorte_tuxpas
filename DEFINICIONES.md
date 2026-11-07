@@ -18,7 +18,7 @@ Glosario para interpretar las fuentes y explicar las decisiones de CaféNorte. S
 |---|---|---|
 | SKU | Stock Keeping Unit: código para identificar una referencia de producto dentro de un sistema. | Un mismo producto puede tener códigos diferentes en POS, ERP y Shopify. No es necesariamente un código universal ni un código de barras. |
 | Mapeo de SKU | Correspondencia explícita entre identificadores de distintos sistemas. | `sku_mappings` relaciona `sku_pos`, `sku_erp` y `handle`. Hay que validar cobertura y duplicados antes de cruzar fuentes. |
-| Handle | Identificador textual usado por una plataforma para referirse a un producto. | Aparece en los mapeos de inventario; la relación con las órdenes de Shopify debe comprobarse. |
+| Handle | Identificador legible de un producto en Shopify, utilizado en su URL. Es distinto del nombre visible y de la descripción del producto. | Aparece en los mapeos de inventario; la relación con las órdenes de Shopify debe comprobarse. Hay 38 mapeos sin handle de un total de 65; un nulo no demuestra que el producto carezca de nombre ni que no se venda online. |
 | Precio de lista | Precio publicado o establecido antes de los ajustes que correspondan. | No se ha identificado una lista histórica de precios de venta en el catálogo del inventario. |
 | Monto de una fila | Importe monetario registrado para esa fila. | `sales.monto` no se llama precio unitario. Debemos confirmar si es total de línea y si incluye impuestos y descuentos. |
 | Importe efectivo por unidad | Cociente del importe de una línea entre sus unidades, cuando ambos representan esa misma operación. | `monto / cantidad` es un diagnóstico condicionado a confirmar el significado de los campos; no prueba el precio de lista ni explica su variación. |
@@ -44,6 +44,8 @@ Glosario para interpretar las fuentes y explicar las decisiones de CaféNorte. S
 | Supuesto | Interpretación adoptada cuando falta información suficiente. | Debe tener justificación, impacto y estado en `DUDAS.md`; no se presenta como confirmación del cliente. |
 
 ## Cómo se relacionan los conceptos
+
+En Shopify, un handle puede verse como `premium-cafe-grano-057` en una ruta ilustrativa `/products/premium-cafe-grano-057`. La descripción es el texto que explica el producto y el nombre es su título; son conceptos separados. Referencia: [documentación oficial de Shopify sobre Product.handle](https://shopify.dev/docs/api/storefront/2026-01/objects/Product).
 
 El POS aporta operaciones e importes registrados. El ERP aporta catálogo, costos e inventario. El pipeline relacionará los códigos de producto y las fechas para calcular métricas. El alojamiento en nube o servidores propios es una decisión distinta de esas funciones.
 
