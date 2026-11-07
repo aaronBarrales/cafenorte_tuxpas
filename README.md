@@ -29,6 +29,8 @@ Las definiciones de métricas, ventanas temporales y supuestos se documentarán 
 
 ## Archivos actuales
 
+- [DEFINICIONES.md](DEFINICIONES.md): conceptos de sistemas, importes, inventario y análisis.
+- [Historial del producto ERP-PROV-MX-057-C](docs/producto_ERP-PROV-MX-057-C.md): costos, vigencias y equivalencia POS.
 - `datos/README.md`: instrucciones para colocar los archivos originales.
 - `AI_LOG.md`: registro del uso de IA durante el desarrollo.
 

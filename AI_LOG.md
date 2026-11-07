@@ -47,8 +47,6 @@ La primera lectura del documento mediante `ZipFile.OpenRead` falló porque el ar
 
 **Herramientas adicionales:** se consultó la guía de spreadsheets y el localizador de dependencias de Codex; el perfil se ejecutó con el Python proporcionado por ese entorno. La búsqueda web se utilizó para contrastar los tipos de CFDI con documentación del SAT.
 
-## Entradas pendientes durante la implementación
-
 ### Solicitud 4 — Origen del precio y diferencias por SKU
 
 **Prompt del usuario:** «Hay algo que me causa especial curiosidad, de donde sale el precio que se muestra, ya que al filtrar por sku se puede ver que un mismo sku tiene diferentes precios a lo largo del tiempo pero ninguno de los archivos entregados tiene esa información».
@@ -59,7 +57,19 @@ La primera lectura del documento mediante `ZipFile.OpenRead` falló porque el ar
 
 **Decisión pendiente del autor:** confirmar o adoptar como supuesto la interpretación de monto total de línea y la metodología de margen con costo vigente. Las diferencias entre tiendas y fechas impiden atribuir la variación solo al tiempo con los ejemplos de la captura.
 
-- Ampliar las tres solicitudes registradas si nuevas decisiones justifican llegar hasta cinco prompts clave.
+### Solicitud 5 — Historial del producto y definiciones
+
+**Prompt del usuario:** «Puedes investigar en el inventario el historial de precio de este producto por favor? ERP-PROV-MX-057-C Entonces el POS es el punto de venta de cada tienda física y el erp guarda los precios en la "nube"? por asi decirlo? Puedes generar un md de definiciones importantes?».
+
+**Trabajo de la IA:** consultó el catálogo y los mapeos originales; encontró un producto llamado Premium Cafe Grano, relacionado con `CN-00057`, y cinco entradas de costo. Revisó las claves del catálogo y del historial, que no contienen precio de venta. Creó el historial documentado y `DEFINICIONES.md`, y registró D007 sobre unidades y vigencia de costos.
+
+**Distinción explicada:** un ERP describe funciones empresariales y no implica alojamiento en la nube. La metadata no revela cómo se alojan el ERP ni el POS actuales. Los costos del inventario no equivalen a los precios cobrados por el POS.
+
+**Validación y estado:** se extrajeron los valores de la fuente sin modificarlos y se comprobó que la clave devuelve una entrada de producto y un mapeo. Las reglas de costo vigente y costo unitario son propuestas pendientes de revisión del autor, no respuestas confirmadas del cliente.
+
+## Entradas pendientes durante la implementación
+
+- Revisar con el autor las cinco solicitudes clave registradas y actualizar sus decisiones al implementar el pipeline.
 - Documentar decisiones de stack, conciliación, métricas y validación con evidencia.
 - Registrar un caso concreto de propuesta incorrecta o subóptima de IA y la corrección realizada.
 - Completar con el autor la autocrítica final: aportaciones propias, aportaciones de IA y comprobaciones de exactitud más allá de la ejecución sin errores.
