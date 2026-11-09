@@ -76,9 +76,9 @@ Banco completo de consultas: [PREGUNTAS_CLIENTE.md](PREGUNTAS_CLIENTE.md), 60 pr
 
 ## D005 Fecha de corte de las ventanas del reto
 
-**Estado:** supuesto propuesto, pendiente de conciliar las otras fuentes. **Prioridad:** alta.
+**Estado:** supuesto propuesto; cobertura conjunta comprobada, definición de ventana pendiente. **Prioridad:** alta.
 
-Los datos de ventas terminan el 31 de marzo de 2026. Se propone usar un corte explícito basado en la cobertura de las fuentes, en lugar de la fecha de ejecución, para que los resultados sean reproducibles. Falta decidir si el último trimestre es calendario completo o tres meses móviles y comprobar cobertura conjunta.
+Los datos de ventas terminan el 31 de marzo de 2026. Se propone usar un corte explícito basado en la cobertura de las fuentes, en lugar de la fecha de ejecución, para que los resultados sean reproducibles. Falta decidir si el último trimestre es calendario completo o tres meses móviles; la cobertura conjunta se documenta en el informe actual.
 
 **Tratamiento actual:** no aplicar todavía ventanas de negocio. Registrar la decisión y sus límites en el README antes de producir las cuatro respuestas. Esta ambigüedad se resolverá con criterio documentado, conforme al reto.
 
@@ -179,6 +179,16 @@ Conecto [mi informe actual](../02_exploracion/resultados_inventory.md) con [las 
 ## Evidencia aislada actual de ecommerce — 9 de noviembre de 2026
 
 Conecto [mi informe](../02_exploracion/resultados_ecommerce.md) con [Q09/Q16/Q31–Q38/Q40/Q41/Q44–Q50](PREGUNTAS_CLIENTE.md#evidencia-del-eda-aislado-de-ecommerce), sin crear dudas duplicadas. D012 conserva granularidad, estatus y base de amount: los 9,947 IDs únicos no confirman pedidos completos o pagados. D019 mantiene claves de variante y unidad pendientes; los 33 handles no se concilian aquí. D013/D023 requieren evento, zona, liquidación y redondeo de importes double en tres monedas. D022 requiere almacén y enlace entre canales. D025 conserva uso y acceso a datos personales, con 8,462 RFC nulos; no publico valores individuales. D026 requiere lote, corte y controles independientes aunque haya presencia en los 365 días. Sin respuesta propongo conservar registros y monedas originales, explicitar elegibilidad y total de línea como supuestos, excluir datos personales del modelo y conciliar después. No deduplico coincidencias de fecha, handle, cantidad, amount y currency ni asigno almacén desde el envío; propongo definir evento temporal, liquidación, precisión e idempotencia antes de consolidar. No presento estas propuestas como respuestas del cliente.
+
+## Evidencia conjunta actual — 9 de noviembre de 2026
+
+Conecto [el informe conjunto](../02_exploracion/resultados_conjunto.md) con las dudas existentes, sin crear consultas duplicadas ni atribuir respuestas al cliente. La validación técnica de claves no resuelve su semántica ni aprueba tratamientos financieros.
+
+- **P0; D008/D019; Q04/Q05/Q22/Q23:** por igualdad literal llegan a ERP 74,141 registros físicos y 6,959 online. Quedan 12,349 físicos y 2,988 online sin ERP conciliado. Mantengo todas las filas y no aplico las propuestas por nombre y sufijo. Siguen abiertos maestro autorizado, unidad de variante, responsables y vigencias de equivalencias.
+- **P0; D010/D011/D021; Q07/Q08/Q27–Q30:** la ventana común con snapshots es 2025-10-01 a 2026-03-31. Entre los registros I de ese período, 12,687 tienen ERP pero no snapshot, 213 enlazan a saldo desconocido y 565 a cero. Propongo población compatible para rotación, sin rellenar ausencias; siguen abiertos surtido y significado/hora del snapshot. No atribuyo ventas online a una tienda sin cumplimiento identificado (D022; Q35/Q36).
+- **P0; D007/D016/D020; Q03/Q16/Q24–Q26:** cada movimiento con ERP exacto encuentra una última vigencia no futura. No elimina la duda de unidad, impuestos, alcance global ni política contable; propongo conservar esas condiciones antes del margen.
+- **P0; D013/D023; Q10/Q37/Q38/Q40:** todas las filas online extranjeras encuentran tasa del día. En el escenario Decimal con ROUND_HALF_UP, sumar redondeos por registro difiere de redondear al final en −0.01 MXN para EUR y −0.16 MXN para USD. Mantengo sin confirmar evento de conversión, zona, proveedor y etapa de redondeo; no interpreto esas diferencias técnicas como descuadre contable.
+- **P0; D005/D004/D012/D022; Q01/Q09/Q12/Q14/Q34–Q36:** la presencia global diaria común de las cuatro fuentes abarca 182 días, pero no confirma completitud por par ni estatus comercial. Propongo corte 2026-03-31 y ventanas explícitas; la decisión de trimestre calendario o móvil, elegibilidad, zona y control de duplicación entre canales sigue abierta. No uso producto compartido como enlace entre transacciones.
 
 ## Conclusión
 

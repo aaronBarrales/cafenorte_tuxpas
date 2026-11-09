@@ -1,6 +1,6 @@
 # Hallazgos importantes
 
-Actualizado: 9 de noviembre de 2026. Mantener entradas breves; distinguir hechos de relaciones o reglas propuestas. Las cifras del EDA integral son antecedentes; su hash de sales no coincide con la fuente actual.
+Actualizado: 9 de noviembre de 2026. Mantener entradas breves; distinguir hechos de relaciones o reglas propuestas. Las cifras del EDA integral histórico son antecedentes; su hash de sales no coincide con la fuente actual. La conciliación actual queda identificada en su sección y en el informe conjunto.
 
 ## Notebook de ventas actualizado
 
@@ -68,6 +68,12 @@ Tengo presente para la siguiente etapa la [propuesta previa de conciliación por
 ## Exploración aislada actual de ecommerce — 9 de noviembre de 2026
 
 En [mi informe de ecommerce](../02_exploracion/resultados_ecommerce.md) documento 9,947 registros, 33 handles y presencia global en 365 días de abril de 2025 a marzo de 2026, sin IDs repetidos ni duplicados exactos. Mantengo MXN, USD y EUR separados; falta confirmar estatus, granularidad y base financiera. IQR señala cuatro filas EUR; no evalúa 6,942 filas MXN por dispersión intercuartílica cero. No elimino señales ni expongo valores personales. No cruzo otras fuentes ni confirmo ingresos, mapeos, margen o rotación.
+
+## Conciliación exploratoria actual — 9 de noviembre de 2026
+
+Tengo [el quinto notebook](../../notebooks/05_conjunto.ipynb) y [su informe](../02_exploracion/resultados_conjunto.md) ejecutados con las mismas huellas de los EDAs individuales actuales. Los conectores exactos conservan registros e importes: 74,141 movimientos físicos y 6,959 online llegan a ERP y costo temporal; 12,349 físicos y 2,988 online quedan sin ERP. Las propuestas por nombre y número siguen sin aplicar.
+
+La ventana común de las cuatro fuentes es octubre de 2025 a marzo de 2026. En el escenario I del semestre, 12,687 registros con ERP carecen de snapshot, 213 enlazan a saldo desconocido y 565 a cero; no convierto ausencia en cero ni extrapolo rotación. Todas las órdenes extranjeras encuentran FX del día. El vínculo online–tienda, las unidades y la base financiera siguen limitando las métricas; el detalle técnico queda en el informe conjunto.
 
 ## Conclusión
 

@@ -14,7 +14,7 @@ Hallazgos clave resumidos en [HALLAZGOS.md](docs/04_seguimiento/HALLAZGOS.md), a
 
 Para retomar el trabajo, leer primero [CONTINUIDAD.md](docs/04_seguimiento/CONTINUIDAD.md): hallazgos, supuestos, cambios de fuentes y próximos pasos. Se actualizará al avanzar el proyecto.
 
-Existe una exploración previa de las cuatro fuentes en el [EDA integral histórico](docs/05_antecedentes/EDA_COMPLETO.md); su hash de sales difiere del actual. Tengo completos los cuatro notebooks aislados de sales, exchange_rates, inventory y ecommerce; la conciliación actual entre fuentes sigue pendiente. Consulta las [preguntas priorizadas](docs/03_negocio/PREGUNTAS_CLIENTE.md) y el [plan de entrega](docs/04_seguimiento/PLAN_ENTREGA.md). Fecha límite: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México. El pipeline, sus pruebas y la propuesta técnica están pendientes de implementación.
+Existe una exploración previa de las cuatro fuentes en el [EDA integral histórico](docs/05_antecedentes/EDA_COMPLETO.md); su hash de sales difiere del actual. Tengo completos los cuatro notebooks aislados y el [EDA conjunto actual](notebooks/05_conjunto.ipynb), con su [informe de conectores](docs/02_exploracion/resultados_conjunto.md). La conciliación exploratoria está validada técnicamente; el pipeline, sus pruebas y la propuesta técnica siguen pendientes. Consulta las [preguntas priorizadas](docs/03_negocio/PREGUNTAS_CLIENTE.md) y el [plan de entrega](docs/04_seguimiento/PLAN_ENTREGA.md). Fecha límite: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México.
 
 Consulta los [resultados del análisis aislado de ventas](docs/02_exploracion/resultados_sales.md), el [índice de informes](docs/02_exploracion/README.md) y [el registro de dudas y supuestos](docs/03_negocio/DUDAS.md). El [análisis inicial de ventas](docs/05_antecedentes/analisis_sales.md) conserva el perfil histórico. Para reproducir el perfil sin dependencias externas, ejecuta `python scripts/perfil_sales.py` desde la raíz del proyecto.
 
@@ -59,17 +59,18 @@ La [convención de la bitácora de IA](AGENTS.md#redacción-de-la-bitácora-de-i
 
 ```text
 datos/                  Fuentes originales; no se modifican ni se versionan.
-notebooks/              Exploración interactiva, un notebook por fuente.
+notebooks/              Exploración individual y conciliación conjunta.
   01_sales.ipynb         Estructura, calidad y cobertura de ventas físicas.
   02_exchange_rates.ipynb Calidad, cobertura y variaciones de tipos de cambio.
   03_inventory.ipynb     Saldos, cobertura, rachas, equivalencias y costos.
   04_ecommerce.ipynb     Pedidos registrados, monedas, cobertura y privacidad.
+  05_conjunto.ipynb      Conectores, cardinalidad y cobertura entre fuentes.
 scripts/                Perfiles reproducibles, exportaciones y validaciones.
 outputs/                Reportes y exportaciones generados; fuera de Git.
 docs/
   README.md             Índice general y recorrido de lectura.
   01_reto/              Enunciado original y requisitos de entrega.
-  02_exploracion/       Resultados actuales por fuente.
+  02_exploracion/       Resultados actuales por fuente y conciliación conjunta.
   03_negocio/           Métricas, definiciones, dudas y preguntas.
   04_seguimiento/       Hallazgos, continuidad y plan de entrega.
   05_antecedentes/      Estudios anteriores y casos investigados.
@@ -105,7 +106,7 @@ El notebook de inventario requiere pandas, NumPy e IPython, disponibles al insta
 
 El pipeline sigue pendiente. Para leer y exportar e-commerce, consultar [los comandos de exploración](docs/05_antecedentes/analisis_ecommerce.md). El CSV de consulta se genera en `outputs/ecommerce_orders.csv` y permanece fuera de Git.
 
-Para regenerar la exploración completa, después de instalar `requirements-exploracion.txt` en `.venv`:
+Para regenerar el perfil histórico automatizado, después de instalar `requirements-exploracion.txt` en `.venv`:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts/eda_completo.py
@@ -135,6 +136,18 @@ python -m jupyter nbconvert --to notebook --execute --inplace notebooks/04_ecomm
 
 Si cambia la fuente, debo documentar la diferencia de huella, ejecutar de nuevo y actualizar el informe, las preguntas y el seguimiento con tablas calculadas. Los importes se conservan por moneda; no representan ingresos netos confirmados.
 
+## Exploración conjunta y conectores
+
+Consulto [05_conjunto.ipynb](notebooks/05_conjunto.ipynb) y [su informe](docs/02_exploracion/resultados_conjunto.md) para comprobar las conexiones actuales entre los cuatro archivos, sin repetir los perfiles aislados. El análisis conserva los movimientos sin enlace y separa mapeo ausente, ERP nulo, falta de snapshot, saldo desconocido y cero; no aplica candidatos por nombre y número ni produce métricas definitivas.
+
+Con las dependencias de exploración instaladas en el mismo entorno, ejecuto desde la raíz:
+
+```powershell
+python scripts/ejecutar_eda_conjunto.py
+```
+
+El script ejecuta secuencialmente las celdas con IPython y actualiza tanto las salidas del notebook como las tablas y explicaciones del informe, sin requerir tabulate ni modificar fuentes. También admite `python ../scripts/ejecutar_eda_conjunto.py` desde notebooks/. Para ejecutar únicamente el notebook con un kernel Jupyter preparado uso `python -m jupyter nbconvert --to notebook --execute --inplace notebooks/05_conjunto.ipynb`. Si cambia una huella respecto a los informes individuales actuales, el análisis se detiene: debo documentar y revisar la nueva fuente antes de regenerar evidencia.
+
 ## Conclusión
 
-Tengo completos los cuatro notebooks e informes aislados. Mi siguiente paso es conciliar las fuentes y construir el pipeline, dejando explícitas las reglas y limitaciones de las cuatro respuestas de negocio.
+Tengo completos los cuatro notebooks e informes aislados y la conciliación exploratoria conjunta. Mi siguiente paso es construir el pipeline con conectores exactos, cobertura explícita y excepciones conservadas, dejando visibles los supuestos de las cuatro respuestas de negocio.

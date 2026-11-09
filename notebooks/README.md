@@ -1,4 +1,4 @@
-# Exploración por fuente
+# Exploración individual y conjunta
 
 Ejecuta cada notebook de principio a fin con las fuentes en `datos/`.
 
@@ -11,7 +11,10 @@ Ejecuta cada notebook de principio a fin con las fuentes en `datos/`.
 - [04_ecommerce.ipynb](04_ecommerce.ipynb): exploración aislada de registros online, monedas, cobertura y señales IQR.
 - [Informe de ecommerce](../docs/02_exploracion/resultados_ecommerce.md): resultados calculados, límites financieros, privacidad y preguntas abiertas.
 
-Tengo completos los cuatro notebooks aislados; continúo con la conciliación entre fuentes.
+- [05_conjunto.ipynb](05_conjunto.ipynb): conciliación de las cuatro fuentes mediante equivalencias exactas, fechas, tiendas, snapshots, costos y tasas; conserva excepciones y no aplica candidatos inferidos.
+- [Informe conjunto](../docs/02_exploracion/resultados_conjunto.md): evidencia de conectores utilizables, cobertura y límites de interpretación.
+
+Tengo completos los cuatro notebooks aislados y el análisis conjunto. Para ejecutar y regenerar el quinto notebook y su informe desde la raíz uso `python scripts/ejecutar_eda_conjunto.py`; desde notebooks uso `python ../scripts/ejecutar_eda_conjunto.py`. El ejecutor captura salidas mediante IPython con historial en memoria, sin arrancar un kernel Jupyter.
 
 Estructura común: objetivo y granularidad, lectura, esquema, diccionario, calidad, cobertura temporal, distribución de valores y conclusiones. Cada fuente añade sus controles particulares.
 
@@ -23,4 +26,4 @@ Centralizo las dudas abiertas, sus identificadores, evidencia y tratamientos pro
 
 ## Conclusión
 
-Uso un notebook por fuente para conocer su estructura, calidad y cobertura antes de conciliarlas. Mantengo los originales intactos y vinculo cada exploración con su informe de resultados.
+Uso un notebook por fuente para conocer su estructura, calidad y cobertura y un quinto para comprobar las conexiones entre ellas. Mantengo los originales intactos y vinculo cada exploración con su informe de resultados.

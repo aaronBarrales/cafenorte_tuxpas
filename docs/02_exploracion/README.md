@@ -13,6 +13,10 @@ Los informes Markdown se pueden leer directamente en GitHub. Cada informe de res
 
 **Aislado** significa que los resultados se obtienen únicamente de la fuente indicada, sin cruzarla con otros archivos de datos. No demuestra consistencia entre sistemas. La conciliación se documenta por separado cuando se realiza.
 
+## Conciliación actual entre fuentes
+
+Consulto [05_conjunto.ipynb](../../notebooks/05_conjunto.ipynb) y [resultados_conjunto.md](resultados_conjunto.md) para los conectores comprobados con las cuatro fuentes actuales: cardinalidad, cobertura referencial, ventanas, snapshots, costos vigentes y FX. No repito los perfiles individuales ni aplico equivalencias inferidas. El informe se regenera desde los mismos cálculos del notebook.
+
 ## Antecedentes y análisis entre fuentes
 
 - [Perfil inicial de sales](../05_antecedentes/analisis_sales.md): conserva resultados de una versión anterior; no sustituye el informe actual.
@@ -27,4 +31,4 @@ Los hallazgos importantes se resumen en [HALLAZGOS.md](../04_seguimiento/HALLAZG
 
 ## Conclusión
 
-Tengo documentadas las cuatro exploraciones aisladas de sales, exchange_rates, inventory y ecommerce. Consulto los antecedentes por separado para no presentar sus cruces o versiones anteriores como resultados actuales.
+Tengo documentadas las cuatro exploraciones aisladas y la conciliación conjunta actual. Consulto los antecedentes por separado para no presentar sus cruces o versiones anteriores como resultados actuales.

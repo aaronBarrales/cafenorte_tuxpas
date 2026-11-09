@@ -4,7 +4,7 @@
 
 El punto de entrada es [docs/README.md](../README.md). La documentación se divide en `01_reto/`, `02_exploracion/`, `03_negocio/`, `04_seguimiento/` y `05_antecedentes/`. Los informes aislados actuales están en exploración; los estudios anteriores y casos entre fuentes están en antecedentes. Las referencias a organizaciones anteriores en entradas cronológicas son históricas.
 
-El notebook de sales incluye un bloque de navegación a resultados, hallazgos, dudas, definiciones, guía de negocio y AI_LOG. Se verificaron 110 enlaces locales de Markdown y notebooks y se conservó el código y las salidas de sus 19 celdas ejecutables. El validador ahora busca las preguntas del cliente en `docs/03_negocio/PREGUNTAS_CLIENTE.md`.
+El notebook de sales conserva únicamente su informe en Documentación relacionada; las dudas están centralizadas fuera de los notebooks. Se verificaron 110 enlaces locales de Markdown y notebooks y se conservó el código y las salidas de sus 19 celdas ejecutables. El validador ahora busca las preguntas del cliente en `docs/03_negocio/PREGUNTAS_CLIENTE.md`.
 
 Última actualización: 9 de noviembre de 2026. Este archivo se actualizará con los hallazgos y decisiones relevantes al avanzar. Es el punto de entrada al retomar el proyecto; las dudas detalladas permanecen en `docs/03_negocio/DUDAS.md`.
 
@@ -18,7 +18,7 @@ Repositorio: https://github.com/aaronBarrales/cafenorte_tuxpas. Rama: `main`. Ex
 
 Confirmé la entrega **antes del martes 10 de noviembre de 2026 a las 12:00 p. m., hora de Ciudad de México**. Objetivo interno: revisión el lunes y paquete preparado el martes antes de las 11:00 a. m. No se han enviado consultas ni correos al cliente.
 
-## Resultados de la exploración completa
+## Resultados históricos de la exploración completa
 
 - Inventario: 230,776 filas; 4,417 valores N/A, 11,726 ceros numéricos y ningún stock numérico negativo. No convertir desconocidos en cero.
 - Sus 1,268 pares tienda–SKU tienen filas en los 182 días, pero cada tienda cubre entre 25 y 40 SKU. Para 12,687 registros I del semestre con ERP conocido falta snapshot del par: la rotación exige población consistente y cobertura explícita.
@@ -37,7 +37,7 @@ Confirmé la entrega **antes del martes 10 de noviembre de 2026 a las 12:00 p. m
 - `inventory.json` contiene metadata, `tiendas_info`, `sku_mappings`, `catalogo` y `snapshots`.
 - El catálogo del inventario contiene `cost_history`, con `fecha_vigencia`, `costo_mxn` y `proveedor`. La revisión de todas las claves del JSON no encontró un campo de precio de venta ni una lista de precios.
 - El inventario incluye zonas horarias por tienda. Esto no confirma que las fechas del POS representen la hora local de esa tienda.
-- `sku_mappings` contiene 65 registros: 38 con handle nulo y 27 informado, sin duplicados en los valores no nulos de cada una de las tres claves. El catálogo contiene 70 productos; falta conciliar la cobertura exacta entre conjuntos.
+- `sku_mappings` contiene 65 registros: 38 con handle nulo y 27 informado, sin duplicados en los valores no nulos de cada una de las tres claves. El catálogo contiene 70 productos; la cobertura exacta con los movimientos actuales queda cuantificada en el informe conjunto.
 - El producto `ERP-PROV-MX-015-D` corresponde a `CN-00015`, tiene nombre `Especial Cafe Molido` y costos, aunque su handle sea nulo. El handle no es la descripción: en Shopify identifica al producto en su URL. Un nulo puede ser un mapeo incompleto o una ausencia de publicación online; aún no se ha determinado la causa.
 - Se observó `CN-00016` con SKU ERP y handle nulos. Su conciliación con inventario y costos requiere revisión separada. No inventar claves, cruzar nulos entre sí ni descartar movimientos sin reportarlos.
 - Los snapshots son existencias por día, tienda y SKU. Según la metadata, no incluyen movimientos transaccionales. Una fila ausente no demuestra stock cero.
@@ -208,6 +208,14 @@ Mi siguiente paso es conciliar claves, unidades, fechas y monedas sobre las vers
 
 Pedí retirar las secciones de dudas y próximos pasos de los cuatro notebooks y concentrar su seguimiento en [DUDAS.md](../03_negocio/DUDAS.md). La IA centralizó allí los tratamientos abiertos con sus identificadores existentes, retiró las secciones y referencias al banco de preguntas de los notebooks y conservó las limitaciones necesarias para leer los resultados. Las operaciones de cálculo, cifras y contadores no cambiaron; solo se ajustaron textos explicativos y sus representaciones guardadas. Los análisis siguen aislados y el estado de conciliación y pipeline no cambia.
 
+## Estado actual: conciliación exploratoria terminada — 9 de noviembre de 2026
+
+Pedí un EDA conjunto sin repetir los aislados. Tengo [05_conjunto.ipynb](../../notebooks/05_conjunto.ipynb), [su informe](../02_exploracion/resultados_conjunto.md) y el ejecutor `scripts/ejecutar_eda_conjunto.py`, que regenera ambos con los mismos resultados. Esta evidencia actual sustituye el uso del EDA histórico para evaluar conectores; las fuentes coinciden con los hashes de los cuatro informes individuales actuales. La diferencia histórica de sales permanece documentada, sin ocultarla ni modificar datos.
+
+Los cruces m:1 y temporales conservan cada movimiento y sus importes originales: 74,141 registros físicos y 6,959 online tienen ERP exacto y costo previo; quedan 12,349 físicos y 2,988 online sin ERP. Las cuatro fuentes comparten 182 días desde 2025-10-01 hasta 2026-03-31. En I del semestre hay 12,687 registros con ERP sin snapshot, 213 con saldo desconocido y 565 con cero. FX cubre todas las órdenes extranjeras, con sensibilidad al redondeo documentada. No apliqué candidatos por nombre y número ni asigné tienda a online.
+
+La IA ejecutó siete celdas con trece tablas desde raíz y notebooks/ mediante IPython y captura de salidas; esta validación no acredita arranque de kernel Jupyter ni revisión manual mía. Mi siguiente fase es implementar pipeline y modelo con conectores exactos, cuarentena explícita de excepciones y reglas financieras declaradas; las respuestas de negocio, pruebas del pipeline y propuesta AWS siguen pendientes. Centralizo las definiciones abiertas y tratamientos en DUDAS.md, reutilizando las preguntas existentes. El detalle de herramientas, verificaciones y limitaciones queda en AI_LOG.
+
 ## Conclusión
 
-Tengo los notebooks e informes aislados de sales, exchange_rates e inventory ejecutados por la IA. Continúo con e-commerce y la conciliación, conservando las dudas de granularidad y los cambios de versión; el pipeline y las respuestas finales siguen pendientes.
+Tengo los cuatro notebooks e informes aislados y la conciliación exploratoria actual ejecutados por la IA. Continúo con el pipeline y el modelo usando conectores comprobados y excepciones visibles, sin dar por confirmadas las unidades, reglas financieras ni respuestas finales.

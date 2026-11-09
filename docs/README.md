@@ -29,6 +29,7 @@ Empieza aquí para encontrar los requisitos, los resultados y el estado del proy
 | [Resultados de exchange_rates](02_exploracion/resultados_exchange_rates.md) | Revisar calidad, cobertura, distribución y variaciones de tasas, sin cruces; dudas conectadas con Q10 y Q38–Q40. |
 | [Resultados de inventory](02_exploracion/resultados_inventory.md) | Revisar estructura, cobertura, saldos, rachas observadas, equivalencias y costos del JSON aislado. |
 | [Resultados de ecommerce](02_exploracion/resultados_ecommerce.md) | Revisar granularidad, calidad, calendario, monedas, importes y señales estadísticas del Parquet aislado, sin datos personales. |
+| [Resultados del análisis conjunto](02_exploracion/resultados_conjunto.md) | Comprobar conectores exactos entre las cuatro fuentes, cobertura, fechas, costos y FX sin repetir perfiles individuales. |
 
 Los notebooks ejecutables están en [notebooks/](../notebooks/README.md). Esta carpeta guarda los informes de resultados, no copias del código.
 
@@ -67,7 +68,7 @@ Estos documentos conservan evidencia previa y propuestas entre fuentes. No son i
 ## Cómo mantener este orden
 
 - Requisitos recibidos → `01_reto/`.
-- Resultados de exploración por fuente → `02_exploracion/resultados_<fuente>.md`.
+- Resultados de exploración por fuente y conjunta → `02_exploracion/resultados_<fuente>.md`, incluido `resultados_conjunto.md`.
 - Explicaciones de métricas, vocabulario y supuestos → `03_negocio/`.
 - Hallazgos resumidos y estado del trabajo → `04_seguimiento/`.
 - Estudios anteriores y casos ya investigados → `05_antecedentes/`, identificando su vigencia.

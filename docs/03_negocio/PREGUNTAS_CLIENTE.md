@@ -155,6 +155,12 @@ Conecto [mi informe actual](../02_exploracion/resultados_ecommerce.md) con las p
 
 Sin respuesta propongo contar registros, mantener estado comercial sin confirmar y monedas separadas, conservar originales y no deduplicar por coincidencias. Las cuatro señales IQR EUR son una revisión estadística, sin error demostrado; las 6,942 filas MXN no se evalúan porque sus grupos tienen IQR cero. No creo nuevas preguntas por esa señal aislada: la revisión de base de amount, precisión y reglas del origen queda conectada con Q33/Q40.
 
+## Evidencia del EDA conjunto
+
+Actualizo el respaldo de las consultas existentes con [la conciliación actual](../02_exploracion/resultados_conjunto.md), sin añadir identificadores ni dar preguntas por enviadas o respondidas. Q04/Q05/Q22/Q23 conservan la cobertura incompleta de producto: 12,349 registros físicos y 2,988 online no llegan a ERP por enlace exacto. Q07/Q08/Q28–Q30 se apoyan ahora en el cruce del semestre: 12,687 registros I con ERP carecen de snapshot, 213 tienen saldo desconocido y 565 coinciden con saldo cero. La coincidencia diaria no confirma un quiebre operativo.
+
+Para Q03/Q16/Q24–Q26, todos los movimientos con ERP exacto tienen vigencia previa de costo, pero unidad, base fiscal y política siguen sin confirmar. Q10/Q37/Q38/Q40 mantienen evento temporal y redondeo: la cobertura diaria FX es completa para las órdenes extranjeras; los escenarios de redondeo por registro y al final difieren en −0.01 MXN para EUR y −0.16 MXN para USD. Q35/Q36 siguen sin un enlace de cumplimiento o referencia transaccional POS–online; no asigno tienda ni afirmo ausencia de doble conteo. Centralizo prioridades y tratamientos en las dudas existentes.
+
 ## Conclusión
 
 Priorizo confirmar la semántica y completitud de las fuentes, incluida la clave real del ticket. Mantengo estas preguntas pendientes de respuesta y no condiciono todo el avance a recibirlas; documentaré los supuestos y límites que adopte.
