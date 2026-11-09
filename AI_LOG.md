@@ -298,6 +298,12 @@ La IA añadió conclusiones específicas a los Markdown propios del proyecto y g
 
 **Ajustes operativos:** la primera captura de tablas dependía de tabulate, ausente en el entorno; la IA la sustituyó por HTML nativo de pandas y regeneró todas las salidas, sin instalar dependencias ni alterar el análisis. El primer control de igualdad con Git detectó CRLF frente a LF; se ajustó para comparar contenido normalizando solo saltos de línea, sin modificar los notebooks anteriores. Los auxiliares de creación, ejecución, documentación y validación estuvieron en outputs/ y se retiran al finalizar; no se versionan fuentes ni resultados excluidos. El commit y el push se realizan después de estas validaciones conforme a mi regla; su resultado se comunica en el cierre del trabajo.
 
+### 9 de noviembre de 2026 — Significado de las columnas derivadas de inventario
+
+**Mi intervención:** pedí explicar el apartado de calidad y después incorporar el significado de cada columna creada al documento y al notebook. **Propuesta inicial:** el apartado nombraba stock_num y estado_stock sin un diccionario específico de las columnas derivadas. **Ajuste de la IA:** añadió en ambos archivos el origen, significado, conversión y uso de stock_num, estado_stock y fecha_dt; explicó NaN, NaT, todas las etiquetas de estado y ejemplos ilustrativos. Distinguió conversión numérica de validez, cero de ausencia de fila y clasificación técnica de interpretación operativa. Amplió la regla de columnas derivadas en AGENTS para conservar este criterio reutilizable.
+
+**Evidencia y límites:** la IA validó nbformat y comparó con Git las celdas ejecutables, salidas y contadores: permanecen idénticos. El cambio es explicativo; no se ejecutaron de nuevo las celdas ni se modificaron la fuente, los cálculos o los resultados. Las preguntas operativas siguen abiertas, sin atribuir respuestas al cliente ni revisión personal mía. El cambio se guarda y publica conforme a mi regla de commit y push.
+
 ## Conclusión
 
 Mi aportación documentada está en las preguntas que orientan la investigación, las hipótesis que pido contrastar y las correcciones con las que ajusto el análisis y su presentación. Uso la IA para agilizar implementación y comprobaciones; conservo su atribución y la evidencia para poder defender qué resultados están sustentados y qué decisiones requieren todavía mi revisión.

@@ -46,7 +46,7 @@ No colocar nuevos análisis, notebooks o documentos de seguimiento en la raíz.
 - Por petición mía, usar un solo comentario en español por bloque de código importante, explicando su propósito o una decisión de tratamiento. No comentar cada línea ni repetir lo que expresa el código; esta convención sustituye la anterior y aplica a partir de ahora. Verificar que los cambios de comentarios no alteren la lógica.
 - Calcular conteos y estadísticas con código; evitar cifras manuales que puedan quedar desactualizadas.
 - Presentar cada medida distinta en una fila o columna con su etiqueta propia. No compactar pares de resultados con barras, como «Registros / columnas» o «Fecha mínima / máxima»; separar sus valores para evitar ambigüedad. Aplicar este criterio a las tablas de los informes y notebooks.
-- Conservar los valores originales y separar columnas derivadas. Distinguir cero, nulo y ausencia de registro.
+- Conservar los valores originales y separar columnas derivadas. Distinguir cero, nulo y ausencia de registro. Explicar cada columna derivada al introducirla: campo de origen, significado, tratamiento de valores no interpretables y propósito en el análisis.
 - Resolver rutas desde la raíz del proyecto o desde `notebooks/`; evitar rutas absolutas personales.
 - Al modificar código, verificar las celdas afectadas y la ejecución secuencial cuando proceda. Regenerar salidas si se ejecuta; si no se logra ejecutar, comunicar la limitación y no presentar salidas antiguas como actuales.
 - Distinguir observaciones, supuestos y reglas confirmadas. No presentar un diagnóstico exploratorio como respuesta definitiva del negocio.

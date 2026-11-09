@@ -69,6 +69,38 @@ Distingo cinco colecciones: tiendas, equivalencias, productos, vigencias de cost
 
 ## 2. Calidad de claves y existencias
 
+### Columnas que creo para analizar los snapshots
+
+Mantengo `cantidad_en_stock` y `fecha` tal como llegaron en el JSON. Añado las siguientes columnas únicamente en la tabla de trabajo; no las escribo en la fuente.
+
+**Leyenda:** describo las tres columnas derivadas de esta etapa, su campo de origen y su uso. `NaN` representa un valor numérico ausente en pandas y `NaT` una fecha ausente; ninguno equivale a cero. La unidad física de existencias sigue pendiente de confirmar.
+
+| Columna derivada | Campo de origen | Qué significa y cómo la obtengo | Para qué la uso |
+|---|---|---|---|
+| `stock_num` | `cantidad_en_stock` | Es la versión convertida a número con `pd.to_numeric(..., errors="coerce")`. Conservo los valores interpretables como números; lo que no se puede convertir queda como `NaN`. La conversión por sí sola no certifica que el saldo sea válido. | Calculo estadísticas de saldos conocidos y detecto ceros; consulto `estado_stock` para distinguir el motivo y las características del valor original. |
+| `estado_stock` | `cantidad_en_stock` | Es una etiqueta que clasifica el valor original: null literal, N/A, otro no numérico, no finito, booleano, negativo, cero o positivo. | Distingo un saldo desconocido de un cero y cuento cada condición sin perder la evidencia original. |
+| `fecha_dt` | `fecha` | Es la fecha interpretada con el formato `AAAA-MM-DD`, mediante `pd.to_datetime(..., errors="coerce")`. Si no se puede interpretar queda como `NaT`; no añado hora de captura ni zona horaria. | Ordeno los snapshots, comparo días y construyo calendarios y rachas consecutivas. |
+
+Por ejemplo, si el saldo original es `31`, obtengo `stock_num = 31` y `estado_stock = "Positivo"`; si es `0`, obtengo `stock_num = 0` y `estado_stock = "Cero"`. Si el original es el texto `"N/A"`, obtengo `stock_num = NaN` y `estado_stock = "N/A"`. Son ejemplos ilustrativos de la conversión, no nuevos resultados calculados ni filas seleccionadas del archivo.
+
+### Significado de las etiquetas de estado_stock
+
+**Leyenda:** explico todas las categorías previstas por el control, aunque alguna no aparezca en esta extracción. Las etiquetas describen el valor de una fila existente, no la ausencia de un snapshot.
+
+| Etiqueta | Cómo interpreto la clasificación |
+|---|---|
+| `Null literal` | El valor original es `null` en el JSON; no contiene una cantidad informada. |
+| `N/A` | El original contiene exactamente el texto `"N/A"`. Mantengo pendiente su significado operativo con Q06 / D009; no lo convierto en cero. |
+| `No numérico distinto de N/A` | El original no se puede interpretar como número y no es el texto exacto `"N/A"`. |
+| `No finito` | El valor se interpreta como número, pero es infinito o no representa un número finito. |
+| `Booleano` | El original es `true` o `false`. Lo separo de las cantidades, aunque Python pueda tratar booleanos como números. |
+| `Negativo` | El valor numérico finito es menor que cero. La etiqueta no confirma por sí sola un error del ERP. |
+| `Cero` | El valor numérico finito es exactamente cero: existe una fila que informa ese saldo. |
+| `Positivo` | El valor numérico finito es mayor que cero. |
+
+Si no existe una fila para cierta fecha, tienda y producto, no hay valor que clasificar: no creo automáticamente un `estado_stock` ni un saldo cero para esa ausencia. Los estados de calidad no equivalen a respuestas del negocio; por ejemplo, un cero diario todavía requiere confirmar momento de captura y definición de disponible antes de interpretarlo como quiebre.
+
+
 
 **Leyenda:** Controles sobre la extracción completa; duplicados adicionales excluye la primera aparición de cada clave o fila. No elimino registros ni los declaro errores del ERP por ausencia de un catálogo externo. No incluyo el índice de pandas.
 
