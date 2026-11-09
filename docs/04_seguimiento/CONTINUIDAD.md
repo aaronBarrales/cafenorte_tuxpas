@@ -170,6 +170,10 @@ Pedí un notebook e informe basados en la estructura de resultados_sales, con co
 
 Pedí que exchange_rates fuera el notebook 02 y que la numeración se obtuviera revisando los archivos existentes en la carpeta de destino. La IA comprobó que sales ocupa el 01, renombró el archivo a [02_exchange_rates.ipynb](../../notebooks/02_exchange_rates.ipynb) y actualizó referencias e instrucciones de ejecución. Conservó sus bytes, código, resultados y contadores; no repitió el análisis porque el cambio fue de nombre y navegación. Guardé el criterio de numeración en AGENTS.md y retiré los números reservados para fuentes pendientes.
 
+### Aclaraciones de lectura de exchange_rates y variaciones en pesos
+
+Pedí conservar las explicaciones de cobertura, decimales, extremos, cambios diarios e IQR en el notebook y el informe, identificar todas las tablas y actualizar las dudas y próximos pasos. La IA añadió leyendas a las 22 tablas del notebook y a todas las tablas del informe; cambió size/sum por evaluadas/señaladas y agregó extremos diarios en MXN por unidad extranjera. La ejecución secuencial y el contraste decimal conservaron la fuente. La sección 9 distingue la unidad ya aclarada y los criterios de lectura de las preguntas Q10/Q38–Q40 aún abiertas sobre procedencia, tratamiento operativo de MXN, vigencia, metodología y redondeo; ninguna pregunta se da por respondida por el cliente.
+
 ## Conclusión
 
 Tengo los notebooks e informes aislados de sales y exchange_rates ejecutados por la IA. Continúo con inventario y las fuentes restantes, conservando las dudas de granularidad y los cambios de versión; el pipeline y las respuestas finales siguen pendientes.
