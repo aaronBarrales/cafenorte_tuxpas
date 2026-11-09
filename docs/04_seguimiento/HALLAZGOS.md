@@ -65,6 +65,10 @@ En [mi informe de inventario](../02_exploracion/resultados_inventory.md) documen
 
 Tengo presente para la siguiente etapa la [propuesta previa de conciliación por nombre y número](../05_antecedentes/conciliacion_handles.md). Es evidencia anterior entre fuentes: no cambia los conteos de mapeos informados del análisis aislado de inventory ni completa sus claves nulas. Retomaré su validación al conciliar las fuentes; por ahora mantengo las relaciones como candidatas sin aplicar.
 
+## Exploración aislada actual de ecommerce — 9 de noviembre de 2026
+
+En [mi informe de ecommerce](../02_exploracion/resultados_ecommerce.md) documento 9,947 registros, 33 handles y presencia global en 365 días de abril de 2025 a marzo de 2026, sin IDs repetidos ni duplicados exactos. Mantengo MXN, USD y EUR separados; falta confirmar estatus, granularidad y base financiera. IQR señala cuatro filas EUR; no evalúa 6,942 filas MXN por dispersión intercuartílica cero. No elimino señales ni expongo valores personales. No cruzo otras fuentes ni confirmo ingresos, mapeos, margen o rotación.
+
 ## Conclusión
 
 Distingo los hallazgos estructurales de las interpretaciones comerciales pendientes. Uso este resumen para orientar los siguientes pasos, sin confundir coincidencias temporales, mapeos propuestos o márgenes candidatos con hechos confirmados del negocio.

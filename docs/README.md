@@ -28,6 +28,7 @@ Empieza aquí para encontrar los requisitos, los resultados y el estado del proy
 | [Resultados de sales](02_exploracion/resultados_sales.md) | Revisar resultados, importancia e interpretación del CSV actual, sin cruzarlo con otras fuentes. |
 | [Resultados de exchange_rates](02_exploracion/resultados_exchange_rates.md) | Revisar calidad, cobertura, distribución y variaciones de tasas, sin cruces; dudas conectadas con Q10 y Q38–Q40. |
 | [Resultados de inventory](02_exploracion/resultados_inventory.md) | Revisar estructura, cobertura, saldos, rachas observadas, equivalencias y costos del JSON aislado. |
+| [Resultados de ecommerce](02_exploracion/resultados_ecommerce.md) | Revisar granularidad, calidad, calendario, monedas, importes y señales estadísticas del Parquet aislado, sin datos personales. |
 
 Los notebooks ejecutables están en [notebooks/](../notebooks/README.md). Esta carpeta guarda los informes de resultados, no copias del código.
 

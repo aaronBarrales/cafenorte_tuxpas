@@ -8,7 +8,10 @@ Ejecuta cada notebook de principio a fin con las fuentes en `datos/`.
 - [Informe de exchange_rates](../docs/02_exploracion/resultados_exchange_rates.md): resultados, interpretación, límites y conexión con preguntas.
 - [03_inventory.ipynb](03_inventory.ipynb): exploración aislada de inventario, equivalencias, catálogo e historial de costos.
 - [Informe de inventory](../docs/02_exploracion/resultados_inventory.md): cobertura, saldos desconocidos, rachas de ceros y dudas abiertas.
-- Siguiente fuente por explorar: ecommerce. Asigno su prefijo numérico al crearlas, después de revisar los notebooks existentes en esta carpeta.
+- [04_ecommerce.ipynb](04_ecommerce.ipynb): exploración aislada de registros online, monedas, cobertura y señales IQR.
+- [Informe de ecommerce](../docs/02_exploracion/resultados_ecommerce.md): resultados calculados, límites financieros, privacidad y preguntas abiertas.
+
+Tengo completos los cuatro notebooks aislados; continúo con la conciliación entre fuentes.
 
 Estructura común: objetivo y granularidad, lectura, esquema, diccionario, calidad, cobertura temporal, distribución de valores y conclusiones. Cada fuente añade sus controles particulares.
 

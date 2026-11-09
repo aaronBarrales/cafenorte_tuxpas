@@ -138,6 +138,23 @@ En [mi informe de inventario](../02_exploracion/resultados_inventory.md) y [03_i
 
 Sin respuesta propongo conservar desconocidos, limitar cobertura a pares observados, informar rachas de ceros con sus límites, usar equivalencias exactas informadas y evaluar última vigencia no posterior al día como supuesto explícito. No invento surtido, movimientos ni claves por nombre o sufijo; la conciliación entre fuentes y mi revisión personal siguen pendientes.
 
+## Evidencia del EDA aislado de ecommerce
+
+Conecto [mi informe actual](../02_exploracion/resultados_ecommerce.md) con las preguntas existentes; mantengo los 60 identificadores y no doy consultas por enviadas o respondidas.
+
+**Leyenda:** relaciono preguntas abiertas con evidencia exclusiva del Parquet. P0 afecta cifras o conciliación; P1 afecta interpretación o diseño. Los supuestos propuestos no son reglas confirmadas.
+
+| Preguntas y prioridad | Evidencia y efecto en mi siguiente paso |
+|---|---|
+| Q09/Q31/Q33; P0; D012 | Hay 9,947 IDs únicos en 9,947 registros, sin estado, line_item_id, reembolsos ni desglose. Dos grupos comparten fecha, handle, cantidad, amount y currency (cuatro filas); no prueban duplicación. Necesito granularidad, elegibilidad y base de amount antes de contar pedidos o ingresos. |
+| Q16/Q32; P0; D019 | Hay 33 handles, sin unidad, SKU POS/ERP o variant_id. Necesito claves estables y unidad; no atribuyo cobertura de mapeos en este análisis aislado. |
+| Q34/Q37/Q38/Q40; P0; D013/D023 | Las marcas sin zona van de 2025-04-01 a 2026-03-31; 6,942 registros MXN, 2,535 USD y 470 EUR. Amount es double. Necesito evento temporal, liquidación y precisión; mantengo importes por moneda sin conversiones. |
+| Q35/Q36; P0; D022 | No hay tienda o almacén de cumplimiento ni referencia POS; no uso dirección de envío para asignar stock ni pruebo ausencia de doble conteo. |
+| Q44–Q47; P0 para publicación y P1 para modelo; D025 | Hay campos personales y 8,462 RFC nulos. Necesito alcance, permisos y conservación; no publico valores personales ni trato RFC nulo como venta inválida. |
+| Q41/Q49/Q50; P1 y P0 para certificar cifras; D026 | Hay presencia global en 365 días y 12 meses, pero no lote ni total independiente. Necesito corte y controles de origen; continuidad no demuestra integridad. |
+
+Sin respuesta propongo contar registros, mantener estado comercial sin confirmar y monedas separadas, conservar originales y no deduplicar por coincidencias. Las cuatro señales IQR EUR son una revisión estadística, sin error demostrado; las 6,942 filas MXN no se evalúan porque sus grupos tienen IQR cero. No creo nuevas preguntas por esa señal aislada: la revisión de base de amount, precisión y reglas del origen queda conectada con Q33/Q40.
+
 ## Conclusión
 
 Priorizo confirmar la semántica y completitud de las fuentes, incluida la clave real del ticket. Mantengo estas preguntas pendientes de respuesta y no condiciono todo el avance a recibirlas; documentaré los supuestos y límites que adopte.

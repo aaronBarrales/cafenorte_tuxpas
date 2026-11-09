@@ -194,6 +194,16 @@ La IA ejecutó las diez celdas secuencialmente con Python directo y captura de s
 
 Pedí mantener visible en HALLAZGOS la posibilidad ya investigada de relacionar productos por nombre normalizado y coincidencia entre el número final del handle y el segmento numérico ERP. Mi decisión actual es tenerla presente para la futura conciliación, sin aplicarla todavía. La evidencia está en [conciliación de handles](../05_antecedentes/conciliacion_handles.md); no convierte los mapeos incompletos en informados ni modifica las exploraciones aisladas. Al retomar la conciliación corresponde revisar vigencia, unicidad y conflictos antes de plantear su uso.
 
+### 9 de noviembre de 2026 — Exploración aislada de ecommerce y cierre de la etapa por fuente
+
+Pedí completar ecommerce_orders.parquet con las reglas acordadas. La IA creó [04_ecommerce.ipynb](../../notebooks/04_ecommerce.ipynb) y [su informe](../02_exploracion/resultados_ecommerce.md); tengo completos los cuatro notebooks aislados. Este estado sustituye las menciones cronológicas anteriores a fuentes pendientes. La conciliación actual entre fuentes, el pipeline y las respuestas de negocio siguen pendientes.
+
+La extracción conserva el SHA-256 `00c560b39425fe7f0088fbe20c66c2b8861d10c2c7006ba6e7335cdd6dfc856e`, igual al antecedente. Hay 9,947 registros, 33 handles y 365 días con presencia global. IDs únicos no confirman pedidos completos o pagados. Las monedas y sus importes se mantienen separados; no se consulta otro archivo de datos ni se reutilizan mapeos históricos como resultados actuales. No hay datos personales en salidas guardadas.
+
+La ejecución técnica directa desde raíz y notebooks/ cubre nueve celdas, 18 tablas con leyendas y una gráfica SVG con escalas monetarias separadas. Los controles conservan columnas, conteos, importes por moneda y fuente. IQR señala cuatro filas EUR y deja sin evaluar las 6,942 filas MXN por IQR cero; ninguna señal es error confirmado. Mi revisión personal permanece pendiente. La evidencia técnica y las limitaciones de ejecución están en AI_LOG.
+
+Mi siguiente paso es conciliar claves, unidades, fechas y monedas sobre las versiones actuales, distinguir enlaces exactos e inferidos, cuantificar cobertura y definir supuestos para implementar el pipeline. Reutilizo Q09/Q16/Q31–Q38/Q40/Q41/Q44–Q50 sin dar preguntas por enviadas o respondidas.
+
 ## Conclusión
 
 Tengo los notebooks e informes aislados de sales, exchange_rates e inventory ejecutados por la IA. Continúo con e-commerce y la conciliación, conservando las dudas de granularidad y los cambios de versión; el pipeline y las respuestas finales siguen pendientes.

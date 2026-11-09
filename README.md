@@ -14,7 +14,7 @@ Hallazgos clave resumidos en [HALLAZGOS.md](docs/04_seguimiento/HALLAZGOS.md), a
 
 Para retomar el trabajo, leer primero [CONTINUIDAD.md](docs/04_seguimiento/CONTINUIDAD.md): hallazgos, supuestos, cambios de fuentes y próximos pasos. Se actualizará al avanzar el proyecto.
 
-Existe una exploración previa de las cuatro fuentes en el [EDA integral histórico](docs/05_antecedentes/EDA_COMPLETO.md); su hash de sales difiere del actual. Tengo completos los notebooks aislados de sales, exchange_rates e inventory; e-commerce sigue pendiente en esta etapa. Consulta las [preguntas priorizadas](docs/03_negocio/PREGUNTAS_CLIENTE.md) y el [plan de entrega](docs/04_seguimiento/PLAN_ENTREGA.md). Fecha límite: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México. El pipeline, sus pruebas y la propuesta técnica están pendientes de implementación.
+Existe una exploración previa de las cuatro fuentes en el [EDA integral histórico](docs/05_antecedentes/EDA_COMPLETO.md); su hash de sales difiere del actual. Tengo completos los cuatro notebooks aislados de sales, exchange_rates, inventory y ecommerce; la conciliación actual entre fuentes sigue pendiente. Consulta las [preguntas priorizadas](docs/03_negocio/PREGUNTAS_CLIENTE.md) y el [plan de entrega](docs/04_seguimiento/PLAN_ENTREGA.md). Fecha límite: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México. El pipeline, sus pruebas y la propuesta técnica están pendientes de implementación.
 
 Consulta los [resultados del análisis aislado de ventas](docs/02_exploracion/resultados_sales.md), el [índice de informes](docs/02_exploracion/README.md) y [el registro de dudas y supuestos](docs/03_negocio/DUDAS.md). El [análisis inicial de ventas](docs/05_antecedentes/analisis_sales.md) conserva el perfil histórico. Para reproducir el perfil sin dependencias externas, ejecuta `python scripts/perfil_sales.py` desde la raíz del proyecto.
 
@@ -63,6 +63,7 @@ notebooks/              Exploración interactiva, un notebook por fuente.
   01_sales.ipynb         Estructura, calidad y cobertura de ventas físicas.
   02_exchange_rates.ipynb Calidad, cobertura y variaciones de tipos de cambio.
   03_inventory.ipynb     Saldos, cobertura, rachas, equivalencias y costos.
+  04_ecommerce.ipynb     Pedidos registrados, monedas, cobertura y privacidad.
 scripts/                Perfiles reproducibles, exportaciones y validaciones.
 outputs/                Reportes y exportaciones generados; fuera de Git.
 docs/
@@ -86,7 +87,7 @@ python -m pip install -r requirements-exploracion.txt
 python -m jupyter lab
 ```
 
-Selecciona como kernel el mismo entorno donde instalaste las dependencias. Los notebooks de sales, exchange_rates e inventory admiten ejecución desde la raíz o desde `notebooks/` y conservan las columnas originales. Uso el entorno donde instalé las dependencias; `.venv` puede no tenerlas instaladas todavía. Para ejecutar y guardar las salidas de tasas desde la raíz:
+Selecciona como kernel el mismo entorno donde instalaste las dependencias. Los notebooks de sales, exchange_rates, inventory y ecommerce admiten ejecución desde la raíz o desde `notebooks/` y conservan las columnas originales. Uso el entorno donde instalé las dependencias; `.venv` puede no tenerlas instaladas todavía. Para ejecutar y guardar las salidas de tasas desde la raíz:
 
 ```powershell
 python -m jupyter nbconvert --to notebook --execute --inplace notebooks/02_exchange_rates.ipynb
@@ -122,6 +123,18 @@ El reporte detallado se guarda en `outputs/eda_completo.json`, sin modificar las
 - [ ] Instrucciones reproducibles para la demo.
 - [ ] Mi revisión final de la bitácora de IA.
 
+## Exploración aislada de ecommerce
+
+Consulto [04_ecommerce.ipynb](notebooks/04_ecommerce.ipynb) y [su informe](docs/02_exploracion/resultados_ecommerce.md) para revisar estructura, calidad, granularidad, calendario, distribuciones por moneda y señales IQR. Solo lee ecommerce_orders.parquet, conserva originales y guarda agregados sin datos personales. Requiere pandas, NumPy, PyArrow e IPython del entorno de exploración; no requiere tabulate ni matplotlib.
+
+Para ejecutar de principio a fin y guardar salidas con un kernel preparado:
+
+```powershell
+python -m jupyter nbconvert --to notebook --execute --inplace notebooks/04_ecommerce.ipynb
+```
+
+Si cambia la fuente, debo documentar la diferencia de huella, ejecutar de nuevo y actualizar el informe, las preguntas y el seguimiento con tablas calculadas. Los importes se conservan por moneda; no representan ingresos netos confirmados.
+
 ## Conclusión
 
-Tengo documentada la exploración de las fuentes y he completado los notebooks aislados de sales, exchange_rates e inventory. Mi siguiente paso es avanzar con las fuentes restantes y construir el pipeline, dejando explícitas las reglas y limitaciones de las cuatro respuestas de negocio.
+Tengo completos los cuatro notebooks e informes aislados. Mi siguiente paso es conciliar las fuentes y construir el pipeline, dejando explícitas las reglas y limitaciones de las cuatro respuestas de negocio.
