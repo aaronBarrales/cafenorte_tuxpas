@@ -418,7 +418,19 @@ En una copia analítica sin datos personales, `evaluable` exige razón finita, a
 
 **Qué me dice:** evalúo 3,005 filas y señalo 4. Las cercas de todos los grupos están calculadas en el notebook, sin seleccionar ejemplos personales.
 
-Los grupos MXN tienen IQR cero: sus filas quedan sin evaluación, no libres de extremos. En esta extracción la razón MXN es constante a dos decimales por handle; diferencias mínimas binarias no demuestran cambios de tarifa. Esa regularidad no acredita tarifa oficial ni base fiscal.
+### Por qué MXN queda sin evaluación
+
+Agrupo los registros por **handle y moneda**, y comparo el **importe por unidad registrada**, no el importe total de cada fila. Dentro de los grupos MXN, esa razón es prácticamente constante; no significa que todos los productos tengan el mismo importe unitario.
+
+1. En cada grupo MXN, el cuartil 1 y el cuartil 3 coinciden.
+2. Como `IQR = Q3 − Q1`, el resultado es cero.
+3. Las cercas `Q1 − 1.5 × IQR` y `Q3 + 1.5 × IQR` coinciden también. La regla implementada exige **IQR mayor que cero**, además de al menos cuatro observaciones y una razón finita, por lo que no evalúo esos grupos.
+
+La condición de dispersión positiva evita aplicar cercas colapsadas que podrían señalar diferencias mínimas de representación numérica. **IQR cero no demuestra que todos los valores sean idénticos ni que no existan extremos:** describe el 50 % central de la distribución. En esta extracción, el importe unitario MXN es constante a dos decimales por handle, con posibles diferencias mínimas de representación binaria; eso no confirma tarifa oficial ni base fiscal.
+
+Por tanto, **«sin evaluación» significa que no apliqué esta regla**, no que las filas estén libres de errores o que MXN no pueda revisarse con otro control. El cero en «Señalados» debe leerse junto con «Evaluados» y «Sin evaluación».
+
+Como posible siguiente control, propongo comparar el importe unitario con el valor habitual de su mismo handle y moneda, definiendo antes una tolerancia explícita para diferencias decimales. **Esta alternativa no está implementada ni evaluada aquí**; serviría para revisar consistencia interna y tampoco confirmaría que la tarifa sea correcta.
 
 **Por qué importa y límite:** son señales estadísticas para revisar, no errores confirmados. No elimino registros ni valido tarifas por ausencia de señales. La agrupación mezcla fechas de una misma clave y podría ocultar cambios temporales; haría más controles únicamente si cambian una decisión. Para las señales EUR necesito revisar la distribución y las reglas de origen; no infiero una conversión concreta ni consulto tasas.
 

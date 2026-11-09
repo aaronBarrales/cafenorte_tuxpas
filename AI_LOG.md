@@ -330,6 +330,12 @@ La IA añadió conclusiones específicas a los Markdown propios del proyecto y g
 
 **Conservación:** la huella final `00c560b39425fe7f0088fbe20c66c2b8861d10c2c7006ba6e7335cdd6dfc856e` coincide con la inicial y el antecedente; no hay cambio de versión oculto. Los auxiliares de generación y validación se alojan temporalmente en outputs/ y se retiran antes de cerrar. El commit y push se realizan conforme a mi regla después de las verificaciones; su resultado se informa al cerrar.
 
+### 9 de noviembre de 2026 — Explicación de MXN sin evaluación IQR
+
+**Mi intervención:** pregunté por qué MXN no se evaluaba y pedí incorporar la explicación al notebook y al informe. **Propuesta inicial:** ambos archivos mencionaban IQR cero sin desarrollar la secuencia entre agrupación, cuartiles, cercas y exclusión. **Ajuste de la IA:** amplió la explicación en ambos: importe unitario por handle y moneda, Q1 igual a Q3, IQR cero, cercas coincidentes y requisito de dispersión positiva. Diferenció «sin evaluación» de ausencia de errores y aclaró que IQR cero por sí solo no demuestra igualdad de todos los valores. La regularidad observada a dos decimales no confirma tarifa oficial.
+
+**Propuesta adicional y alcance:** dejó como alternativa pendiente comparar contra el valor habitual del mismo handle y moneda con tolerancia decimal explícita; no implementó ese control ni lo presentó como aprobado. No añadió dudas comerciales ni respuestas del cliente. **Validación de la IA:** nbformat válido y todas las celdas de código, salidas, metadatos y contadores idénticos a Git; solo cambió una celda Markdown y el texto correspondiente del informe, además de esta entrada. El primer contraste mezcló la representación JSON de listas de líneas con los textos normalizados de nbformat; se corrigió leyendo ambas versiones con nbformat, sin cambiar contenido ejecutable. No reejecutó cálculos ni leyó o modificó datos originales; comprobó diff y cierres Markdown. El estado del análisis y sus pendientes no cambiaron. Mi revisión personal no se da por realizada.
+
 ## Conclusión
 
 Mi aportación documentada está en las preguntas que orientan la investigación, las hipótesis que pido contrastar y las correcciones con las que ajusto el análisis y su presentación. Uso la IA para agilizar implementación y comprobaciones; conservo su atribución y la evidencia para poder defender qué resultados están sustentados y qué decisiones requieren todavía mi revisión.
