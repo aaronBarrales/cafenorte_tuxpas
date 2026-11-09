@@ -178,6 +178,10 @@ Pedí conservar las explicaciones de cobertura, decimales, extremos, cambios dia
 
 Pedí separar las medidas que aparecían unidas por barras. El informe de exchange_rates ahora presenta registros, columnas originales y cada fecha extrema en filas independientes. La IA conservó los valores, revisó los demás casos equivalentes en tablas Markdown y registró la convención en AGENTS; no cambió el notebook ni fue necesario repetir el análisis.
 
+### 9 de noviembre de 2026 — Pendientes únicamente abiertos
+
+Pedí retirar de las dudas los puntos que ya aclaré, sin mantener un historial de resueltos en ese registro. La IA ajustó DUDAS, preguntas y secciones de dudas del notebook e informe de exchange_rates; las definiciones se aplican en su explicación correspondiente. Permanecen abiertos proveedor, vigencia, tratamiento operativo de MXN, metodología y redondeo. La regla general queda en AGENTS y no cambian cálculos ni salidas.
+
 ## Conclusión
 
 Tengo los notebooks e informes aislados de sales y exchange_rates ejecutados por la IA. Continúo con inventario y las fuentes restantes, conservando las dudas de granularidad y los cambios de versión; el pipeline y las respuestas finales siguen pendientes.

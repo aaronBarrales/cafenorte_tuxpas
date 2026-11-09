@@ -1,6 +1,6 @@
 # Dudas y supuestos del proyecto
 
-Registro iniciado el 7 de noviembre de 2026. Cada duda conserva su evidencia, impacto, estado y eventual resolución. Una hipótesis no equivale a una regla confirmada.
+Registro iniciado el 7 de noviembre de 2026. Registro únicamente dudas abiertas con su evidencia, impacto y tratamiento propuesto. Una hipótesis no equivale a una regla confirmada.
 
 Banco completo de consultas: [PREGUNTAS_CLIENTE.md](PREGUNTAS_CLIENTE.md), 60 preguntas con diez prioritarias. Evidencia integral: [EDA completo](../05_antecedentes/EDA_COMPLETO.md). Fecha límite que definí: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México.
 
@@ -146,7 +146,7 @@ Estado: abiertas, salvo las comprobaciones técnicas expresamente indicadas. Los
 | D010 | ¿Qué surtido tienda–SKU debe aparecer en inventario y por qué hay ventas sin snapshot? | 1,268 pares completos de 182 días; 12,687 filas I del semestre con ERP exacto carecen de snapshot. | No asumir todo el catálogo activo en todas las tiendas; alinear numerador y denominador de rotación y reportar el universo no cubierto. |
 | D011 | ¿El snapshot representa cierre, inicio, stock físico o disponible y reservas? | 565 filas I coinciden con saldo cero ese día; no prueba error. | No equiparar saldo de cierre con quiebre durante todo el día; conservar definición operativa como límite. |
 | D012 | ¿Las órdenes son líneas pagadas, canceladas, reembolsadas o solo creadas y qué incluye amount? | IDs únicos, sin estado ni desglose financiero. | Tratar filas como registros de origen; explicitar supuesto de elegibilidad y monto total, sin afirmar ingreso contable validado. |
-| D013 | ¿Qué proveedor, fecha aplicable y precisión tiene el tipo de cambio? | 365 tasas por moneda; cobertura diaria completa; EUR = 22.0 en 63 fechas. | Unidad confirmada por mí: MXN por unidad extranjera; conversión por multiplicación. Definir fecha aplicable y tratamiento de MXN; documentar redondeo y no declarar anomalía de mercado sin validación externa. |
+| D013 | ¿Qué proveedor, fecha aplicable y precisión tiene el tipo de cambio? | 365 tasas por moneda; cobertura diaria completa; EUR = 22.0 en 63 fechas. | Definir fecha aplicable y tratamiento de MXN; documentar redondeo y no declarar anomalía de mercado sin validación externa. |
 | D014 | ¿Dónde están cancelaciones, sustituciones y vínculo entre devolución y operación original? | POS no incluye estatus ni relación entre comprobantes. | No deduplicar ni restar dos veces por semejanza; separar ajustes financieros y movimientos físicos. |
 | D015 | ¿Cuándo se autorizan ventas bajo costo y qué rangos o promociones se esperan? | 2,369 filas I dan margen candidato negativo con costo y mapeo exactos. | Mostrar casos y cobertura; no corregir precios automáticamente ni atribuir fraude/error. |
 | D016 | ¿Qué presentación o unidad distingue productos con el mismo nombre? | 23 nombres repetidos; no hay campo explícito de unidad. | Usar SKU como identidad; normalizar nombres solo para proponer relaciones y validar unidad antes de margen/rotación. |
@@ -170,7 +170,7 @@ D005 se resolverá con corte propuesto 2026-03-31 y ventanas de datos, sin esper
 
 ## Evidencia aislada actual de tipos de cambio
 
-Vinculo D013 con [Q10, Q38 y Q39 y su evidencia](PREGUNTAS_CLIENTE.md#evidencia-del-eda-aislado-de-exchange-rates) y D023 con Q40. En [mi informe aislado](../02_exploracion/resultados_exchange_rates.md) observo 365 fechas por USD/EUR, incluidas fechas de fin de semana, y EUR = 22.0 en 63 días. No hay proveedor, hora/zona, tipo de cotización ni regla de redondeo explícitos. Confirmé para mi análisis que fecha es el día registrado sin hora ni zona explícitas, currency identifica la moneda y rate_to_mxn expresa MXN por unidad extranjera: la conversión se calcula multiplicando el importe por la tasa. Esta definición es mi aclaración, no una respuesta recibida del cliente. La fecha contable aplicable y el tratamiento operativo de MXN siguen pendientes; no apliqué conversiones a operaciones en esta exploración. No verifico aquí cobertura de operaciones ni cotizaciones de mercado.
+Vinculo D013 con [Q10, Q38 y Q39 y su evidencia](PREGUNTAS_CLIENTE.md#evidencia-del-eda-aislado-de-exchange-rates) y D023 con Q40. En [mi informe aislado](../02_exploracion/resultados_exchange_rates.md) observo 365 fechas por USD/EUR, incluidas fechas de fin de semana, y EUR = 22.0 en 63 días. No hay proveedor, hora/zona, tipo de cotización ni regla de redondeo explícitos. La fecha contable aplicable y el tratamiento operativo de MXN siguen pendientes; no apliqué conversiones a operaciones en esta exploración. No verifico aquí cobertura de operaciones ni cotizaciones de mercado.
 
 ## Conclusión
 

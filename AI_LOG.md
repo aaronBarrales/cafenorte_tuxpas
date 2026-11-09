@@ -280,6 +280,12 @@ La IA añadió conclusiones específicas a los Markdown propios del proyecto y g
 
 **Evidencia y alcance:** el cambio es de presentación; conserva las cifras y fechas documentadas, sin modificar fuentes, código o salidas de notebooks ni repetir el análisis. Se comprobó el diff y la separación de las cuatro filas; el cambio se guarda y publica conforme a mi regla de commit/push. Mi revisión personal no se da por realizada.
 
+### 9 de noviembre de 2026 — Retirar puntos aclarados de los pendientes
+
+**Mi corrección:** pedí que los puntos que yo aclare desaparezcan del archivo de dudas y se continúe, sin conservarlos allí como dudas resueltas. **Ajuste:** la IA guardó la regla general en AGENTS y retiró las menciones a la unidad ya definida de D013 y de la evidencia de preguntas; Q10 conserva únicamente sus asuntos abiertos. Eliminó el resumen de aclaraciones resueltas de la sección 9 del notebook y de la sección de dudas del informe. Las definiciones y explicaciones aplicadas permanecen en sus secciones correspondientes.
+
+**Validación delegada:** se conservan los identificadores de preguntas y los aspectos pendientes de procedencia, vigencia, tratamiento operativo de MXN y redondeo. La comparación del notebook confirma que código, salidas y contadores no cambiaron; no se repitió el análisis porque el ajuste es documental. El cambio se guarda y publica conforme a mi regla de commit/push.
+
 ## Conclusión
 
 Mi aportación documentada está en las preguntas que orientan la investigación, las hipótesis que pido contrastar y las correcciones con las que ajusto el análisis y su presentación. Uso la IA para agilizar implementación y comprobaciones; conservo su atribución y la evidencia para poder defender qué resultados están sustentados y qué decisiones requieren todavía mi revisión.

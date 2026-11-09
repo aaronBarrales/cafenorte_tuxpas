@@ -17,7 +17,7 @@ P0: afecta cifras o conciliación. P1: afecta interpretación, alcance o diseño
 | Q07 | ¿El archivo de inventario incluye todo el surtido por tienda o un subconjunto? ¿Por qué hay ventas de pares tienda–SKU sin snapshots? | P0; 12,687 filas I del semestre con ERP conocido y sin snapshot. D010. |
 | Q08 | ¿A qué hora se toma el snapshot y representa stock físico, disponible o saldo después de reservas? | P0; 565 filas I coinciden con saldo cero. D011. |
 | Q09 | ¿Las órdenes exportadas están pagadas y vigentes? ¿Dónde están cancelaciones, reembolsos y devoluciones? | P0; no hay estatus en Parquet. D012. |
-| Q10 | Con rate_to_mxn definido para mi análisis como MXN por unidad extranjera, ¿qué proveedor, tipo de cotización y fecha contable deben usarse? ¿MXN se trata con identidad 1? | P0; D013. [Evidencia aislada de tasas](#evidencia-del-eda-aislado-de-exchange-rates); la cobertura de operaciones pertenece al antecedente entre fuentes. |
+| Q10 | ¿Qué proveedor, tipo de cotización y fecha contable deben usarse? ¿MXN se trata con identidad 1? | P0; D013. [Evidencia aislada de tasas](#evidencia-del-eda-aislado-de-exchange-rates); la cobertura de operaciones pertenece al antecedente entre fuentes. |
 
 ## Ventas físicas y trazabilidad
 
@@ -114,11 +114,11 @@ Conecto estas dudas con [resultados_exchange_rates.md](../02_exploracion/resulta
 
 | Pregunta existente | Evidencia observada y motivo |
 |---|---|
-| Q10 y Q38 / D013 | Hay USD y EUR con una fila diaria por moneda durante 365 días, incluidos fines de semana; no hay filas MXN, proveedor, hora/zona o tipo de cotización. La unidad MXN por unidad extranjera está confirmada para mi análisis; necesito definir la vigencia antes de aplicar una conversión contable; continuidad no demuestra actualización efectiva. |
+| Q10 y Q38 / D013 | Hay USD y EUR con una fila diaria por moneda durante 365 días, incluidos fines de semana; no hay filas MXN, proveedor, hora/zona o tipo de cotización. Necesito definir la vigencia antes de aplicar una conversión contable; continuidad no demuestra actualización efectiva. |
 | Q39 / D013 | EUR repite exactamente 22.0 en 63 fechas y es su máximo observado. Necesito confirmar metodología, precisión o posibles límites; no es un error demostrado. |
 | Q40 / D023 | Hay distinta cantidad de decimales escritos y falta una política de precisión y redondeo. No deduzco precisión económica solo de los ceros finales omitidos. |
 
-Mantengo las 60 preguntas, ampliando las existentes en lugar de duplicarlas. No las he enviado al cliente; la definición de rate_to_mxn está confirmada por mí para el análisis, sin atribuir una respuesta al cliente; Q37 requiere revisar operaciones y queda fuera de este análisis aislado.
+Mantengo las 60 preguntas, ampliando las existentes en lugar de duplicarlas. No las he enviado al cliente; Q37 requiere revisar operaciones y queda fuera de este análisis aislado.
 
 ## Conclusión
 

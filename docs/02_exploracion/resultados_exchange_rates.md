@@ -274,7 +274,7 @@ EUR en 20.377 queda por debajo de 21.16375; USD en 18.8253 supera 18.56850. Las 
 
 | Evidencia aislada | Duda y conexión | Mi tratamiento provisional |
 |---|---|---|
-| Nombre rate_to_mxn; sin proveedor, hora ni tipo de cotización. | D013 / Q10: procedencia y tipo de cotización; la unidad MXN por unidad extranjera está confirmada para mi análisis. | No adopto una conversión contable definitiva. |
+| Nombre rate_to_mxn; sin proveedor, hora ni tipo de cotización. | D013 / Q10: procedencia y tipo de cotización. | No adopto una conversión contable definitiva. |
 | Hay tasas durante todos los fines de semana de la ventana. | D013 / Q38: publicación, arrastre y vigencia. | No interpreto continuidad de filas como actualización efectiva. |
 | EUR repite 22.0 en el máximo observado. | D013 / Q39: metodología o límite. | Conservo tasas y no declaro error de mercado. |
 | Precisión textual variable; sin política de redondeo. | D023 / Q40: precisión de cálculo, redondeo y tolerancia. | Mantengo precisión original; no convierto importes. |
@@ -282,9 +282,7 @@ EUR en 20.377 queda por debajo de 21.16375; USD en 18.8253 supera 18.56850. Las 
 
 Conecto el detalle con [la evidencia del banco de preguntas](../03_negocio/PREGUNTAS_CLIENTE.md#evidencia-del-eda-aislado-de-exchange-rates) y [DUDAS.md](../03_negocio/DUDAS.md). Reutilizo Q10 y Q38–Q40, sin duplicar consultas ni darlas por enviadas o respondidas. No resuelvo Q37 con esta exploración porque requiere información de operaciones y liquidaciones ajena al archivo.
 
-### Aclaraciones resueltas y próximos pasos
-
-Tengo aclarada la lectura de cobertura interna, decimales escritos, extremos con empates, índices de pandas, variaciones en porcentaje y MXN por unidad y señales IQR. La unidad MXN por unidad extranjera está confirmada para mi análisis; no la vuelvo a presentar como duda pendiente. Estas aclaraciones de interpretación no equivalen a respuestas del cliente.
+### Próximos pasos
 
 Mantengo abiertos proveedor/tipo de cotización y tratamiento operativo de MXN (Q10), fecha contable, hora/zona, vigencia y fines de semana (Q38), metodología de EUR repetido en 22.0 (Q39) y precisión/redondeo/tolerancia (Q40). La identidad MXN=1 sigue siendo una propuesta operativa, sin inventar filas faltantes. Q37 requiere información de operaciones ajena al archivo.
 
