@@ -55,11 +55,13 @@ Los datos originales se mantienen fuera del control de versiones mientras no se 
 
 Las convenciones para crear, ubicar y mover archivos están en [AGENTS.md](AGENTS.md). Si aparece un tipo de archivo nuevo, su regla de ubicación debe incorporarse allí como parte del mismo cambio.
 
+La [convención de la bitácora de IA](AGENTS.md#redacción-de-la-bitácora-de-ia) organiza [AI_LOG.md](AI_LOG.md) por mis intervenciones, el trabajo delegado y la evidencia de resultados. Las citas de prompts se conservan literalmente y las reformulaciones se identifican como paráfrasis.
+
 ```text
 datos/                  Fuentes originales; no se modifican ni se versionan.
 notebooks/              Exploración interactiva, un notebook por fuente.
   01_sales.ipynb         Estructura, calidad y cobertura de ventas físicas.
-  04_exchange_rates.ipynb Calidad, cobertura y variaciones de tipos de cambio.
+  02_exchange_rates.ipynb Calidad, cobertura y variaciones de tipos de cambio.
 scripts/                Perfiles reproducibles, exportaciones y validaciones.
 outputs/                Reportes y exportaciones generados; fuera de Git.
 docs/
@@ -86,7 +88,7 @@ python -m jupyter lab
 Selecciona como kernel el mismo entorno donde instalaste las dependencias. Los notebooks de sales y exchange_rates admiten ejecución desde la raíz o desde `notebooks/` y conservan las columnas originales. Uso el entorno donde instalé las dependencias; `.venv` puede no tenerlas instaladas todavía. Para ejecutar y guardar las salidas de tasas desde la raíz:
 
 ```powershell
-python -m jupyter nbconvert --to notebook --execute --inplace notebooks/04_exchange_rates.ipynb
+python -m jupyter nbconvert --to notebook --execute --inplace notebooks/02_exchange_rates.ipynb
 ```
 
 Consulto [los resultados de exchange_rates](docs/02_exploracion/resultados_exchange_rates.md) para interpretación y límites del análisis aislado.

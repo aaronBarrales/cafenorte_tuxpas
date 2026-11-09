@@ -33,7 +33,7 @@ No colocar nuevos análisis, notebooks o documentos de seguimiento en la raíz.
 
 - Tomar `docs/02_exploracion/resultados_sales.md` como referencia de estructura y profundidad para nuevos informes aislados: alcance y versión, resultados calculados, interpretación, importancia y limitaciones; adaptar los controles a cada fuente.
 - Vincular las dudas de cada exploración con los identificadores de `docs/03_negocio/PREGUNTAS_CLIENTE.md` y, cuando corresponda, con `DUDAS.md`. Reutilizar y ampliar preguntas existentes antes de duplicarlas; distinguir evidencia de hipótesis y no dar preguntas por enviadas o respondidas.
-- Nombrar como `NN_fuente.ipynb`: `01_sales.ipynb`, `02_inventory.ipynb`, `03_ecommerce.ipynb` y `04_exchange_rates.ipynb` conforme se construyan.
+- Nombrar como `NN_fuente.ipynb`. Antes de crear o renombrar un notebook, revisar los archivos existentes en su carpeta de destino y comparar sus prefijos numéricos; asignar el siguiente número al mayor existente, con al menos dos dígitos y sin colisiones. No reservar números por fuente ni anticipar la numeración de notebooks pendientes. Al renumerar uno existente, excluirlo del cálculo y actualizar sus referencias sin modificar código, resultados ni contadores de ejecución. Actualmente: `01_sales.ipynb` y `02_exchange_rates.ipynb`.
 - Mantener un estilo progresivo y legible: objetivo y granularidad, lectura, esquema, diccionario, calidad, cobertura temporal, distribuciones, hallazgos y pendientes.
 - Agregar los controles específicos de cada fuente y explicar qué implican sus resultados.
 - Por petición mía, usar un solo comentario en español por bloque de código importante, explicando su propósito o una decisión de tratamiento. No comentar cada línea ni repetir lo que expresa el código; esta convención sustituye la anterior y aplica a partir de ahora. Verificar que los cambios de comentarios no alteren la lógica.
@@ -63,6 +63,17 @@ No colocar nuevos análisis, notebooks o documentos de seguimiento en la raíz.
 - Actualizar `docs/04_seguimiento/CONTINUIDAD.md` al cambiar el estado del trabajo o detectar cambios relevantes en las fuentes.
 - Registrar intervenciones relevantes de IA en `AI_LOG.md`, indicando validaciones y limitaciones sin atribuirme decisiones o validaciones que no he revisado.
 - Ante una diferencia de hashes, documentarla; no modificar la fuente ni ocultar el cambio regenerando evidencia sin explicarlo.
+
+## Redacción de la bitácora de IA
+
+- Presentar `AI_LOG.md` como evidencia de mi criterio y de cómo dirijo el trabajo con IA. Abrir con mis intervenciones documentadas y su efecto; continuar con el flujo de herramientas, los prompts clave y las iteraciones verificables.
+- En cada avance relevante, priorizar problema o intención, mi intervención concreta, propuesta recibida, tratamiento dado y evidencia del resultado. Usar aceptar, modificar o descartar solo cuando esa acción conste; si todavía no hay decisión, identificar la propuesta como pendiente.
+- Describir la delegación técnica como apoyo para agilizar el trabajo, sin deducir falta de capacidad por utilizar IA ni afirmar habilidades que no se hayan demostrado. Explicar qué se delegó una vez por sección cuando resulte suficiente; conservar la atribución de autoría y validaciones relevantes sin repetirla en cada frase.
+- Dar protagonismo a mis preguntas, hipótesis, detección de casos y correcciones reales. No atribuirme código, pruebas manuales, detección de errores o aprobaciones realizadas únicamente por la IA. Los casos de error deben identificar quién los detectó y corrigió.
+- Mejorar claridad, ortografía y estructura en los resúmenes de intención. Conservar literalmente los prompts citados; cualquier reformulación debe rotularse «Intención de mi consulta (paráfrasis)» y mantener el sentido original. No presentar una versión editada como el prompt que escribí.
+- Mantener concisos los incidentes operativos y ajustes editoriales; agrupar repeticiones sin perder evidencias, limitaciones materiales ni cambios de versión. Conservar los requisitos del reto: flujo de trabajo, tres a cinco prompts clave, respuesta resumida, tratamiento de propuestas, caso de error y autocrítica final.
+- Centralizar pendientes comunes para evitar advertencias repetidas; conservar junto a cada resultado las condiciones específicas que afectan su interpretación. No presentar revisiones pendientes como aprobadas ni ocultar fallos relevantes para la entrega.
+- Respetar las conversaciones excluidas del registro: no añadir sus prompts, evaluaciones personales ni una entrada sobre la conversación excluida. Aplicar los cambios de archivos expresamente solicitados sin reconstruirla en la bitácora.
 
 ## Conclusión
 

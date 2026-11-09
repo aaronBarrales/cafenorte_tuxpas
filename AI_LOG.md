@@ -1,6 +1,24 @@
 # Bitácora de uso de IA
 
-Mantengo esta bitácora durante el trabajo. Distingo mis solicitudes y aclaraciones de las acciones realizadas por la IA. Las validaciones automatizadas quedan documentadas; mis valoraciones personales pendientes de revisión no se presentan como decisiones ya tomadas.
+Uso esta bitácora para explicar cómo dirijo el análisis con apoyo de IA: qué preguntas planteo, qué propuestas cuestiono y cómo esas intervenciones cambian el trabajo. Delego implementación, perfiles y comprobaciones automatizadas para agilizar la ejecución. Esa delegación no permite inferir por sí sola mi capacidad técnica; las aportaciones que presento aquí se apoyan en intervenciones registradas.
+
+## Mi criterio y su efecto en el análisis
+
+| Mi intervención documentada | Efecto en el trabajo | Evidencia o límite |
+|---|---|---|
+| Pregunté qué representa tipo_comprobante antes de interpretar los importes. | La exploración separa códigos y conserva la duda sobre su efecto en ingresos. | Solicitud 3; D001. Una suma aritmética no se presenta como ventas netas. |
+| Detecté importes diferentes para un mismo SKU y pregunté de dónde provienen. | Se investigaron monto/cantidad y el historial disponible, distinguiendo costo de precio de venta. | Solicitudes 4 y 5; D006/D007. La causa de las diferencias sigue abierta. |
+| Identifiqué V00000000 como posible venta por debajo del costo. | Se contrastaron el mapeo y la vigencia del costo para comprobar un caso concreto. | Margen candidato de −111.13 MXN, condicionado a bases comparables. |
+| Planteé que una compra con varios productos podía estar distribuida en varias filas. | Pedí comprobar coincidencias por tienda y hora y ampliar la pregunta sobre granularidad. | 201 grupos con varios SKU; no prueban tickets compartidos. |
+| Cuestioné qué aporta contar valores distintos en monto y cantidad. | Se explicitó la utilidad limitada de esa estadística frente a distribuciones y percentiles. | Pedí explicación; no se atribuye una eliminación de la tabla que no ocurrió. |
+| Pedí análisis aislados, explicación de la importancia de los hallazgos y dudas enlazadas. | Los informes distinguen resultados por fuente de conciliaciones e hipótesis de negocio. | Informes actuales en docs/02_exploracion/. |
+| Pedí sustituir comentarios por línea por comentarios por bloque importante. | La explicación del código se concentra en propósito y decisiones de tratamiento. | Comparación AST: lógica conservada en las 20 celdas de sales. |
+
+## Cómo leer la evidencia y los pendientes
+
+Las ejecuciones, perfiles y comprobaciones automatizadas descritos en esta bitácora fueron realizados con la IA, salvo atribución expresa distinta. No equivalen a una revisión manual mía. Mis preguntas, hipótesis y correcciones se identifican por separado; una propuesta implementada tampoco equivale automáticamente a una regla de negocio aceptada.
+
+La revisión personal final de los resultados, las reglas contables y la autocrítica de entrega siguen abiertas. Los estados de cada entrada describen su momento histórico: los resultados actuales están en docs/02_exploracion/ y la continuidad en docs/04_seguimiento/CONTINUIDAD.md. Los prompts entre comillas se conservan literalmente; los resúmenes de intención son paráfrasis identificadas.
 
 ## Herramientas y flujo de trabajo
 
@@ -15,6 +33,8 @@ Mantengo esta bitácora durante el trabajo. Distingo mis solicitudes y aclaracio
 
 ### Solicitud 1 — Organización de avances
 
+**Intención de mi consulta (paráfrasis):** definir una estrategia de versionado incremental y trazable desde el inicio del reto.
+
 **Mi prompt:** «Dentro de la carpeta del proyecto encontrarás las instrucciones del proyecto, el proyecto dice que debemos hacer un repositorio en github, recomiendas ir subiendo información al repositorio poco a poco?»
 
 **Respuesta de la IA:** recomendó commits por avances coherentes, mantener esta bitácora desde el inicio y trabajar inicialmente en privado. Identificó que el documento solicita un repositorio público en una sección y permite uno privado con acceso para los evaluadores en la sección de entrega.
@@ -23,19 +43,23 @@ Mantengo esta bitácora durante el trabajo. Distingo mis solicitudes y aclaracio
 
 ### Solicitud 2 — Creación en GitHub
 
+**Intención de mi consulta (paráfrasis):** concretar la preparación del repositorio remoto y conectarlo con el trabajo local.
+
 **Mi prompt:** «Perfecto, entonces vamos a generar el repositorio, dame el paso a paso para generarlo».
 
 **Respuesta de la IA:** indicó crear un repositorio privado y vacío, sin README, licencia ni `.gitignore` remotos, para conectar la carpeta local.
 
 **Acción observada:** compartí `https://github.com/aaronBarrales/cafenorte_tuxpas.git`. La IA preparó un README, este registro y un `.gitignore` que excluye los datos originales, credenciales y archivos generados. Elegí un nombre diferente al sugerido por la IA.
 
-### Incidente técnico observado
+### Nota técnica de lectura
 
-La primera lectura del documento mediante `ZipFile.OpenRead` falló porque el archivo estaba abierto en otro proceso. La IA detectó el error en la salida de PowerShell y utilizó un flujo de lectura con `FileShare.ReadWrite`, con el que pudo extraer el contenido. Esto registra una corrección operativa; aún está pendiente documentar un caso de juicio técnico sobre el pipeline o sus resultados.
+La lectura inicial del documento encontró un bloqueo por otro proceso; la IA lo resolvió con `FileShare.ReadWrite`. Es una incidencia operativa, distinta de las decisiones analíticas descritas abajo.
 
 ## 2026-11-07 — Exploración inicial de sales
 
 ### Solicitud 3 — Análisis y registro de dudas
+
+**Intención de mi consulta (paráfrasis):** avanzar en la exploración de sales y mantener explícitas las dudas de negocio, empezando por tipo_comprobante.
 
 **Mi prompt:** «Perfecto entonces continuemos, que más hace falta para seguir avanzando con el analisis del archivo "sales", además, quiero que tengamos un archivo en el cuál se escriban las dudas que se tengan, es decir, la primer pregunta es que representa la columna tipo_comprobante en el archivo sales».
 
@@ -43,21 +67,25 @@ La primera lectura del documento mediante `ZipFile.OpenRead` falló porque el ar
 
 **Validación observada:** ejecutó el script sobre la fuente original. Encontró cinco tipos de comprobante con montos y cantidades positivos, ningún campo vacío, ningún ID repetido y ningún duplicado exacto. Registró un hash del archivo para identificar la versión analizada. Esto valida aspectos estructurales y descriptivos, no la exactitud de las métricas de negocio.
 
-**Decisiones implementadas por la IA, pendientes de mi revisión:** conservar importes originales, no presentar las sumas como ventas netas y dejar explícitas las dudas sobre comprobantes, monto, granularidad, zona horaria y corte temporal. Aún no he confirmado la aceptación de estas interpretaciones.
+**Tratamiento de la propuesta:** quedó implementado un perfil que conserva importes originales, separa comprobantes y explicita dudas sobre monto, granularidad, zona horaria y corte temporal. Su uso exploratorio no confirma las reglas contables propuestas.
 
 **Herramientas adicionales:** se consultó la guía de spreadsheets y el localizador de dependencias de Codex; el perfil se ejecutó con el Python proporcionado por ese entorno. La búsqueda web se utilizó para contrastar los tipos de CFDI con documentación del SAT.
 
 ### Solicitud 4 — Origen del precio y diferencias por SKU
 
+**Intención de mi consulta (paráfrasis):** investigar la variación de importes por SKU y comprobar qué evidencia existe sobre el origen del precio.
+
 **Mi prompt:** «Hay algo que me causa especial curiosidad, de donde sale el precio que se muestra, ya que al filtrar por sku se puede ver que un mismo sku tiene diferentes precios a lo largo del tiempo pero ninguno de los archivos entregados tiene esa información».
 
 **Trabajo de la IA:** verificó las cuatro filas de la captura en la fuente, calculó los cocientes de monto y cantidad y revisó también registros tipo `I` del mismo SKU. Encontró historial de costos y catálogo de zonas horarias dentro del JSON. Registró D006 y evidencia adicional de D004. No atribuyó las variaciones a promociones ni reconstruyó precios sin evidencia.
 
-**Error detectado y corrección:** la IA intentó importar `pyarrow` sin verificar su disponibilidad y la ejecución falló antes de leer las fuentes. Repitió el análisis de CSV y JSON con biblioteca estándar, dejando explícitamente pendiente la lectura del esquema Parquet. No presentó esa revisión parcial como inspección completa de todas las fuentes.
+**Límite técnico de esta iteración:** un import de `pyarrow` falló por falta de la dependencia. La IA continuó con CSV y JSON mediante biblioteca estándar; la revisión de Parquet quedó pendiente hasta preparar el entorno.
 
 **Mi decisión pendiente:** confirmar o adoptar como supuesto la interpretación de monto total de línea y la metodología de margen con costo vigente. Las diferencias entre tiendas y fechas impiden atribuir la variación solo al tiempo con los ejemplos de la captura.
 
 ### Solicitud 5 — Historial del producto y definiciones
+
+**Intención de mi consulta (paráfrasis):** seguir un producto hasta el inventario y aclarar la relación entre POS, ERP, costos y precios.
 
 **Mi prompt:** «Puedes investigar en el inventario el historial de precio de este producto por favor? ERP-PROV-MX-057-C Entonces el POS es el punto de venta de cada tienda física y el erp guarda los precios en la "nube"? por asi decirlo? Puedes generar un md de definiciones importantes?».
 
@@ -85,13 +113,13 @@ Se contaron 65 registros de mapeo, 38 sin handle y 27 con handle; no se encontra
 
 Pedí comprobar si los handles ausentes podían tratarse como productos sin ventas online y convertir el Parquet a CSV. Durante el trabajo identifiqué V00000000 como venta por debajo del costo. La IA verificó esa operación y la fecha de vigencia del costo: margen candidato de −111.13 MXN para una unidad de CN-00015 en T033, sujeto a bases comparables y reglas de comprobantes.
 
-Para leer Parquet, se creó un entorno local aislado y se instaló PyArrow 26.0.1. La creación del entorno falló inicialmente bajo las restricciones de ejecución; se completó con permisos adicionales. Pip encontró un error de certificados, resuelto usando truststore sin desactivar la validación HTTPS. El esquema tiene 11 columnas, con información de clientes, pero sin SKU alternativos ni listas de precios. Los datos exportados permanecen locales y excluidos de Git.
+Para leer Parquet, se preparó un entorno aislado con PyArrow 26.0.1; las restricciones iniciales y el error de certificados se resolvieron con permisos adicionales y truststore, manteniendo HTTPS validado. El esquema tiene 11 columnas, con información de clientes, pero sin SKU alternativos ni listas de precios. Los datos exportados permanecen locales y excluidos de Git.
 
 La IA generó un script de exportación y comprobó la serialización de las 9,947 filas y todas sus columnas, además del hash del original. El CSV no conserva tipos ni la distinción entre null y cadena vacía; se documentó su uso como copia de consulta.
 
 La conciliación exacta encontró 33 handles, 27 con mapeo (8,098 filas) y 6 sin mapeo (1,849 filas). Cuatro tienen sufijos compatibles con SKU sin handle; no se transformó esta coincidencia en una clave confirmada. Se mantuvo el supuesto «sin handle = sin venta online» sin adoptar, y se registraron los candidatos y las verificaciones pendientes. Las cinco solicitudes clave anteriores se conservan; estos seguimientos documentan evidencia adicional.
 
-## Entradas pendientes durante la implementación
+## Iteraciones de análisis y documentación
 
 ### Guía de las cuatro preguntas de negocio
 
@@ -117,7 +145,7 @@ La IA creó `scripts/eda_completo.py` y perfiló todas las filas de las cuatro f
 
 Se actualizaron parser de sales, hallazgos, dudas y continuidad. Se crearon un banco de 60 preguntas con diez prioritarias y un plan hasta la entrega. No se enviaron mensajes al cliente ni se exigieron todas las respuestas; las ambigüedades de métricas se resolverán con supuestos documentados conforme al reto.
 
-**Caso concreto de código subóptimo de la IA:** una ampliación recalculaba min/max de 230,776 fechas de stock dentro del bucle de cada venta. La IA detectó la repetición, interrumpió la ejecución y calculó los límites una sola vez fuera del bucle. La ejecución corregida produjo el reporte y pasó seis controles. No se aceptó el código solo por ser sintácticamente válido. Aún no he evaluado personalmente esta corrección; no la presento como una decisión mía ya revisada.
+**Caso concreto de código subóptimo de la IA:** una ampliación recalculaba min/max de 230,776 fechas de stock dentro del bucle de cada venta. La IA detectó la repetición, interrumpió la ejecución y calculó los límites una sola vez fuera del bucle. La ejecución corregida produjo el reporte y pasó seis controles. Este caso documenta una corrección de la propia IA; sigue pendiente mi evaluación técnica para la autocrítica final.
 
 **Validación y límites:** controles por comprobante, mes, moneda, mapeo y clave de stock; muestras de N/A y costos iniciales contrastadas con origen. Esto no sustituye cierres contables externos ni las pruebas del pipeline pendiente. Se preservaron documentos añadidos en paralelo en la carpeta compartida.
 
@@ -156,13 +184,13 @@ Después, pedí conservar solo la conversión DD/MM/YYYY HH:MM bajo la variable 
 
 **Corrección de documentación:** el perfil histórico todavía describía el EDA integral previo como correspondiente a la versión actual. La IA retiró esa afirmación y enlazó el informe identificado con el hash actual, sin borrar los resultados históricos ni alterar las fuentes.
 
-**Decisiones y límites:** se implementaron el formato Markdown, alcance aislado y comentarios en español que solicité. Las interpretaciones comerciales permanecen como supuestos: sin reglas confirmadas de comprobantes, monto y granularidad no se presentan ingresos netos ni márgenes. Mi revisión y valoración personal de la entrega sigue pendiente; esta entrada no presupone que ya aprobé los resultados. Los informes de las siguientes fuentes se crearán al explorar sus respectivos notebooks.
+**Tratamiento y límites:** se implementaron el formato Markdown, alcance aislado y comentarios en español que solicité. Sin reglas confirmadas de comprobantes, monto y granularidad no se presentan ingresos netos ni márgenes. Los informes de las siguientes fuentes se crearán al explorar sus respectivos notebooks; la revisión final se mantiene en los pendientes comunes.
 
 ### 8 de noviembre de 2026 — Orden documental y navegación desde el notebook
 
 **Mis prompts:** «Puedes organizar de mejor forma la carpeta de Docs?, no siento que haya un orden entendible». Durante el trabajo añadí: «De igual forma ajusta los enlaces para que en el código ipynb se pueda llegar a los archivos por favor».
 
-**Problema y decisión de la IA:** la clasificación anterior mezclaba exploraciones actuales, guías de métricas, estudios anteriores y seguimiento. Se reorganizaron 18 archivos por propósito en cinco carpetas numeradas: docs/01_reto, docs/02_exploracion, docs/03_negocio, docs/04_seguimiento y docs/05_antecedentes. Se conservó todo el contenido y se retiraron únicamente los directorios anteriores que quedaron vacíos. Se creó docs/README.md con recorrido de lectura, inventario y explicación de cada documento. Los antecedentes se presentan como evidencia previa cuya vigencia debe comprobarse, no como información descartada.
+**Mi observación y ajuste delegado:** señalé que el orden documental no era entendible. La clasificación anterior mezclaba exploraciones actuales, guías de métricas, estudios anteriores y seguimiento. La reorganización implementada con IA distribuyó 18 archivos por propósito en cinco carpetas numeradas: docs/01_reto, docs/02_exploracion, docs/03_negocio, docs/04_seguimiento y docs/05_antecedentes. Se conservó todo el contenido y se retiraron únicamente los directorios anteriores que quedaron vacíos. Se creó docs/README.md con recorrido de lectura, inventario y explicación de cada documento. Los antecedentes se presentan como evidencia previa cuya vigencia debe comprobarse, no como información descartada.
 
 **Navegación y reglas:** se actualizaron los enlaces relativos en Markdown y notebooks, referencias de rutas y la ubicación del banco de preguntas en scripts/validar_eda.py. Se agregó al inicio del notebook un bloque de enlaces hacia índice, resultados, HALLAZGOS, dudas, definiciones, guía de negocio y AI_LOG. Se actualizaron README, AGENTS y continuidad para mantener la misma organización al crear archivos futuros.
 
@@ -176,7 +204,7 @@ Después, pedí conservar solo la conversión DD/MM/YYYY HH:MM bajo la variable 
 
 **Juicio y límites:** mi propuesta es una hipótesis compatible con las coincidencias; no se confirmó mismo cliente ni ticket. La hora solo tiene precisión de minutos y distintas cajas/clientes pueden coincidir. No se fusionaron registros, no se reconstruyeron tickets con una clave artificial y no se consultaron otras fuentes. Sobre el resumen de esquema, la IA explicó que nunique se aplicó uniformemente: es útil para identificadores y categorías, secundario para cantidad y de utilidad limitada por sí solo para monto. Se conservó esa tabla porque pedí una explicación, no su modificación.
 
-**Validación:** 20 celdas ejecutadas secuencialmente, salidas regeneradas, conteos por tienda/SKU/mes conciliados y coincidencias tienda-fecha contrastadas con Counter como método independiente. Hash de sales intacto durante la ejecución. Notebook válido y nueva sección con comentarios en español. Mi revisión de las conclusiones permanece pendiente.
+**Evidencia de la comprobación delegada:** 20 celdas ejecutadas secuencialmente, salidas regeneradas, conteos por tienda/SKU/mes conciliados y coincidencias tienda-fecha contrastadas con Counter como método independiente. Hash de sales intacto durante la ejecución. Notebook válido y nueva sección con comentarios en español; estos controles sustentan los conteos, sin confirmar mi hipótesis de tickets compartidos.
 
 ### Mis aclaraciones durante la revisión de sales
 
@@ -226,6 +254,14 @@ La IA añadió conclusiones específicas a los Markdown propios del proyecto y g
 
 **Control de versiones:** pedí publicar los cambios importantes. El árbol de trabajo ya contenía la reorganización de documentos, reglas y exploración de sales sin commit; la IA los conservó en el commit `0d26b4a`, junto con este avance, manteniendo excluidos datos originales, outputs y temporales. El push a origin/main se completó: el primer intento falló por certificado SSL y el reintento usó `http.sslBackend=schannel`, con verificación TLS activa. La IA retiró los auxiliares temporales creados para este trabajo. La validación final comprobó 140 enlaces locales y anclas; `git diff --cached --check` señaló únicamente un espacio final en la transcripción literal recibida, conservado por la regla de no alterarla. Esta actualización de evidencia se guarda y publica como cierre documental separado.
 
+### 8 de noviembre de 2026 — Corrección del número de notebook de exchange_rates
+
+**Propuesta inicial:** la regla anterior reservaba números por fuente y había asignado el 04 a exchange_rates. **Mi aclaración:** pedí cambiarlo al número 2 y comparar los números existentes en cada carpeta para asignar el que corresponda.
+
+**Ajuste de la IA:** comprobó que el otro notebook de notebooks/ es 01_sales.ipynb; renombró el archivo a notebooks/02_exchange_rates.ipynb, actualizó los enlaces y el comando de ejecución en README, índices, informe y seguimiento. Sustituyó la numeración fija por la revisión de prefijos existentes en la carpeta de destino (siguiente al mayor, excluyendo el archivo que se renumera); retiró las reservas de inventory/ecommerce. La mención al nombre anterior en la entrada histórica de esta bitácora conserva el estado inicial y se interpreta con esta corrección.
+
+**Validación ejecutada por la IA:** igualdad exacta de los bytes del notebook antes y después del cambio de nombre (SHA-256 `eb912ee2d5892de1e424f99ae16a3fdffc9d45e5230dda0e0e8053b73dc60c8a`), formato nbformat válido, ausencia de colisión con 01_sales y comprobación de 143 enlaces locales, incluidas celdas Markdown de todos los notebooks. Código, resultados y contadores se conservaron intactos; no se repitió la ejecución porque no cambió el análisis. El cambio se prepara para commit y push conforme a mi regla de publicación; mi revisión personal no se da por realizada.
+
 ## Conclusión
 
-Registro mis solicitudes y aclaraciones junto con las acciones y comprobaciones realizadas por la IA. Mantengo identificadas las decisiones y revisiones pendientes para explicar cómo evolucionó el trabajo sin atribuirme validaciones que no he realizado.
+Mi aportación documentada está en las preguntas que orientan la investigación, las hipótesis que pido contrastar y las correcciones con las que ajusto el análisis y su presentación. Uso la IA para agilizar implementación y comprobaciones; conservo su atribución y la evidencia para poder defender qué resultados están sustentados y qué decisiones requieren todavía mi revisión.
