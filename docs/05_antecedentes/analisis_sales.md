@@ -1,6 +1,6 @@
 # Exploración inicial de sales
 
-Actualización: el [EDA completo](EDA_COMPLETO.md) usa la versión actual del CSV, con fechas DD/MM/YYYY HH:MM. Este informe conserva el perfil original y su hash. `scripts/perfil_sales.py` ya admite ambos formatos; no restaura segundos ausentes de la fuente actual.
+**Antecedente histórico:** este informe conserva el perfil original y su hash; no corresponde a la versión actual. Consulta los [resultados del análisis aislado actual de sales](../02_exploracion/resultados_sales.md). El [EDA integral previo](EDA_COMPLETO.md) también tiene un hash de sales distinto del actual. `scripts/perfil_sales.py` admite ambos formatos de fecha observados; no restaura segundos ausentes de la fuente actual.
 
 ## Alcance y reproducción
 
@@ -48,7 +48,7 @@ Que un mes tenga registros no demuestra que todos sus días y tiendas estén com
 | P | 451 | 160,501.27 |
 | T | 154 | 42,117.82 |
 
-Los cinco grupos tienen cantidades y montos positivos. Estas sumas son controles de origen; su significado comercial depende de resolver D001 y D002 en [DUDAS.md](../DUDAS.md). No se han aplicado signos ni exclusiones.
+Los cinco grupos tienen cantidades y montos positivos. Estas sumas son controles de origen; su significado comercial depende de resolver D001 y D002 en [DUDAS.md](../03_negocio/DUDAS.md). No se han aplicado signos ni exclusiones.
 
 ## Columnas y asuntos pendientes
 
@@ -65,7 +65,7 @@ Los cinco grupos tienen cantidades y montos positivos. Estas sumas son controles
 
 ## Siguientes pasos
 
-La revisión posterior del SKU `CN-00003` confirmó que el cociente `monto / cantidad` varía incluso dentro de los comprobantes tipo `I`. El detalle y las limitaciones se registran en D006 de [DUDAS.md](../DUDAS.md). La captura del autor contiene cuatro registros tipo `N`, con diferentes tiendas y fechas, y no demuestra por sí sola una evolución temporal del precio de venta.
+La revisión posterior del SKU `CN-00003` confirmó que el cociente `monto / cantidad` varía incluso dentro de los comprobantes tipo `I`. El detalle y las limitaciones se registran en D006 de [DUDAS.md](../03_negocio/DUDAS.md). Mi captura contiene cuatro registros tipo `N`, con diferentes tiendas y fechas, y no demuestra por sí sola una evolución temporal del precio de venta.
 
 En inventario se identificó `catalogo.productos.cost_history`, con costos y fechas de vigencia, y `tiendas_info.timezone`. Estos campos permiten avanzar en el estudio de márgenes y zonas horarias, sujeto a validar claves, cobertura y semántica. Un historial de costos no equivale a un historial de precios de venta.
 
@@ -75,3 +75,7 @@ En inventario se identificó `catalogo.productos.cost_history`, con costos y fec
 4. Identificar costos y su vigencia para calcular márgenes sin mezclar bases distintas.
 5. Fijar una fecha de corte y ventanas tras revisar la cobertura conjunta.
 6. Implementar transformaciones con controles de conciliación por tipo, moneda y período, y pruebas de las reglas elegidas.
+
+## Conclusión
+
+Conservo este perfil como evidencia de la versión inicial de sales, no como validación del CSV actual. Para interpretar los resultados vigentes consulto el informe aislado identificado con su propia huella de fuente.

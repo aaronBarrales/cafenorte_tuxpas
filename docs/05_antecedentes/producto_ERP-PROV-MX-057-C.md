@@ -31,3 +31,7 @@ Si se interpreta la fecha como inicio de vigencia, para una operación del 15 de
 Se encontraron 2,184 snapshots del producto, con fechas entre el 1 de octubre de 2025 y el 31 de marzo de 2026. Esto no demuestra cobertura completa por tienda y día. La metadata describe snapshots diarios y señala que no incluyen movimientos transaccionales.
 
 El archivo identifica su origen como ERP CaféNorte v2.3 (legacy), pero no indica si el ERP funciona en nube, en servidores propios o de forma híbrida.
+
+## Conclusión
+
+Distingo el historial de costos del producto de sus importes de venta y de un precio de lista. Mantengo la aplicación temporal del costo como regla propuesta, sujeta a confirmar unidad, base y vigencia.

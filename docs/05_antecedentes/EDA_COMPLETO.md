@@ -177,4 +177,8 @@ Esto verifica conservación y consistencia del perfil, no la veracidad de las re
 | ecommerce_orders.parquet | 00c560b39425fe7f0088fbe20c66c2b8861d10c2c7006ba6e7335cdd6dfc856e |
 | exchange_rates.csv | a0e827ec1e048cf397584eca3d692cb5b5b1f6b477fb78efca2fdbd2f488bddf |
 
-Preguntas priorizadas: [PREGUNTAS_CLIENTE.md](../PREGUNTAS_CLIENTE.md). Plan hasta la entrega: [PLAN_ENTREGA.md](../PLAN_ENTREGA.md).
+Preguntas priorizadas: [PREGUNTAS_CLIENTE.md](../03_negocio/PREGUNTAS_CLIENTE.md). Plan hasta la entrega: [PLAN_ENTREGA.md](../04_seguimiento/PLAN_ENTREGA.md).
+
+## Conclusión
+
+Conservo este diagnóstico integral como antecedente de calidad, cobertura y conciliación entre fuentes. Sus resultados dependen de los hashes y supuestos registrados; no sustituyen las métricas finales ni validan automáticamente la versión actual de sales.

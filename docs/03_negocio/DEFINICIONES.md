@@ -2,6 +2,8 @@
 
 Glosario para interpretar las fuentes y explicar las decisiones de CaféNorte. Se distinguen las definiciones generales de los supuestos aún pendientes en este reto.
 
+Para aprender las cuatro métricas del reto con ejemplos numéricos, consultar [la guía de preguntas de negocio](guia_preguntas_negocio.md).
+
 ## Sistemas de origen
 
 | Término | Significado | Aplicación en CaféNorte |
@@ -41,7 +43,7 @@ Glosario para interpretar las fuentes y explicar las decisiones de CaféNorte. S
 | Conciliación | Comparación y ajuste documentado de fuentes para obtener cifras coherentes. | Incluye productos, monedas, fechas, comprobantes y controles de conteos e importes. |
 | MoM | Month over Month: crecimiento respecto al mes anterior. | `(ventas_mes_actual / ventas_mes_anterior - 1) × 100`, con tratamiento explícito de meses sin cobertura o base cero. |
 | Fecha de corte | Límite temporal fijo del análisis. | Debe basarse en la cobertura de las fuentes y quedar documentado para reproducir las ventanas del reto. |
-| Supuesto | Interpretación adoptada cuando falta información suficiente. | Debe tener justificación, impacto y estado en `DUDAS.md`; no se presenta como confirmación del cliente. |
+| Supuesto | Interpretación adoptada cuando falta información suficiente. | Debe tener justificación, impacto y estado en `docs/03_negocio/DUDAS.md`; no se presenta como confirmación del cliente. |
 
 ## Formatos de archivos
 
@@ -58,4 +60,8 @@ En Shopify, un handle puede verse como `premium-cafe-grano-057` en una ruta ilus
 
 El POS aporta operaciones e importes registrados. El ERP aporta catálogo, costos e inventario. El pipeline relacionará los códigos de producto y las fechas para calcular métricas. El alojamiento en nube o servidores propios es una decisión distinta de esas funciones.
 
-Evidencia local: `datos/sales.csv` y `datos/inventory.json`, revisados el 7 de noviembre de 2026. Las interpretaciones abiertas se conservan en [DUDAS.md](DUDAS.md). El caso de costo investigado se encuentra en [el historial de ERP-PROV-MX-057-C](docs/producto_ERP-PROV-MX-057-C.md).
+Evidencia local: `datos/sales.csv` y `datos/inventory.json`, revisados el 7 de noviembre de 2026. Las interpretaciones abiertas se conservan en [DUDAS.md](DUDAS.md). El caso de costo investigado se encuentra en [el historial de ERP-PROV-MX-057-C](../05_antecedentes/producto_ERP-PROV-MX-057-C.md).
+
+## Conclusión
+
+Distingo los conceptos de producto, movimiento, ingreso, costo e inventario antes de convertirlos en métricas. Uso estas definiciones como referencia y mantengo abiertas las interpretaciones que requieren confirmación del proceso de negocio.

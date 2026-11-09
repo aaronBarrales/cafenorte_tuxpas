@@ -1,6 +1,6 @@
 # Preguntas para validar la solución CaféNorte
 
-Actualizado el 7 de noviembre de 2026. Banco de 60 preguntas relevantes para los datos entregados y una eventual implementación. No se ha enviado al cliente. Las primeras diez son las prioritarias; el banco completo sirve para descubrimiento, no para enviar 60 preguntas de golpe.
+Actualizado el 8 de noviembre de 2026. Banco de 60 preguntas relevantes para los datos entregados y una eventual implementación. No se ha enviado al cliente. Las primeras diez son las prioritarias; el banco completo sirve para descubrimiento, no para enviar 60 preguntas de golpe.
 
 P0: afecta cifras o conciliación. P1: afecta interpretación, alcance o diseño. P2: mejora o decisión productiva que puede posponerse. Si no hay respuesta a una P0, la entrega debe explicitar el supuesto y cuantificar su impacto; no se detiene automáticamente todo el trabajo.
 
@@ -17,13 +17,13 @@ P0: afecta cifras o conciliación. P1: afecta interpretación, alcance o diseño
 | Q07 | ¿El archivo de inventario incluye todo el surtido por tienda o un subconjunto? ¿Por qué hay ventas de pares tienda–SKU sin snapshots? | P0; 12,687 filas I del semestre con ERP conocido y sin snapshot. D010. |
 | Q08 | ¿A qué hora se toma el snapshot y representa stock físico, disponible o saldo después de reservas? | P0; 565 filas I coinciden con saldo cero. D011. |
 | Q09 | ¿Las órdenes exportadas están pagadas y vigentes? ¿Dónde están cancelaciones, reembolsos y devoluciones? | P0; no hay estatus en Parquet. D012. |
-| Q10 | ¿rate_to_mxn significa MXN por unidad extranjera y qué proveedor y fecha contable deben usarse? | P0; 3,005 filas de e-commerce están en USD o EUR. D013. |
+| Q10 | ¿rate_to_mxn significa MXN por unidad extranjera y qué proveedor, tipo de cotización y fecha contable deben usarse? ¿MXN se trata con identidad 1? | P0; D013. [Evidencia aislada de tasas](#evidencia-del-eda-aislado-de-exchange-rates); la cobertura de operaciones pertenece al antecedente entre fuentes. |
 
 ## Ventas físicas y trazabilidad
 
 | ID | Pregunta | Prioridad |
 |---|---|---|
-| Q11 | ¿Cada fila de sales es una línea de ticket, un ticket completo o un movimiento, y venta_id es estable entre extracciones? | P0; D003. |
+| Q11 | ¿Una compra con varios productos se exporta en varias filas con venta_id por línea? ¿Qué identifica venta_id y es estable entre extracciones? ¿Existe ticket_id e identificador de línea para reunir la compra sin depender de tienda y minuto? | P0; D003 y evidencia del EDA aislado detallada abajo. |
 | Q12 | ¿Cómo se identifican ventas anuladas, sustituidas o corregidas y su vínculo con el registro original? | P0; no hay estatus ni vínculo. D014. |
 | Q13 | ¿Un egreso siempre devuelve unidades al stock o también representa descuentos o ajustes sin movimiento físico? | P0; D001/D014. |
 | Q14 | ¿Existe historial de precios de lista con inicio y fin de vigencia por producto, canal y tienda? | P1; D006. |
@@ -33,6 +33,14 @@ P0: afecta cifras o conciliación. P1: afecta interpretación, alcance o diseño
 | Q18 | ¿fecha_hora es hora local de cada tienda o una zona centralizada? ¿Cómo se manejan cambios de horario? | P0; D004. |
 | Q19 | ¿Tenemos fechas de apertura/cierre y calendario operativo de las tiendas para interpretar días sin ventas? | P1; 476 tienda–días sin filas. D017. |
 | Q20 | ¿Cuál es la copia original autorizada de sales y por qué cambió su formato de fechas y precisión? | P0 para trazabilidad; D018. |
+
+## Evidencia del EDA aislado para Q11
+
+La revisión de [sales](../02_exploracion/resultados_sales.md#11-validación-de-coincidencias-tienda-fechahora-y-producto), realizada sin cruzar otras fuentes, encontró **201 grupos con igual tienda y fecha/hora y SKU diferentes**, que reúnen 402 filas. Al exigir también moneda y comprobante iguales hay 186 grupos y 372 filas. `venta_id` no se repite entre filas.
+
+**Pregunta ampliada para el cliente (Q11):** ¿una compra con varios productos se exporta en distintas filas con un venta_id por línea? ¿Qué identifica exactamente venta_id y es estable entre extracciones? ¿Existe un ticket_id compartido y un identificador de línea que permitan reconstruir la compra? ¿Las coincidencias por tienda y minuto pueden incluir distintas cajas o clientes, y se dispone de caja/terminal y hora con segundos?
+
+**Motivo:** confirmar cómo contar tickets y evitar confundir coincidencias temporales con compras del mismo cliente. La evidencia es compatible con compras divididas por producto, pero no lo demuestra. No se propone agrupar tickets únicamente por fecha/hora y tienda. Esta ampliación desarrolla Q11, sin duplicar el banco de 60 preguntas. Pendiente de respuesta; no se ha enviado al cliente.
 
 ## Catálogo, costos e inventario
 
@@ -60,9 +68,9 @@ P0: afecta cifras o conciliación. P1: afecta interpretación, alcance o diseño
 | Q35 | ¿Qué tienda o almacén surte cada orden y ese stock está incluido en inventory.json? | P0 para inventario por canal; D022. |
 | Q36 | ¿Hay pedidos con retiro en tienda, devoluciones cruzadas o ventas registradas tanto en POS como en Shopify? | P0; riesgo de doble conteo. D022. |
 | Q37 | ¿Las operaciones extranjeras ya incluyen conversión o liquidación del procesador distinta de la moneda del pedido? | P0; D013. |
-| Q38 | ¿Las tasas usan fecha de venta, pago o liquidación y cómo se tratan diferencias cambiarias? | P0; D013. |
+| Q38 | ¿Qué hora/zona y fecha de venta, pago o liquidación aplica a las tasas? ¿Cómo se tratan fines de semana, vigencias y diferencias cambiarias? | P0; D013. [Evidencia aislada](#evidencia-del-eda-aislado-de-exchange-rates). |
 | Q39 | ¿Por qué EUR aparece exactamente en 22.0 en 63 fechas: precisión, límite del generador o política de tipo de cambio? | P1; observación, no error confirmado. D013. |
-| Q40 | ¿En producción se redondea por línea, pedido o total y cuál es la tolerancia de conciliación? | P0; D023. |
+| Q40 | ¿Qué precisión de tasa y cálculo debe conservarse, en producción se redondea por línea, pedido o total y cuál es la tolerancia de conciliación? | P0; D023. [Evidencia aislada](#evidencia-del-eda-aislado-de-exchange-rates). |
 
 ## Calidad, validación y uso de la información
 
@@ -99,3 +107,19 @@ P0: afecta cifras o conciliación. P1: afecta interpretación, alcance o diseño
 La consigna pide resolver las ambigüedades de sus cuatro métricas con criterio propio. Se propone documentar corte 2026-03-31, semestre octubre–marzo, trimestre enero–marzo, MoM abril–marzo y una definición explícita de rotación y margen. Estas decisiones no se agregan como preguntas que obliguen al reclutador a diseñar la solución.
 
 Se solicitaría al cliente únicamente la semántica, completitud y referencias de control de las fuentes. Si no responde, mostrar escenarios y cobertura, conservar desconocidos y evitar afirmar resultados globales con datos parciales. Ninguna pregunta de este archivo ha sido enviada por correo.
+
+## Evidencia del EDA aislado de exchange rates
+
+Conecto estas dudas con [resultados_exchange_rates.md](../02_exploracion/resultados_exchange_rates.md), calculado únicamente desde exchange_rates.csv; no uso operaciones de otras fuentes ni tasas externas como evidencia.
+
+| Pregunta existente | Evidencia observada y motivo |
+|---|---|
+| Q10 y Q38 / D013 | Hay USD y EUR con una fila diaria por moneda durante 365 días, incluidos fines de semana; no hay filas MXN, proveedor, hora/zona o tipo de cotización. Necesito confirmar unidad y vigencia antes de aplicar una conversión; continuidad no demuestra actualización efectiva. |
+| Q39 / D013 | EUR repite exactamente 22.0 en 63 fechas y es su máximo observado. Necesito confirmar metodología, precisión o posibles límites; no es un error demostrado. |
+| Q40 / D023 | Hay distinta cantidad de decimales escritos y falta una política de precisión y redondeo. No deduzco precisión económica solo de los ceros finales omitidos. |
+
+Mantengo las 60 preguntas, ampliando las existentes en lugar de duplicarlas. No las he enviado ni he recibido confirmaciones; Q37 requiere revisar operaciones y queda fuera de este análisis aislado.
+
+## Conclusión
+
+Priorizo confirmar la semántica y completitud de las fuentes, incluida la clave real del ticket. Mantengo estas preguntas pendientes de respuesta y no condiciono todo el avance a recibirlas; documentaré los supuestos y límites que adopte.

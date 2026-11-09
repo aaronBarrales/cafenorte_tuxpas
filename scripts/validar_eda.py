@@ -58,7 +58,7 @@ def validar(root):
     eligible = [h for h in product["cost_history"] if date.fromisoformat(h["fecha_vigencia"]) <= parse_fecha(row["fecha_hora"]).date()]
     cost = Decimal(str(max(eligible, key=lambda h: h["fecha_vigencia"])["costo_mxn"]))
     checks["caso_margen_con_costo_vigente"] = Decimal(row["monto"]) - Decimal(row["cantidad"]) * cost == Decimal("-111.13")
-    questions = re.findall(r"\| (Q\d{2}) \|", (root / "PREGUNTAS_CLIENTE.md").read_text(encoding="utf-8"))
+    questions = re.findall(r"\| (Q\d{2}) \|", (root / "docs/03_negocio/PREGUNTAS_CLIENTE.md").read_text(encoding="utf-8"))
     checks["60_preguntas_sin_ids_repetidos"] = len(questions) == 60 and set(questions) == {f"Q{i:02}" for i in range(1, 61)}
     if not all(checks.values()):
         raise ValueError(f"Fallaron controles: {checks}")

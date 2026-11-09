@@ -1,6 +1,6 @@
 # Plan hasta la entrega del reto
 
-Límite indicado por el autor: **martes 10 de noviembre de 2026, antes de las 12:00 p. m., hora de Ciudad de México**. Objetivo interno: tener todo revisado el lunes y preparar la entrega antes de las 11:00 a. m. del martes. El plan es una propuesta de trabajo, no una automatización ni una reserva de calendario.
+Límite que definí: **martes 10 de noviembre de 2026, antes de las 12:00 p. m., hora de Ciudad de México**. Objetivo interno: tener todo revisado el lunes y preparar la entrega antes de las 11:00 a. m. del martes. El plan es una propuesta de trabajo, no una automatización ni una reserva de calendario.
 
 ## Estado actual
 
@@ -12,8 +12,8 @@ Exploración completa de las cuatro fuentes ejecutada y documentada; banco de 60
 |---|---|---|
 | Sábado 7 | EDA, preguntas prioritarias, política de calidad y alcance | Cifras reconciliadas por fuente; dudas con tratamiento propuesto y métricas con ventanas explícitas. |
 | Domingo 8 | Pipeline local, modelo analítico y cuatro consultas | Ejecución reproducible; conteos e importes conservados; resultados y exclusiones visibles. |
-| Lunes 9 | Pruebas, propuesta AWS de máximo dos páginas, README y demo | Casos de negocio contrastados; costos con supuestos; arquitectura dentro de presupuesto; AI_LOG revisado con el autor. |
-| Martes 10, antes de 11:00 a. m. | Revisión final de acceso al repo, instalación limpia y paquete de entrega | Demo desde cero, enlaces accesibles y correo preparado. Envío solo con instrucción explícita del autor. |
+| Lunes 9 | Pruebas, propuesta AWS de máximo dos páginas, README y demo | Casos de negocio contrastados; costos con supuestos; arquitectura dentro de presupuesto; AI_LOG revisado por mí. |
+| Martes 10, antes de 11:00 a. m. | Revisión final de acceso al repo, instalación limpia y paquete de entrega | Demo desde cero, enlaces accesibles y correo preparado. Envío solo con instrucción explícita mía. |
 
 ## Reglas propuestas para implementar sin esperar todas las respuestas
 
@@ -48,4 +48,8 @@ Preparar una arquitectura por lotes proporcional al volumen, costos verificables
 
 ## Entrega y preguntas
 
-Repositorio, propuesta de máximo dos páginas, AI_LOG y un párrafo de logros y límites. Revisar acceso público o invitación según el acuerdo con el reclutador. Priorizar Q01–Q10 de [PREGUNTAS_CLIENTE.md](PREGUNTAS_CLIENTE.md) si se decide consultar al cliente; las demás sirven de respaldo para entrevista y producción. No esperar las 60 respuestas para terminar.
+Repositorio, propuesta de máximo dos páginas, AI_LOG y un párrafo de logros y límites. Revisar acceso público o invitación según el acuerdo con el reclutador. Priorizar Q01–Q10 de [PREGUNTAS_CLIENTE.md](../03_negocio/PREGUNTAS_CLIENTE.md) si se decide consultar al cliente; las demás sirven de respaldo para entrevista y producción. No esperar las 60 respuestas para terminar.
+
+## Conclusión
+
+Priorizo completar un pipeline reproducible y respuestas verificables dentro del alcance disponible. Dejo las fases productivas y mejoras posteriores sujetas a reglas, cobertura y presupuesto explícitos.

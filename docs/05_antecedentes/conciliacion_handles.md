@@ -52,3 +52,7 @@ Si se aplican las propuestas, verificar que no se multipliquen filas ni se alter
 ```
 
 El script consulta el inventario y la columna product_handle de Parquet, emite propuestas en JSON y no modifica las fuentes. El perfil y la exportación CSV siguen documentados en [el análisis de e-commerce](analisis_ecommerce.md).
+
+## Conclusión
+
+Mantengo las coincidencias de nombre y número como propuestas de conciliación, sin tratarlas como claves oficiales. Su aplicación requiere una regla explícita y controles que distingan enlaces informados de relaciones inferidas.

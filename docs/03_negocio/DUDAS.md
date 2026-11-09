@@ -2,11 +2,11 @@
 
 Registro iniciado el 7 de noviembre de 2026. Cada duda conserva su evidencia, impacto, estado y eventual resolución. Una hipótesis no equivale a una regla confirmada.
 
-Banco completo de consultas: [PREGUNTAS_CLIENTE.md](PREGUNTAS_CLIENTE.md), 60 preguntas con diez prioritarias. Evidencia integral: [EDA completo](docs/EDA_COMPLETO.md). Fecha límite indicada por el autor: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México.
+Banco completo de consultas: [PREGUNTAS_CLIENTE.md](PREGUNTAS_CLIENTE.md), 60 preguntas con diez prioritarias. Evidencia integral: [EDA completo](../05_antecedentes/EDA_COMPLETO.md). Fecha límite que definí: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México.
 
 ## D009 Obtención de datos y frecuencia de actualización
 
-**Origen:** consulta del autor sobre la operación del pipeline y solicitud de agregar la pregunta. **Estado:** abierta. **Prioridad:** alta para la arquitectura productiva.
+**Origen:** consulta que planteé sobre la operación del pipeline; pedí agregar esta pregunta. **Estado:** abierta. **Prioridad:** alta para la arquitectura productiva.
 
 **Pregunta al cliente:** ¿Cómo podemos obtener datos de cada sistema y con qué frecuencia necesitan ver los resultados?
 
@@ -22,7 +22,7 @@ Banco completo de consultas: [PREGUNTAS_CLIENTE.md](PREGUNTAS_CLIENTE.md), 60 pr
 
 ## D001 Qué representa tipo_comprobante en sales
 
-**Origen:** pregunta del autor. **Estado:** abierta. **Prioridad:** alta.
+**Origen:** pregunta que planteé. **Estado:** abierta. **Prioridad:** alta.
 
 **Pregunta:** ¿Qué representa la columna `tipo_comprobante` de `sales.csv`? ¿Usa el catálogo de tipos de CFDI del SAT o un catálogo propio del POS? ¿Cómo debe afectar cada código a los ingresos y a las unidades vendidas?
 
@@ -56,6 +56,8 @@ Banco completo de consultas: [PREGUNTAS_CLIENTE.md](PREGUNTAS_CLIENTE.md), 60 pr
 
 **Evidencia:** los 86,490 IDs son únicos y cada fila tiene un SKU. El archivo no incluye UUID de CFDI, ticket relacionado ni estatus de cancelación.
 
+**Revisión aislada del 8 de noviembre:** hay 201 grupos de igual tienda y fecha/hora con distintos SKU (402 filas); 186 grupos comparten además moneda y comprobante (372 filas). Esto es compatible con una compra dividida por producto, pero la coincidencia al minuto no demuestra mismo cliente ni ticket. Se amplió Q11 en [preguntas al cliente](PREGUNTAS_CLIENTE.md#evidencia-del-eda-aislado-para-q11) para solicitar ticket_id, identificador de línea, significado de venta_id y detalle de caja/precisión temporal. El [informe de sales](../02_exploracion/resultados_sales.md#11-validación-de-coincidencias-tienda-fechahora-y-producto) y el notebook muestran ejemplos. No se agruparon compras ni eliminaron movimientos.
+
 **Impacto:** define la clave del modelo, la conciliación de devoluciones y la posibilidad de medir tickets. Un ID único en esta muestra no demuestra que sea una clave estable en cargas futuras.
 
 **Tratamiento actual:** trabajar al nivel de registro de origen y no equiparar el conteo de filas con el de tickets.
@@ -82,7 +84,7 @@ Los datos de ventas terminan el 31 de marzo de 2026. Se propone usar un corte ex
 
 ## D006 Origen y variación del precio observado por SKU
 
-**Origen:** observación del autor al filtrar `CN-00003` en Excel. **Estado:** abierta. **Prioridad:** alta.
+**Origen:** observación que hice al filtrar `CN-00003` en Excel. **Estado:** abierta. **Prioridad:** alta.
 
 **Pregunta:** ¿Cómo se determina el importe cobrado por SKU? ¿Existen listas de precios con vigencia, precios por tienda, promociones o descuentos? ¿Se dispone de ese historial para explicar las diferencias?
 
@@ -108,13 +110,13 @@ La revisión de `inventory.json` encontró `tiendas_info` con `tienda_id`, `ciud
 
 ¿`costo_mxn` representa costo por unidad? ¿Qué unidad e impuestos incluye? ¿Cada `fecha_vigencia` marca el inicio de un costo aplicable hasta el siguiente cambio? ¿El costo es global o varía por tienda?
 
-**Evidencia:** el producto corresponde a `CN-00057`, Premium Cafe Grano, y tiene cinco costos con vigencia entre 2024-10-01 y 2025-11-30. Las entradas tienen fecha, costo y proveedor, sin tienda, unidad de medida ni fin explícito de vigencia. Ver [historial investigado](docs/producto_ERP-PROV-MX-057-C.md).
+**Evidencia:** el producto corresponde a `CN-00057`, Premium Cafe Grano, y tiene cinco costos con vigencia entre 2024-10-01 y 2025-11-30. Las entradas tienen fecha, costo y proveedor, sin tienda, unidad de medida ni fin explícito de vigencia. Ver [historial investigado](../05_antecedentes/producto_ERP-PROV-MX-057-C.md).
 
 **Tratamiento propuesto:** cruce temporal por SKU con la última vigencia no posterior a la operación, bajo supuesto documentado de costo unitario global. No usar costos futuros ni sustituir costos ausentes por cero. Confirmar la base antes de presentar márgenes como definitivos.
 
 ## D008 Handles ausentes y cobertura del mapeo de productos
 
-**Origen:** el autor identificó `handle: null` para `ERP-PROV-MX-015-D`. **Estado:** abierta. **Prioridad:** alta para conciliación con e-commerce.
+**Origen:** identifiqué `handle: null` para `ERP-PROV-MX-015-D`. **Estado:** abierta. **Prioridad:** alta para conciliación con e-commerce.
 
 **Pregunta:** ¿Los handles nulos representan productos que no se venden en Shopify o correspondencias incompletas? ¿Existe una clave alternativa confiable para conciliar esas órdenes? ¿Hay otras correspondencias fuera del archivo?
 
@@ -126,13 +128,13 @@ También se observó el caso `CN-00016` con `sku_erp: null` y `handle: null`, un
 
 **Tratamiento propuesto:** preservar nulos; mantener las operaciones con estado de conciliación explícito; usar la relación POS–ERP donde esté informada y validada. No inventar un handle desde el nombre ni concluir que no hay ventas online. Si solo se dispone de handle para un cruce, no unir entre sí registros con claves nulas. Revisar las claves reales de Parquet antes de decidir alternativas. No eliminar silenciosamente ventas no conciliadas ni asignarles costo cero.
 
-**Actualización tras leer e-commerce:** el Parquet contiene `product_handle`, sin SKU POS o ERP. Hay 33 handles distintos; 27 coinciden exactamente con el mapeo (8,098 filas) y 6 no tienen correspondencia (1,849 filas). Cuatro de los no conciliados tienen sufijos coincidentes con SKU sin handle (013, 030, 032 y 052), sin que se haya confirmado la regla de sufijos. Por tanto, no adoptar «sin handle = no se vende online». Para 015 no apareció sufijo `-015`, lo que tampoco prueba ausencia de ventas. Ver [análisis](docs/analisis_ecommerce.md).
+**Actualización tras leer e-commerce:** el Parquet contiene `product_handle`, sin SKU POS o ERP. Hay 33 handles distintos; 27 coinciden exactamente con el mapeo (8,098 filas) y 6 no tienen correspondencia (1,849 filas). Cuatro de los no conciliados tienen sufijos coincidentes con SKU sin handle (013, 030, 032 y 052), sin que se haya confirmado la regla de sufijos. Por tanto, no adoptar «sin handle = no se vende online». Para 015 no apareció sufijo `-015`, lo que tampoco prueba ausencia de ventas. Ver [análisis](../05_antecedentes/analisis_ecommerce.md).
 
 ## Evidencia adicional para D006 y D007
 
-**Seguimiento D008:** al combinar nombre normalizado y número del SKU ERP se identificaron candidatos únicos para los seis handles pendientes. La regla coincide con 23/23 mapeos completos existentes; cuatro mapeos con handle tienen ERP nulo y requieren revisión aparte. Las propuestas y sus límites están en [conciliación de handles](docs/conciliacion_handles.md). No se modificaron las fuentes ni se aplicaron esas relaciones como confirmadas.
+**Seguimiento D008:** al combinar nombre normalizado y número del SKU ERP se identificaron candidatos únicos para los seis handles pendientes. La regla coincide con 23/23 mapeos completos existentes; cuatro mapeos con handle tienen ERP nulo y requieren revisión aparte. Las propuestas y sus límites están en [conciliación de handles](../05_antecedentes/conciliacion_handles.md). No se modificaron las fuentes ni se aplicaron esas relaciones como confirmadas.
 
-Se revisaron las 11 columnas de e-commerce y no contienen una lista de precios fijados, vigencias de tarifas ni campos separados de impuestos o descuentos. Hay amount y cantidad para estudiar los importes de órdenes, sujeto a su semántica. Se documentó la venta V00000000 como [caso candidato de margen negativo](docs/casos_margen.md): 355.43 MXN frente a costo propuesto de una unidad de 466.56 MXN, margen condicionado de −111.13 MXN en T033.
+Se revisaron las 11 columnas de e-commerce y no contienen una lista de precios fijados, vigencias de tarifas ni campos separados de impuestos o descuentos. Hay amount y cantidad para estudiar los importes de órdenes, sujeto a su semántica. Se documentó la venta V00000000 como [caso candidato de margen negativo](../05_antecedentes/casos_margen.md): 355.43 MXN frente a costo propuesto de una unidad de 466.56 MXN, margen condicionado de −111.13 MXN en T033.
 
 ## D009 a D029 Dudas surgidas de la exploración completa
 
@@ -164,4 +166,12 @@ Estado: abiertas, salvo las comprobaciones técnicas expresamente indicadas. Los
 
 ## Decisiones analíticas internas del reto
 
-D005 se resolverá con corte propuesto 2026-03-31 y ventanas de datos, sin esperar una decisión del cliente. La rotación usará una población consistente de ventas e inventario, quiebres requerirán al menos cuatro días consecutivos observados y MoM no tendrá base inventada para abril de 2025 en e-commerce. El margen por operación y el margen agregado por producto–tienda se mostrarán como conceptos distintos. Las definiciones finales y límites deben quedar en el README al implementar; ver [plan de entrega](PLAN_ENTREGA.md).
+D005 se resolverá con corte propuesto 2026-03-31 y ventanas de datos, sin esperar una decisión del cliente. La rotación usará una población consistente de ventas e inventario, quiebres requerirán al menos cuatro días consecutivos observados y MoM no tendrá base inventada para abril de 2025 en e-commerce. El margen por operación y el margen agregado por producto–tienda se mostrarán como conceptos distintos. Las definiciones finales y límites deben quedar en el README al implementar; ver [plan de entrega](../04_seguimiento/PLAN_ENTREGA.md).
+
+## Evidencia aislada actual de tipos de cambio
+
+Vinculo D013 con [Q10, Q38 y Q39 y su evidencia](PREGUNTAS_CLIENTE.md#evidencia-del-eda-aislado-de-exchange-rates) y D023 con Q40. En [mi informe aislado](../02_exploracion/resultados_exchange_rates.md) observo 365 fechas por USD/EUR, incluidas fechas de fin de semana, y EUR = 22.0 en 63 días. No hay proveedor, hora/zona, tipo de cotización ni regla de redondeo explícitos. Mi propuesta de convertir a MXN y usar identidad para MXN sigue siendo un supuesto futuro: no se aplicó ni se confirmó con el cliente. No verifico aquí cobertura de operaciones ni cotizaciones de mercado.
+
+## Conclusión
+
+Mantengo las incertidumbres vinculadas con su evidencia e impacto para evitar supuestos silenciosos. Antes de presentar cifras definitivas, definiré el tratamiento adoptado y haré visibles los casos que no pueda resolver.

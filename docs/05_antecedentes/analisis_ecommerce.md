@@ -61,3 +61,7 @@ python -m venv .venv
 ```
 
 El stack final del pipeline sigue pendiente. En el entorno de esta sesión, la instalación requirió permisos de ejecución adicionales y el almacén de certificados del sistema mediante `pip --use-feature=truststore`; no se desactivó la verificación HTTPS.
+
+## Conclusión
+
+Conservo la revisión de estructura, monedas y cobertura de handles como antecedente de e-commerce. La exportación facilita su consulta, pero no resuelve los mapeos incompletos ni confirma el significado contable de los importes.

@@ -2,15 +2,21 @@
 
 Proyecto para integrar las ventas de tiendas físicas, las órdenes de e-commerce y el inventario de CaféNorte en un modelo analítico reproducible.
 
+## Base de conocimientos del reto
+
+Empieza por el [índice de documentación](docs/README.md): incluye la ruta de lectura, el propósito de cada documento y la distinción entre resultados actuales y antecedentes.
+
+El [documento original](docs/01_reto/TX%20Challenge%20Data%20Solutions%20Engineer.docx), su [transcripción consultable](docs/01_reto/enunciado_extraido.md) y la [guía de entregables](docs/01_reto/guia_entrega.md) están conservados en `docs/01_reto/`. El reto exige un pipeline funcional y una propuesta de arquitectura productiva en AWS; no exige desplegar la demo en AWS.
+
 ## Estado
 
-Hallazgos clave resumidos en [HALLAZGOS.md](HALLAZGOS.md), actualizado conforme avance el análisis.
+Hallazgos clave resumidos en [HALLAZGOS.md](docs/04_seguimiento/HALLAZGOS.md), actualizado conforme avance el análisis.
 
-Para retomar el trabajo, leer primero [CONTINUIDAD.md](CONTINUIDAD.md): hallazgos, supuestos, cambios de fuentes y próximos pasos. Se actualizará al avanzar el proyecto.
+Para retomar el trabajo, leer primero [CONTINUIDAD.md](docs/04_seguimiento/CONTINUIDAD.md): hallazgos, supuestos, cambios de fuentes y próximos pasos. Se actualizará al avanzar el proyecto.
 
-Exploración de las cuatro fuentes ejecutada y documentada en [EDA completo](docs/EDA_COMPLETO.md), con [preguntas priorizadas](PREGUNTAS_CLIENTE.md) y [plan de entrega](PLAN_ENTREGA.md). Fecha límite: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México. El pipeline, sus pruebas y la propuesta técnica están pendientes de implementación.
+Existe una exploración previa de las cuatro fuentes en el [EDA integral histórico](docs/05_antecedentes/EDA_COMPLETO.md); su hash de sales difiere del actual. Tengo completos los notebooks aislados de sales y exchange_rates; inventario y e-commerce siguen pendientes en esta etapa. Consulta las [preguntas priorizadas](docs/03_negocio/PREGUNTAS_CLIENTE.md) y el [plan de entrega](docs/04_seguimiento/PLAN_ENTREGA.md). Fecha límite: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México. El pipeline, sus pruebas y la propuesta técnica están pendientes de implementación.
 
-Consulta [el análisis inicial de ventas](docs/analisis_sales.md) y [el registro de dudas y supuestos](DUDAS.md). Para reproducir el perfil sin dependencias externas, ejecuta `python scripts/perfil_sales.py` desde la raíz del proyecto.
+Consulta los [resultados del análisis aislado de ventas](docs/02_exploracion/resultados_sales.md), el [índice de informes](docs/02_exploracion/README.md) y [el registro de dudas y supuestos](docs/03_negocio/DUDAS.md). El [análisis inicial de ventas](docs/05_antecedentes/analisis_sales.md) conserva el perfil histórico. Para reproducir el perfil sin dependencias externas, ejecuta `python scripts/perfil_sales.py` desde la raíz del proyecto.
 
 ## Alcance previsto
 
@@ -20,9 +26,11 @@ Consulta [el análisis inicial de ventas](docs/analisis_sales.md) y [el registro
 - Persistir un modelo analítico y responder las cuatro preguntas de negocio.
 - Incluir pruebas de calidad y validaciones de los resultados.
 - Preparar una propuesta de arquitectura AWS con un presupuesto objetivo de USD 200 al mes.
-- Registrar el uso de IA y las decisiones del autor en `AI_LOG.md`.
+- Registrar el uso de IA y mis decisiones en `AI_LOG.md`.
 
 ## Preguntas de negocio
+
+Consulta [la guía desde cero de las cuatro preguntas](docs/03_negocio/guia_preguntas_negocio.md): significado, fórmulas, ejemplos y decisiones necesarias para calcularlas.
 
 1. Top 10 SKUs por rotación de inventario en los últimos seis meses.
 2. Tiendas con quiebres de stock de más de tres días en el último trimestre.
@@ -33,19 +41,59 @@ Las definiciones de métricas, ventanas temporales y supuestos se documentarán 
 
 ## Archivos actuales
 
-- [Candidatos de conciliación](docs/conciliacion_handles.md): evidencia para recuperar relaciones handle–ERP, sin aplicarlas automáticamente.
-- [Análisis de e-commerce](docs/analisis_ecommerce.md): esquema, cobertura de handles y exportación CSV para Excel.
-- [Casos de margen](docs/casos_margen.md): operaciones concretas para comprobar los cálculos.
-- [DEFINICIONES.md](DEFINICIONES.md): conceptos de sistemas, importes, inventario y análisis.
-- [Historial del producto ERP-PROV-MX-057-C](docs/producto_ERP-PROV-MX-057-C.md): costos, vigencias y equivalencia POS.
+- [Candidatos de conciliación](docs/05_antecedentes/conciliacion_handles.md): evidencia para recuperar relaciones handle–ERP, sin aplicarlas automáticamente.
+- [Análisis de e-commerce](docs/05_antecedentes/analisis_ecommerce.md): esquema, cobertura de handles y exportación CSV para Excel.
+- [Casos de margen](docs/05_antecedentes/casos_margen.md): operaciones concretas para comprobar los cálculos.
+- [DEFINICIONES.md](docs/03_negocio/DEFINICIONES.md): conceptos de sistemas, importes, inventario y análisis.
+- [Historial del producto ERP-PROV-MX-057-C](docs/05_antecedentes/producto_ERP-PROV-MX-057-C.md): costos, vigencias y equivalencia POS.
 - `datos/README.md`: instrucciones para colocar los archivos originales.
 - `AI_LOG.md`: registro del uso de IA durante el desarrollo.
 
-Los datos originales se mantienen fuera del control de versiones mientras no se confirme que pueden redistribuirse. El notebook local `exploracion.ipynb` está vacío y no forma parte de esta entrega inicial.
+Los datos originales se mantienen fuera del control de versiones mientras no se confirme que pueden redistribuirse. La exploración interactiva de ventas está en [notebooks/01_sales.ipynb](notebooks/01_sales.ipynb).
+
+## Organización del proyecto
+
+Las convenciones para crear, ubicar y mover archivos están en [AGENTS.md](AGENTS.md). Si aparece un tipo de archivo nuevo, su regla de ubicación debe incorporarse allí como parte del mismo cambio.
+
+```text
+datos/                  Fuentes originales; no se modifican ni se versionan.
+notebooks/              Exploración interactiva, un notebook por fuente.
+  01_sales.ipynb         Estructura, calidad y cobertura de ventas físicas.
+  04_exchange_rates.ipynb Calidad, cobertura y variaciones de tipos de cambio.
+scripts/                Perfiles reproducibles, exportaciones y validaciones.
+outputs/                Reportes y exportaciones generados; fuera de Git.
+docs/
+  README.md             Índice general y recorrido de lectura.
+  01_reto/              Enunciado original y requisitos de entrega.
+  02_exploracion/       Resultados actuales por fuente.
+  03_negocio/           Métricas, definiciones, dudas y preguntas.
+  04_seguimiento/       Hallazgos, continuidad y plan de entrega.
+  05_antecedentes/      Estudios anteriores y casos investigados.
+README.md               Entrada al proyecto e instrucciones de ejecución.
+AGENTS.md               Reglas de organización y mantenimiento.
+AI_LOG.md               Bitácora de uso de IA requerida por el reto.
+```
+
+Primero revisa el [índice de documentación](docs/README.md) y los notebooks para conocer las fuentes. Los resultados actuales están en `docs/02_exploracion/`, los supuestos en `docs/03_negocio/` y el estado en `docs/04_seguimiento/`. El pipeline se incorporará cuando empecemos su implementación.
+
+Para preparar el entorno de exploración:
+
+```powershell
+python -m pip install -r requirements-exploracion.txt
+python -m jupyter lab
+```
+
+Selecciona como kernel el mismo entorno donde instalaste las dependencias. Los notebooks de sales y exchange_rates admiten ejecución desde la raíz o desde `notebooks/` y conservan las columnas originales. Uso el entorno donde instalé las dependencias; `.venv` puede no tenerlas instaladas todavía. Para ejecutar y guardar las salidas de tasas desde la raíz:
+
+```powershell
+python -m jupyter nbconvert --to notebook --execute --inplace notebooks/04_exchange_rates.ipynb
+```
+
+Consulto [los resultados de exchange_rates](docs/02_exploracion/resultados_exchange_rates.md) para interpretación y límites del análisis aislado.
 
 ## Ejecución
 
-El pipeline sigue pendiente. Para leer y exportar e-commerce, consultar [los comandos de exploración](docs/analisis_ecommerce.md). El CSV de consulta se genera en `outputs/ecommerce_orders.csv` y permanece fuera de Git.
+El pipeline sigue pendiente. Para leer y exportar e-commerce, consultar [los comandos de exploración](docs/05_antecedentes/analisis_ecommerce.md). El CSV de consulta se genera en `outputs/ecommerce_orders.csv` y permanece fuera de Git.
 
 Para regenerar la exploración completa, después de instalar `requirements-exploracion.txt` en `.venv`:
 
@@ -63,4 +111,8 @@ El reporte detallado se guarda en `outputs/eda_completo.json`, sin modificar las
 - [ ] Respuestas de negocio y pruebas.
 - [ ] Propuesta AWS con diagrama, costos, fases y riesgos.
 - [ ] Instrucciones reproducibles para la demo.
-- [ ] Revisión final de la bitácora de IA con el autor.
+- [ ] Mi revisión final de la bitácora de IA.
+
+## Conclusión
+
+Tengo documentada la exploración de las fuentes y he completado los notebooks aislados de sales y exchange_rates. Mi siguiente paso es avanzar con las fuentes restantes y construir el pipeline, dejando explícitas las reglas y limitaciones de las cuatro respuestas de negocio.
