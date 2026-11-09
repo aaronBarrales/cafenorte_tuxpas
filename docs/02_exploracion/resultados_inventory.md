@@ -244,6 +244,48 @@ Si no existe una fila para cierta fecha, tienda y producto, no hay valor que cla
 
 ## 4. Distribución de saldos
 
+Mi objetivo aquí es responder: **¿qué cantidades de inventario aparecen habitualmente en los snapshots y cuánto varían?** Para eso reviso los valores de `stock_num` de todos los productos, tiendas y días del archivo.
+
+Cada observación es **el saldo de un producto en una tienda para un día**. Si ese mismo producto y tienda aparecen en varias fechas, cada fecha aporta una observación. Incluyo los saldos cero porque son cantidades informadas; excluyo los `N/A` porque su cantidad es desconocida.
+
+### Qué hago en el código
+
+1. **Resumo todos los saldos conocidos.** Con `describe(...)` calculo cuántas observaciones tienen número, su promedio, dispersión, percentiles y extremos. Estos resultados aparecen en la primera tabla.
+2. **Repito parte del resumen por categoría.** Con `merge(...)` añado a cada snapshot la categoría de su producto, usando el SKU ERP del catálogo de este mismo JSON. Después agrupo por categoría para contar productos y registros y describir sus saldos.
+3. **Busco dónde aparece el saldo más alto.** Selecciono las filas cuyo saldo coincide con el máximo global para identificar fecha, tienda y producto. Si hay varios empates, muestro hasta diez, ordenados por fecha, tienda y SKU.
+
+### Cómo leo la primera tabla
+
+**Leyenda:** explico las medidas de la tabla de saldos conocidos que aparece después del código. Las observaciones cuentan registros; las demás medidas describen cantidades de stock, cuya unidad física todavía necesito confirmar. Esta tabla explica conceptos y no añade nuevos resultados.
+
+| Medida | Qué significa |
+|---|---|
+| Observaciones | Cantidad de snapshots que tienen un saldo numérico conocido. No es cantidad de productos ni suma de existencias. |
+| Media | Promedio de los saldos conocidos: sumo sus valores y divido entre la cantidad de observaciones. Cada snapshot tiene el mismo peso. |
+| Desviación estándar | Mide cuánto se dispersan los saldos alrededor de la media. Un valor mayor indica más dispersión; no significa que todos los saldos estén a esa distancia de la media. |
+| Mínimo | Menor saldo conocido que aparece en el archivo. |
+| Percentil 25 | Valor que deja aproximadamente el 25 % de los saldos en él o por debajo, después de ordenarlos de menor a mayor. |
+| Mediana | Valor central de los saldos ordenados; corresponde al percentil 50. |
+| Percentil 75 | Valor que deja aproximadamente el 75 % de los saldos en él o por debajo. |
+| Percentil 95 | Valor que deja aproximadamente el 95 % de los saldos en él o por debajo. Me ayuda a reconocer niveles altos dentro del archivo. |
+| Percentil 99 | Valor que deja aproximadamente el 99 % de los saldos en él o por debajo. Describe la parte más alta de la distribución. |
+| Máximo | Mayor saldo conocido que aparece en el archivo. |
+
+Para entender los percentiles, imagino todos los saldos **ordenados de menor a mayor** y ubico el punto que corresponde al porcentaje indicado. Los porcentajes se refieren a observaciones del saldo, no a productos, tiendas o unidades vendidas.
+
+### Cómo leo las otras dos tablas
+
+En la tabla por categoría, `Productos` cuenta SKU ERP distintos y `Snapshots` cuenta filas. `Saldos_conocidos` cuenta filas con cantidad numérica, `Saldos_desconocidos` cuenta filas sin cantidad interpretable y `Ceros` cuenta filas que informan cero. `Mediana_saldo` y `Maximo_saldo` describen únicamente los saldos conocidos de esa categoría. Un producto puede aportar muchas filas porque aparece en varias tiendas y fechas.
+
+La última tabla localiza el máximo: `fecha` indica el día observado, `tienda_id` la tienda, `sku_erp` el producto y `cantidad_en_stock` el saldo original. Encontrar el máximo me permite revisar un caso extremo; no demuestra un error de captura.
+
+### Para qué me sirve y qué no puedo concluir todavía
+
+Uso estas tablas para conocer los niveles habituales y extremos del archivo y ver diferencias entre categorías. Para decidir si hay poco o demasiado inventario necesito además demanda, presentación y unidad de medida, entre otros criterios del negocio (Q16/Q21 / D016). No aplico un único límite de error a todos los productos.
+
+**Este resumen no representa el inventario total disponible en un momento.** Por ejemplo, si ayer un producto tenía diez unidades en una tienda y hoy tiene doce, son dos observaciones de su saldo. Sumarlas como veintidós unidades disponibles contaría existencias de momentos diferentes. Este ejemplo es ilustrativo, no una selección de filas del archivo. Tampoco interpreto la diferencia entre dos saldos como ventas: podrían intervenir compras, devoluciones u otros movimientos que este JSON no contiene.
+
+
 
 **Leyenda:** Todos los saldos numéricos conocidos: Observaciones cuenta snapshots; la media no se pondera, la desviación es muestral y los percentiles describen la posición del saldo en la distribución. La unidad física del saldo queda pendiente de confirmar. No incluyo el índice de pandas.
 

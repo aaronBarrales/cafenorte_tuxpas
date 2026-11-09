@@ -304,6 +304,12 @@ La IA añadió conclusiones específicas a los Markdown propios del proyecto y g
 
 **Evidencia y límites:** la IA validó nbformat y comparó con Git las celdas ejecutables, salidas y contadores: permanecen idénticos. El cambio es explicativo; no se ejecutaron de nuevo las celdas ni se modificaron la fuente, los cálculos o los resultados. Las preguntas operativas siguen abiertas, sin atribuir respuestas al cliente ni revisión personal mía. El cambio se guarda y publica conforme a mi regla de commit y push.
 
+### 9 de noviembre de 2026 — Redacción del apartado de distribución de existencias
+
+**Mi intervención:** indiqué que entendí la explicación del chat, pero no el punto 5 al leerlo en el notebook, y pedí mejorar su redacción. **Propuesta inicial:** el párrafo condensaba población, agregación, percentiles y límites sin explicar paso a paso las tres tareas del código. **Ajuste de la IA:** reescribió el punto 5 y su apartado equivalente del informe con una pregunta concreta, la definición de observación, la inclusión de ceros y exclusión de N/A, las tres tareas del código y el significado de cada medida y columna de las tablas. Añadió un ejemplo ilustrativo para distinguir saldos de distintas fechas del inventario disponible en un momento; conservó abiertas las dudas de unidades y criterio comercial.
+
+**Validación y alcance:** la IA comprobó el formato del notebook y la igualdad del código, salidas y contadores con la versión de Git. Conservó las tablas calculadas del informe y sincronizó la explicación en ambos archivos. El cambio es editorial; no se repitió el análisis ni se modificaron resultados o fuentes, y no implica una respuesta del cliente ni revisión personal mía. El cierre incluye commit y push conforme a la regla vigente.
+
 ## Conclusión
 
 Mi aportación documentada está en las preguntas que orientan la investigación, las hipótesis que pido contrastar y las correcciones con las que ajusto el análisis y su presentación. Uso la IA para agilizar implementación y comprobaciones; conservo su atribución y la evidencia para poder defender qué resultados están sustentados y qué decisiones requieren todavía mi revisión.
