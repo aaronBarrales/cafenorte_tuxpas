@@ -274,6 +274,12 @@ La IA añadió conclusiones específicas a los Markdown propios del proyecto y g
 
 **Evidencia de la comprobación delegada:** 10 celdas ejecutadas secuencialmente con IPython y captura de salidas, 22 tablas y 22 leyendas guardadas actuales (44 salidas), notebook válido y sin errores. Contraste independiente de extremos en pesos con csv y Decimal, controles originales de unicidad/calendario/conservación completos y SHA-256 de fuente intacto (`a0e827ec1e048cf397584eca3d692cb5b5b1f6b477fb78efca2fdbd2f488bddf`). Se comprobaron 136 enlaces locales y sus anclas Markdown. Los auxiliares de edición/validación se retiran de outputs antes del cierre. Mi revisión personal permanece pendiente; el cambio se guarda y publica conforme a la regla de commit/push.
 
+### 9 de noviembre de 2026 — Una medida por fila en las tablas
+
+**Mi corrección:** señalé que «Registros / columnas originales: 730 / 3» no se entendía y pedí separar los valores; amplié la indicación a los demás casos iguales. **Ajuste:** la IA separó registros, columnas originales, fecha mínima y fecha máxima en cuatro filas del informe de exchange_rates. Revisó las tablas Markdown del proyecto para localizar otros pares de medidas compactados de esta forma y no encontró más casos equivalentes. Guardó en AGENTS la regla de etiquetar cada medida por separado.
+
+**Evidencia y alcance:** el cambio es de presentación; conserva las cifras y fechas documentadas, sin modificar fuentes, código o salidas de notebooks ni repetir el análisis. Se comprobó el diff y la separación de las cuatro filas; el cambio se guarda y publica conforme a mi regla de commit/push. Mi revisión personal no se da por realizada.
+
 ## Conclusión
 
 Mi aportación documentada está en las preguntas que orientan la investigación, las hipótesis que pido contrastar y las correcciones con las que ajusto el análisis y su presentación. Uso la IA para agilizar implementación y comprobaciones; conservo su atribución y la evidencia para poder defender qué resultados están sustentados y qué decisiones requieren todavía mi revisión.

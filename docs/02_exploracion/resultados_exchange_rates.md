@@ -15,8 +15,10 @@ Código de referencia: [02_exchange_rates.ipynb](../../notebooks/02_exchange_rat
 | Archivo | `datos/exchange_rates.csv` |
 | Tamaño | 16,562 bytes |
 | SHA-256 | `a0e827ec1e048cf397584eca3d692cb5b5b1f6b477fb78efca2fdbd2f488bddf` |
-| Registros / columnas originales | 730 / 3 |
-| Fecha mínima / máxima | 2025-04-01 / 2026-03-31 |
+| Registros | 730 |
+| Columnas originales | 3 |
+| Fecha mínima | 2025-04-01 |
+| Fecha máxima | 2026-03-31 |
 | Formato de fecha | `YYYY-MM-DD` |
 | Fuente modificada durante el análisis | No |
 

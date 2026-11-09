@@ -174,6 +174,10 @@ Pedí que exchange_rates fuera el notebook 02 y que la numeración se obtuviera 
 
 Pedí conservar las explicaciones de cobertura, decimales, extremos, cambios diarios e IQR en el notebook y el informe, identificar todas las tablas y actualizar las dudas y próximos pasos. La IA añadió leyendas a las 22 tablas del notebook y a todas las tablas del informe; cambió size/sum por evaluadas/señaladas y agregó extremos diarios en MXN por unidad extranjera. La ejecución secuencial y el contraste decimal conservaron la fuente. La sección 9 distingue la unidad ya aclarada y los criterios de lectura de las preguntas Q10/Q38–Q40 aún abiertas sobre procedencia, tratamiento operativo de MXN, vigencia, metodología y redondeo; ninguna pregunta se da por respondida por el cliente.
 
+### 9 de noviembre de 2026 — Claridad en la identificación de la fuente
+
+Pedí separar las medidas que aparecían unidas por barras. El informe de exchange_rates ahora presenta registros, columnas originales y cada fecha extrema en filas independientes. La IA conservó los valores, revisó los demás casos equivalentes en tablas Markdown y registró la convención en AGENTS; no cambió el notebook ni fue necesario repetir el análisis.
+
 ## Conclusión
 
 Tengo los notebooks e informes aislados de sales y exchange_rates ejecutados por la IA. Continúo con inventario y las fuentes restantes, conservando las dudas de granularidad y los cambios de versión; el pipeline y las respuestas finales siguen pendientes.
