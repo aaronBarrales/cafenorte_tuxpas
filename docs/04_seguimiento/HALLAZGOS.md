@@ -57,7 +57,7 @@ Detalle y preguntas: [DUDAS.md](../03_negocio/DUDAS.md). Estado y próximos paso
 
 ## Exploración aislada actual de exchange_rates
 
-En [mi informe de tasas](../02_exploracion/resultados_exchange_rates.md) y [04_exchange_rates.ipynb](../../notebooks/04_exchange_rates.ipynb) documento 730 filas: una por día y moneda (USD/EUR), del 2025-04-01 al 2026-03-31, sin huecos internos, claves duplicadas ni tasas inválidas, cero o negativas. No consulto ni cruzo otras fuentes; no afirmo cobertura de pedidos. EUR = 22.0 en 63 fechas requiere explicación metodológica. Conecto convención y procedencia con Q10, fines de semana y vigencia con Q38, repetición con Q39 y precisión/redondeo con Q40; siguen pendientes de respuesta.
+En [mi informe de tasas](../02_exploracion/resultados_exchange_rates.md) y [02_exchange_rates.ipynb](../../notebooks/02_exchange_rates.ipynb) documento 730 filas: una por día y moneda (USD/EUR), del 2025-04-01 al 2026-03-31, sin huecos internos, claves duplicadas ni tasas inválidas, cero o negativas. No consulto ni cruzo otras fuentes; no afirmo cobertura de pedidos. EUR = 22.0 en 63 fechas requiere explicación metodológica. Conecto convención y procedencia con Q10, fines de semana y vigencia con Q38, repetición con Q39 y precisión/redondeo con Q40; siguen pendientes de respuesta.
 
 ## Conclusión
 

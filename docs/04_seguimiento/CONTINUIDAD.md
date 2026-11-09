@@ -164,7 +164,11 @@ Pedí usar un comentario en español por bloque de código importante, en lugar 
 
 ### 8 de noviembre de 2026 — Exploración aislada de exchange_rates
 
-Pedí un notebook e informe basados en la estructura de resultados_sales, con comentarios por bloque, alcance aislado y dudas conectadas al banco de preguntas. La IA creó [04_exchange_rates.ipynb](../../notebooks/04_exchange_rates.ipynb) y [resultados_exchange_rates.md](../02_exploracion/resultados_exchange_rates.md). El hash de tasas coincide con el antecedente: `a0e827ec1e048cf397584eca3d692cb5b5b1f6b477fb78efca2fdbd2f488bddf`; no se modificó la fuente. Tengo 730 filas, USD/EUR, 365 días por moneda y ninguna clave ausente en la ventana; EUR = 22.0 en 63 fechas. Q10, Q38–Q40 y D013/D023 recogen las dudas sin duplicarlas ni darlas por respondidas. La IA ejecutó el notebook y comprobó unicidad, recuentos y conservación; evidencia en AI_LOG. Inventario y e-commerce siguen pendientes como notebooks aislados. Mi revisión y el pipeline permanecen pendientes.
+Pedí un notebook e informe basados en la estructura de resultados_sales, con comentarios por bloque, alcance aislado y dudas conectadas al banco de preguntas. La IA creó [02_exchange_rates.ipynb](../../notebooks/02_exchange_rates.ipynb) y [resultados_exchange_rates.md](../02_exploracion/resultados_exchange_rates.md). El hash de tasas coincide con el antecedente: `a0e827ec1e048cf397584eca3d692cb5b5b1f6b477fb78efca2fdbd2f488bddf`; no se modificó la fuente. Tengo 730 filas, USD/EUR, 365 días por moneda y ninguna clave ausente en la ventana; EUR = 22.0 en 63 fechas. Q10, Q38–Q40 y D013/D023 recogen las dudas sin duplicarlas ni darlas por respondidas. La IA ejecutó el notebook y comprobó unicidad, recuentos y conservación; evidencia en AI_LOG. Inventario y e-commerce siguen pendientes como notebooks aislados. Mi revisión y el pipeline permanecen pendientes.
+
+### 8 de noviembre de 2026 — Numeración consecutiva de notebooks
+
+Pedí que exchange_rates fuera el notebook 02 y que la numeración se obtuviera revisando los archivos existentes en la carpeta de destino. La IA comprobó que sales ocupa el 01, renombró el archivo a [02_exchange_rates.ipynb](../../notebooks/02_exchange_rates.ipynb) y actualizó referencias e instrucciones de ejecución. Conservó sus bytes, código, resultados y contadores; no repitió el análisis porque el cambio fue de nombre y navegación. Guardé el criterio de numeración en AGENTS.md y retiré los números reservados para fuentes pendientes.
 
 ## Conclusión
 

@@ -9,7 +9,7 @@ Los informes Markdown se pueden leer directamente en GitHub. Cada informe de res
 | `sales.csv` | [Resultados de sales](resultados_sales.md) | [01_sales.ipynb](../../notebooks/01_sales.ipynb) | Verificado el 8 de noviembre de 2026; hash y alcance indicados en el informe. |
 | `inventory.json` | Pendiente | Notebook pendiente | Construir y documentar por separado. |
 | `ecommerce_orders.parquet` | Pendiente para esta etapa | Notebook pendiente | Existe un análisis previo, enlazado abajo. |
-| `exchange_rates.csv` | [Resultados de exchange_rates](resultados_exchange_rates.md) | [04_exchange_rates.ipynb](../../notebooks/04_exchange_rates.ipynb) | Ejecutado el 8 de noviembre de 2026; aislado, fuente y hash identificados en el informe. |
+| `exchange_rates.csv` | [Resultados de exchange_rates](resultados_exchange_rates.md) | [02_exchange_rates.ipynb](../../notebooks/02_exchange_rates.ipynb) | Ejecutado el 8 de noviembre de 2026; aislado, fuente y hash identificados en el informe. |
 
 **Aislado** significa que los resultados se obtienen únicamente de la fuente indicada, sin cruzarla con otros archivos de datos. No demuestra consistencia entre sistemas. La conciliación se documenta por separado cuando se realiza.
 

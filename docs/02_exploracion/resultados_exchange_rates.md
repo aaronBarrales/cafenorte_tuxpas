@@ -6,7 +6,7 @@ Fecha de documentación y verificación: 8 de noviembre de 2026.
 
 **Analizo únicamente `datos/exchange_rates.csv`, sin consultar ni cruzar el contenido de sales, inventory o ecommerce.** No contrasto cotizaciones externas. Tomo [resultados_sales.md](resultados_sales.md) como referencia documental, sin reutilizar sus cifras como evidencia de esta fuente. Mi análisis no demuestra cobertura de pedidos ni consistencia entre sistemas.
 
-Código de referencia: [04_exchange_rates.ipynb](../../notebooks/04_exchange_rates.ipynb). Las tablas proceden de sus cálculos ejecutados. La IA realizó las comprobaciones técnicas; mi revisión de conclusiones permanece pendiente.
+Código de referencia: [02_exchange_rates.ipynb](../../notebooks/02_exchange_rates.ipynb). Las tablas proceden de sus cálculos ejecutados. La IA realizó las comprobaciones técnicas; mi revisión de conclusiones permanece pendiente.
 
 | Identificación | Resultado |
 |---|---|

@@ -4,9 +4,9 @@ Ejecuta cada notebook de principio a fin con las fuentes en `datos/`.
 
 - [01_sales.ipynb](01_sales.ipynb): ventas físicas; primer notebook disponible.
 - [Informe de resultados de sales](../docs/02_exploracion/resultados_sales.md): tablas, interpretación, importancia y límites de la exploración aislada, legibles en GitHub.
-- [04_exchange_rates.ipynb](04_exchange_rates.ipynb): exploración aislada de tipos de cambio, con comentarios en español por bloque importante.
+- [02_exchange_rates.ipynb](02_exchange_rates.ipynb): exploración aislada de tipos de cambio, con comentarios en español por bloque importante.
 - [Informe de exchange_rates](../docs/02_exploracion/resultados_exchange_rates.md): resultados, interpretación, límites y conexión con preguntas.
-- Siguientes, por construir uno a uno: `02_inventory.ipynb` y `03_ecommerce.ipynb`.
+- Siguientes fuentes por explorar: inventory y ecommerce. Asigno su prefijo numérico al crearlas, después de revisar los notebooks existentes en esta carpeta.
 
 Estructura común: objetivo y granularidad, lectura, esquema, diccionario, calidad, cobertura temporal, distribución de valores y conclusiones. Cada fuente añade sus controles particulares.
 
