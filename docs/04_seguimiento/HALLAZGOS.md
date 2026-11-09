@@ -47,7 +47,7 @@ Resultados de [01_sales.ipynb](../../notebooks/01_sales.ipynb), ejecutado sobre 
 | POS: 12,349 filas no llegan a ERP; e-commerce: 2,988 tampoco. | No confundir handle conocido con costo conciliado. |
 | Los 70 productos tienen costos desde 2024-10-01: 282 vigencias sin conflictos de fecha detectados. | Falta confirmar unidad/base de costo. |
 | 2,369 filas I con enlace exacto dan margen candidato negativo en 18 meses; 11,797 filas I carecen de costo conciliado. | Diagnóstico condicionado, no resultado global definitivo. |
-| FX: 730 tasas positivas, una por día y moneda; ninguna orden extranjera queda sin tasa del día. | Confirmar convención y política de redondeo. |
+| FX: 730 tasas positivas, una por día y moneda; ninguna orden extranjera queda sin tasa del día. | Unidad confirmada por mí: MXN por unidad extranjera; conversión por multiplicación. Política de redondeo pendiente. |
 | EUR = 22.0 en 63 fechas. | Preguntar metodología; no declararlo error sin evidencia. |
 | E-commerce empieza en abril de 2025. | Su primer MoM no tiene mes anterior; no sustituirlo por cero. |
 
@@ -57,7 +57,7 @@ Detalle y preguntas: [DUDAS.md](../03_negocio/DUDAS.md). Estado y próximos paso
 
 ## Exploración aislada actual de exchange_rates
 
-En [mi informe de tasas](../02_exploracion/resultados_exchange_rates.md) y [02_exchange_rates.ipynb](../../notebooks/02_exchange_rates.ipynb) documento 730 filas: una por día y moneda (USD/EUR), del 2025-04-01 al 2026-03-31, sin huecos internos, claves duplicadas ni tasas inválidas, cero o negativas. No consulto ni cruzo otras fuentes; no afirmo cobertura de pedidos. EUR = 22.0 en 63 fechas requiere explicación metodológica. Conecto convención y procedencia con Q10, fines de semana y vigencia con Q38, repetición con Q39 y precisión/redondeo con Q40; siguen pendientes de respuesta.
+En [mi informe de tasas](../02_exploracion/resultados_exchange_rates.md) y [02_exchange_rates.ipynb](../../notebooks/02_exchange_rates.ipynb) documento 730 filas: una por día y moneda (USD/EUR), del 2025-04-01 al 2026-03-31, sin huecos internos, claves duplicadas ni tasas inválidas, cero o negativas. No consulto ni cruzo otras fuentes; no afirmo cobertura de pedidos. EUR = 22.0 en 63 fechas requiere explicación metodológica. La unidad MXN por unidad extranjera está confirmada por mí para el análisis. Conecto procedencia y tipo de tasa con Q10, fines de semana y vigencia con Q38, repetición con Q39 y precisión/redondeo con Q40; siguen pendientes de respuesta.
 
 ## Conclusión
 

@@ -4,7 +4,7 @@ Fecha de documentación y verificación: 8 de noviembre de 2026.
 
 ## Alcance y fuente de evidencia
 
-**Analizo únicamente `datos/exchange_rates.csv`, sin consultar ni cruzar el contenido de sales, inventory o ecommerce.** No contrasto cotizaciones externas. Tomo [resultados_sales.md](resultados_sales.md) como referencia documental, sin reutilizar sus cifras como evidencia de esta fuente. Mi análisis no demuestra cobertura de pedidos ni consistencia entre sistemas.
+**Analizo únicamente `datos/exchange_rates.csv`, sin consultar ni cruzar el contenido de sales, inventory o ecommerce.** No contrasto cotizaciones externas. Mi análisis no demuestra cobertura de pedidos ni consistencia entre sistemas.
 
 Código de referencia: [02_exchange_rates.ipynb](../../notebooks/02_exchange_rates.ipynb). Las tablas proceden de sus cálculos ejecutados. La IA realizó las comprobaciones técnicas; mi revisión de conclusiones permanece pendiente.
 
@@ -22,11 +22,11 @@ Código de referencia: [02_exchange_rates.ipynb](../../notebooks/02_exchange_rat
 
 ## 1. Estructura y granularidad observada
 
-| Columna | tipo_leído | nulos | valores_distintos |
-|---|---|---|---|
-| fecha | object | 0 | 365 |
-| currency | object | 0 | 2 |
-| rate_to_mxn | object | 0 | 649 |
+| Columna | tipo_leído | nulos |
+|---|---|---|
+| fecha | object | 0 |
+| currency | object | 0 |
+| rate_to_mxn | object | 0 |
 
 Observo una fila por fecha–moneda, sin claves repetidas, conflictos de tasa ni duplicados exactos adicionales. Hay 2 monedas: EUR, USD, con 365 registros cada una. No hay filas MXN.
 
@@ -34,7 +34,7 @@ Observo una fila por fecha–moneda, sin claves repetidas, conflictos de tasa ni
 |---|---|
 | fecha | Fecha registrada sin hora, zona, fecha de publicación o vigencia explícita. |
 | currency | Código observado de tres mayúsculas; no valido un catálogo externo. |
-| rate_to_mxn | El nombre sugiere MXN por unidad extranjera; pendiente de confirmar como convención. |
+| rate_to_mxn | MXN por una unidad de la moneda indicada en currency; definición confirmada para mi análisis. Convierto a MXN multiplicando el importe extranjero por esta tasa. |
 
 **Qué me dice:** la clave candidata fecha–moneda es única en esta extracción. **Por qué importa:** permitiría buscar una tasa diaria sin multiplicar filas si se conserva esa unicidad. No confirma la política contable ni la vigencia de la cotización.
 
@@ -151,14 +151,14 @@ EUR aparece exactamente en 22.0 en 63 fechas (17.26% de su serie), entre 2025-05
 
 | Evidencia aislada | Duda y conexión | Mi tratamiento provisional |
 |---|---|---|
-| Nombre rate_to_mxn; sin proveedor, hora ni tipo de cotización. | D013 / Q10: convención, procedencia y fecha aplicable. | No adopto una conversión contable definitiva. |
+| Nombre rate_to_mxn; sin proveedor, hora ni tipo de cotización. | D013 / Q10: procedencia y tipo de cotización; la unidad MXN por unidad extranjera está confirmada para mi análisis. | No adopto una conversión contable definitiva. |
 | Hay tasas durante todos los fines de semana de la ventana. | D013 / Q38: publicación, arrastre y vigencia. | No interpreto continuidad de filas como actualización efectiva. |
 | EUR repite 22.0 en el máximo observado. | D013 / Q39: metodología o límite. | Conservo tasas y no declaro error de mercado. |
 | Precisión textual variable; sin política de redondeo. | D023 / Q40: precisión de cálculo, redondeo y tolerancia. | Mantengo precisión original; no convierto importes. |
-| No hay filas MXN. | D013 / Q10: confirmar moneda destino y unidad. | Identidad MXN = 1 es una propuesta futura, no una fila ausente que deba imputar. |
+| No hay filas MXN. | D013 / Q10: definir el tratamiento operativo de importes ya expresados en MXN. | Identidad MXN = 1 es una propuesta futura, no una fila ausente que deba imputar. |
 
 Conecto el detalle con [la evidencia del banco de preguntas](../03_negocio/PREGUNTAS_CLIENTE.md#evidencia-del-eda-aislado-de-exchange-rates) y [DUDAS.md](../03_negocio/DUDAS.md). Reutilizo Q10 y Q38–Q40, sin duplicar consultas ni darlas por enviadas o respondidas. No resuelvo Q37 con esta exploración porque requiere información de operaciones y liquidaciones ajena al archivo.
 
 ## Conclusión
 
-Tengo una fuente internamente consistente y continua para USD y EUR en su ventana observada, con granularidad diaria única y tasas positivas. Mantengo abiertas la convención, procedencia, vigencia, redondeo y concentración de EUR en 22.0; puedo preparar su integración sin presentar todavía conversiones de ventas ni conclusiones de mercado como resultados confirmados.
+Tengo una fuente internamente consistente y continua para USD y EUR en su ventana observada, con granularidad diaria única y tasas positivas. Mantengo abiertas la procedencia, vigencia, redondeo y concentración de EUR en 22.0; puedo preparar su integración sin presentar todavía conversiones de ventas ni conclusiones de mercado como resultados confirmados.
