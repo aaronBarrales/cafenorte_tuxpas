@@ -17,6 +17,10 @@ Estructura común: objetivo y granularidad, lectura, esquema, diccionario, calid
 
 Los notebooks exploran y documentan; no corrigen ni sobrescriben las fuentes. Los scripts de `../scripts/` conservan los perfiles automáticos existentes. Las salidas guardadas pueden quedar desactualizadas si cambia el archivo: vuelve a ejecutar antes de interpretarlas.
 
+## Ubicación de las dudas
+
+Centralizo las dudas abiertas, sus identificadores, evidencia y tratamientos propuestos en [DUDAS.md](../docs/03_negocio/DUDAS.md). Los notebooks contienen el análisis, las explicaciones, las limitaciones de los resultados y una conclusión; no incluyen secciones de dudas y próximos pasos ni listas de preguntas.
+
 ## Conclusión
 
 Uso un notebook por fuente para conocer su estructura, calidad y cobertura antes de conciliarlas. Mantengo los originales intactos y vinculo cada exploración con su informe de resultados.

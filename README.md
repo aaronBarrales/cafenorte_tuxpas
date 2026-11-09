@@ -78,7 +78,7 @@ AGENTS.md               Reglas de organización y mantenimiento.
 AI_LOG.md               Bitácora de uso de IA requerida por el reto.
 ```
 
-Primero revisa el [índice de documentación](docs/README.md) y los notebooks para conocer las fuentes. Los resultados actuales están en `docs/02_exploracion/`, los supuestos en `docs/03_negocio/` y el estado en `docs/04_seguimiento/`. El pipeline se incorporará cuando empecemos su implementación.
+Primero revisa el [índice de documentación](docs/README.md) y los notebooks para conocer las fuentes. Los resultados actuales están en `docs/02_exploracion/`, los supuestos en `docs/03_negocio/` y el estado en `docs/04_seguimiento/`. Centralizo las dudas y sus tratamientos en [DUDAS.md](docs/03_negocio/DUDAS.md); los notebooks conservan análisis y limitaciones, sin secciones de dudas y próximos pasos. El pipeline se incorporará cuando empecemos su implementación.
 
 Para preparar el entorno de exploración:
 

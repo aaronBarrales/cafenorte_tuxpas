@@ -204,6 +204,10 @@ La ejecución técnica directa desde raíz y notebooks/ cubre nueve celdas, 18 t
 
 Mi siguiente paso es conciliar claves, unidades, fechas y monedas sobre las versiones actuales, distinguir enlaces exactos e inferidos, cuantificar cobertura y definir supuestos para implementar el pipeline. Reutilizo Q09/Q16/Q31–Q38/Q40/Q41/Q44–Q50 sin dar preguntas por enviadas o respondidas.
 
+### 9 de noviembre de 2026 — Dudas fuera de los notebooks
+
+Pedí retirar las secciones de dudas y próximos pasos de los cuatro notebooks y concentrar su seguimiento en [DUDAS.md](../03_negocio/DUDAS.md). La IA centralizó allí los tratamientos abiertos con sus identificadores existentes, retiró las secciones y referencias al banco de preguntas de los notebooks y conservó las limitaciones necesarias para leer los resultados. Las operaciones de cálculo, cifras y contadores no cambiaron; solo se ajustaron textos explicativos y sus representaciones guardadas. Los análisis siguen aislados y el estado de conciliación y pipeline no cambia.
+
 ## Conclusión
 
 Tengo los notebooks e informes aislados de sales, exchange_rates e inventory ejecutados por la IA. Continúo con e-commerce y la conciliación, conservando las dudas de granularidad y los cambios de versión; el pipeline y las respuestas finales siguen pendientes.
