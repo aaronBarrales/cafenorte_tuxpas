@@ -59,6 +59,10 @@ Detalle y preguntas: [DUDAS.md](../03_negocio/DUDAS.md). Estado y próximos paso
 
 En [mi informe de tasas](../02_exploracion/resultados_exchange_rates.md) y [02_exchange_rates.ipynb](../../notebooks/02_exchange_rates.ipynb) documento 730 filas: una por día y moneda (USD/EUR), del 2025-04-01 al 2026-03-31, sin huecos internos, claves duplicadas ni tasas inválidas, cero o negativas. No consulto ni cruzo otras fuentes; no afirmo cobertura de pedidos. EUR = 22.0 en 63 fechas requiere explicación metodológica. La unidad MXN por unidad extranjera está confirmada por mí para el análisis. Conecto procedencia y tipo de tasa con Q10, fines de semana y vigencia con Q38, repetición con Q39 y precisión/redondeo con Q40; siguen pendientes de respuesta.
 
+## Exploración aislada actual de inventory — 9 de noviembre de 2026
+
+En [mi informe de inventario](../02_exploracion/resultados_inventory.md) documento 230,776 snapshots de 1,268 pares tienda–SKU durante 182 días, sin duplicados de clave ni huecos internos por par. Distingo 4,417 N/A y 11,726 ceros; 1,232 pares tienen algún saldo desconocido. Las tres rachas trimestrales de cuatro ceros diarios son evidencia observada, pendiente de definición operativa de quiebre. Los cinco ERP nulos en mapeos, los diez productos sin referencia ERP informada y la base de los costos siguen abiertos en Q03–Q08/Q16/Q21–Q30. No consulto las otras fuentes; no confirmo margen, rotación ni compatibilidad entre sistemas.
+
 ## Conclusión
 
 Distingo los hallazgos estructurales de las interpretaciones comerciales pendientes. Uso este resumen para orientar los siguientes pasos, sin confundir coincidencias temporales, mapeos propuestos o márgenes candidatos con hechos confirmados del negocio.

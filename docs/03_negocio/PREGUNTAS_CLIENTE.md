@@ -1,6 +1,6 @@
 # Preguntas para validar la solución CaféNorte
 
-Actualizado el 8 de noviembre de 2026. Banco de 60 preguntas relevantes para los datos entregados y una eventual implementación. No se ha enviado al cliente. Las primeras diez son las prioritarias; el banco completo sirve para descubrimiento, no para enviar 60 preguntas de golpe.
+Actualizado el 9 de noviembre de 2026. Banco de 60 preguntas relevantes para los datos entregados y una eventual implementación. No se ha enviado al cliente. Las primeras diez son las prioritarias; el banco completo sirve para descubrimiento, no para enviar 60 preguntas de golpe.
 
 P0: afecta cifras o conciliación. P1: afecta interpretación, alcance o diseño. P2: mejora o decisión productiva que puede posponerse. Si no hay respuesta a una P0, la entrega debe explicitar el supuesto y cuantificar su impacto; no se detiene automáticamente todo el trabajo.
 
@@ -119,6 +119,24 @@ Conecto estas dudas con [resultados_exchange_rates.md](../02_exploracion/resulta
 | Q40 / D023 | Hay distinta cantidad de decimales escritos y falta una política de precisión y redondeo. No deduzco precisión económica solo de los ceros finales omitidos. |
 
 Mantengo las 60 preguntas, ampliando las existentes en lugar de duplicarlas. No las he enviado al cliente; Q37 requiere revisar operaciones y queda fuera de este análisis aislado.
+
+## Evidencia del EDA aislado de inventory
+
+En [mi informe de inventario](../02_exploracion/resultados_inventory.md) y [03_inventory.ipynb](../../notebooks/03_inventory.ipynb) analizo solo el JSON, sin consultar las otras fuentes. Amplío las preguntas existentes; conservo los 60 identificadores y no doy consultas por enviadas ni respondidas.
+
+**Leyenda:** relaciono cada grupo de preguntas abiertas con evidencia calculada del JSON completo; los conteos son registros, productos o pares según la etiqueta. P0 afecta cifras o conciliación y P1 interpretación o diseño; las coincidencias internas no validan otros sistemas.
+
+| Preguntas y prioridad | Evidencia y precisión que necesito |
+|---|---|
+| Q06 / D009; P0 | Hay 4,417 textos N/A, distintos de los 11,726 ceros. Necesito saber si significan fallo de lectura, saldo no disponible u otra condición y cómo recuperar el dato; no los sustituyo por cero. |
+| Q07/Q28/Q29 / D010/D021; P0 | Los 1,268 pares observados cubren 182 días, pero 1,532 pares del escenario cartesiano de tiendas y productos nunca aparecen. Necesito surtido autorizado, vigencias y motivo de ausencia; este conteo no acredita productos activos faltantes ni ventas sin snapshot. |
+| Q08/Q30 / D011; P0 | Observo tres rachas de cuatro ceros diarios en enero–marzo de 2026. Necesito hora de corte y definición de stock físico, reservado y disponible antes de confirmar quiebres operativos. |
+| Q03/Q16/Q24–Q26 / D007/D016/D020; P0 | Hay 282 vigencias de costo en 70 productos, sin campo de tienda, unidad física ni base fiscal. Necesito confirmar alcance global, unidad comparable, impuestos/gastos, método de costo y momento de aplicación. |
+| Q04/Q05 / D008; P0; Q22/Q23 / D019; P1 | De 65 equivalencias, cinco tienen ERP nulo, 38 handle nulo y diez productos del catálogo carecen de una referencia ERP informada. Necesito maestro autorizado, responsable y vigencias; un handle informado no garantiza costo conciliable. |
+| Q21 / D016; P1 | Hay 23 nombres compartidos por 57 productos ERP. Necesito los atributos de presentación o variante; no uso nombre como clave. |
+| Q27/Q49/Q50 / D021/D026; P1 | Metadata declara snapshots sin movimientos y marca de generación sin zona explícita. Necesito movimientos, corte, lote y controles de extracción para reconciliar evolución y certificar integridad. |
+
+Sin respuesta propongo conservar desconocidos, limitar cobertura a pares observados, informar rachas de ceros con sus límites, usar equivalencias exactas informadas y evaluar última vigencia no posterior al día como supuesto explícito. No invento surtido, movimientos ni claves por nombre o sufijo; la conciliación entre fuentes y mi revisión personal siguen pendientes.
 
 ## Conclusión
 

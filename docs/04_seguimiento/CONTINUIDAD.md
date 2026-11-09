@@ -6,7 +6,7 @@ El punto de entrada es [docs/README.md](../README.md). La documentación se divi
 
 El notebook de sales incluye un bloque de navegación a resultados, hallazgos, dudas, definiciones, guía de negocio y AI_LOG. Se verificaron 110 enlaces locales de Markdown y notebooks y se conservó el código y las salidas de sus 19 celdas ejecutables. El validador ahora busca las preguntas del cliente en `docs/03_negocio/PREGUNTAS_CLIENTE.md`.
 
-Última actualización: 8 de noviembre de 2026. Este archivo se actualizará con los hallazgos y decisiones relevantes al avanzar. Es el punto de entrada al retomar el proyecto; las dudas detalladas permanecen en `docs/03_negocio/DUDAS.md`.
+Última actualización: 9 de noviembre de 2026. Este archivo se actualizará con los hallazgos y decisiones relevantes al avanzar. Es el punto de entrada al retomar el proyecto; las dudas detalladas permanecen en `docs/03_negocio/DUDAS.md`.
 
 ## Objetivo y estado
 
@@ -182,6 +182,14 @@ Pedí separar las medidas que aparecían unidas por barras. El informe de exchan
 
 Pedí retirar de las dudas los puntos que ya aclaré, sin mantener un historial de resueltos en ese registro. La IA ajustó DUDAS, preguntas y secciones de dudas del notebook e informe de exchange_rates; las definiciones se aplican en su explicación correspondiente. Permanecen abiertos proveedor, vigencia, tratamiento operativo de MXN, metodología y redondeo. La regla general queda en AGENTS y no cambian cálculos ni salidas.
 
+### 9 de noviembre de 2026 — Exploración aislada actual de inventory
+
+Pedí explorar inventory.json respetando las reglas y las ubicaciones. La IA revisó los prefijos 01 y 02 y creó [03_inventory.ipynb](../../notebooks/03_inventory.ipynb) y [su informe](../02_exploracion/resultados_inventory.md). El análisis lee solo el JSON y comprueba relaciones entre sus bloques; no es conciliación de fuentes. El SHA-256 `2355c6cab9ff00a707b5505a464a8f7e1a9bf5a2aa6c7a2b6b008f5299c8eada` coincide con el antecedente y se conserva.
+
+Tengo 230,776 snapshots, 182 días y 1,268 pares completos en filas; 1,232 pares contienen algún N/A. Conservo 4,417 desconocidos separados de 11,726 ceros. Las rachas de cuatro ceros trimestrales están en T015, T023 y T038, sin afirmar quiebre operativo. Los mapeos tienen cinco ERP nulos; diez productos del catálogo carecen de referencia ERP informada. Las 282 vigencias cubren temporalmente los 70 productos bajo el escenario de última vigencia no posterior al día; unidad, base y política siguen pendientes. Amplío las preguntas existentes con evidencia aislada y mantengo 60 IDs sin enviarlas.
+
+La IA ejecutó las diez celdas secuencialmente con Python directo y captura de salidas, validó nbformat y contrastó calendario, claves, ceros y rachas mediante biblioteca estándar, así como positividad de costos con Decimal. No se presenta esta ejecución como un kernel Jupyter. Los detalles técnicos están en AI_LOG. Mi revisión personal permanece pendiente. El siguiente notebook aislado será e-commerce, asignando número según los archivos presentes al crearlo; después corresponde conciliar claves, fechas, unidades y poblaciones e implementar el pipeline. Las menciones previas de inventario pendiente describen estados históricos.
+
 ## Conclusión
 
-Tengo los notebooks e informes aislados de sales y exchange_rates ejecutados por la IA. Continúo con inventario y las fuentes restantes, conservando las dudas de granularidad y los cambios de versión; el pipeline y las respuestas finales siguen pendientes.
+Tengo los notebooks e informes aislados de sales, exchange_rates e inventory ejecutados por la IA. Continúo con e-commerce y la conciliación, conservando las dudas de granularidad y los cambios de versión; el pipeline y las respuestas finales siguen pendientes.

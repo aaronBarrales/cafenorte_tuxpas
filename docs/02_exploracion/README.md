@@ -7,7 +7,7 @@ Los informes Markdown se pueden leer directamente en GitHub. Cada informe de res
 | Fuente | Informe de resultados | Código | Estado |
 |---|---|---|---|
 | `sales.csv` | [Resultados de sales](resultados_sales.md) | [01_sales.ipynb](../../notebooks/01_sales.ipynb) | Verificado el 8 de noviembre de 2026; hash y alcance indicados en el informe. |
-| `inventory.json` | Pendiente | Notebook pendiente | Construir y documentar por separado. |
+| `inventory.json` | [Resultados de inventory](resultados_inventory.md) | [03_inventory.ipynb](../../notebooks/03_inventory.ipynb) | Ejecutado el 9 de noviembre de 2026; alcance aislado, fuente y hash identificados. |
 | `ecommerce_orders.parquet` | Pendiente para esta etapa | Notebook pendiente | Existe un análisis previo, enlazado abajo. |
 | `exchange_rates.csv` | [Resultados de exchange_rates](resultados_exchange_rates.md) | [02_exchange_rates.ipynb](../../notebooks/02_exchange_rates.ipynb) | Ejecutado el 8 de noviembre de 2026; aislado, fuente y hash identificados en el informe. |
 
@@ -27,4 +27,4 @@ Los hallazgos importantes se resumen en [HALLAZGOS.md](../04_seguimiento/HALLAZG
 
 ## Conclusión
 
-Tengo documentadas las exploraciones aisladas de sales y exchange_rates; mantengo pendientes inventario y e-commerce en esta etapa. Consulto los antecedentes por separado para no presentar sus cruces o versiones anteriores como resultados actuales.
+Tengo documentadas las exploraciones aisladas de sales, exchange_rates e inventory; mantengo pendiente e-commerce en esta etapa. Consulto los antecedentes por separado para no presentar sus cruces o versiones anteriores como resultados actuales.

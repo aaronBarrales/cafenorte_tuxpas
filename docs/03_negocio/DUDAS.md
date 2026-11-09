@@ -172,6 +172,10 @@ D005 se resolverá con corte propuesto 2026-03-31 y ventanas de datos, sin esper
 
 Vinculo D013 con [Q10, Q38 y Q39 y su evidencia](PREGUNTAS_CLIENTE.md#evidencia-del-eda-aislado-de-exchange-rates) y D023 con Q40. En [mi informe aislado](../02_exploracion/resultados_exchange_rates.md) observo 365 fechas por USD/EUR, incluidas fechas de fin de semana, y EUR = 22.0 en 63 días. No hay proveedor, hora/zona, tipo de cotización ni regla de redondeo explícitos. La fecha contable aplicable y el tratamiento operativo de MXN siguen pendientes; no apliqué conversiones a operaciones en esta exploración. No verifico aquí cobertura de operaciones ni cotizaciones de mercado.
 
+## Evidencia aislada de inventario — 9 de noviembre de 2026
+
+Conecto [mi informe actual](../02_exploracion/resultados_inventory.md) con [las preguntas existentes](PREGUNTAS_CLIENTE.md#evidencia-del-eda-aislado-de-inventory), sin duplicar identificadores. D009 conserva la duda sobre los 4,417 N/A; D010/D021 requieren surtido y significado de ausencias, aunque los 1,268 pares observados sí tienen filas en los 182 días. D011 requiere hora de corte y definición del saldo para interpretar tres rachas de cuatro ceros en el trimestre final. D007/D020 requieren base y política de las 282 vigencias de costo; D008/D019 requieren autoridad y vigencia de mapeos con ERP o handle nulos. D016 conserva la duda sobre presentaciones y unidades detrás de nombres compartidos. No he recibido respuestas del cliente; los números de ventas sin inventario en entradas históricas son evidencia entre fuentes y no resultados de este análisis aislado.
+
 ## Conclusión
 
 Mantengo las incertidumbres vinculadas con su evidencia e impacto para evitar supuestos silenciosos. Antes de presentar cifras definitivas, definiré el tratamiento adoptado y haré visibles los casos que no pueda resolver.
