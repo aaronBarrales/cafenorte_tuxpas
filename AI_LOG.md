@@ -310,6 +310,12 @@ La IA añadió conclusiones específicas a los Markdown propios del proyecto y g
 
 **Validación y alcance:** la IA comprobó el formato del notebook y la igualdad del código, salidas y contadores con la versión de Git. Conservó las tablas calculadas del informe y sincronizó la explicación en ambos archivos. El cambio es editorial; no se repitió el análisis ni se modificaron resultados o fuentes, y no implica una respuesta del cliente ni revisión personal mía. El cierre incluye commit y push conforme a la regla vigente.
 
+### 9 de noviembre de 2026 — Mantener visible la alternativa de mapeo por nombre y número
+
+**Mi intervención:** recordé la investigación de mapeos por nombre del producto y número, pedí que estuviera en HALLAZGOS y precisé que todavía no debía aplicarse. **Estado inicial y ajuste de la IA:** comprobó que HALLAZGOS ya recogía los candidatos y que el estudio previo comparaba nombre normalizado y sufijo numérico del handle con el segmento numérico ERP. Precisó el método y mi decisión de conservarlo como alternativa futura, enlazó el antecedente desde el resumen de inventario y actualizó continuidad. No presentó esta posibilidad como solución general para todos los mapeos ausentes ni como relación confirmada.
+
+**Validación y alcance:** la IA comprobó el diff, los enlaces afectados y los cierres de los tres documentos. El cambio es documental: no ejecutó conciliaciones, no aplicó equivalencias ni modificó fuentes, notebooks o resultados. Conservó los archivos de e-commerce ya presentes fuera de este cambio. El cierre sigue la regla de commit y push.
+
 ## Conclusión
 
 Mi aportación documentada está en las preguntas que orientan la investigación, las hipótesis que pido contrastar y las correcciones con las que ajusto el análisis y su presentación. Uso la IA para agilizar implementación y comprobaciones; conservo su atribución y la evidencia para poder defender qué resultados están sustentados y qué decisiones requieren todavía mi revisión.

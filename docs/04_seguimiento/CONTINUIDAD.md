@@ -190,6 +190,10 @@ Tengo 230,776 snapshots, 182 días y 1,268 pares completos en filas; 1,232 pares
 
 La IA ejecutó las diez celdas secuencialmente con Python directo y captura de salidas, validó nbformat y contrastó calendario, claves, ceros y rachas mediante biblioteca estándar, así como positividad de costos con Decimal. No se presenta esta ejecución como un kernel Jupyter. Los detalles técnicos están en AI_LOG. Mi revisión personal permanece pendiente. El siguiente notebook aislado será e-commerce, asignando número según los archivos presentes al crearlo; después corresponde conciliar claves, fechas, unidades y poblaciones e implementar el pipeline. Las menciones previas de inventario pendiente describen estados históricos.
 
+### 9 de noviembre de 2026 — Alternativa de conciliación pendiente de aplicación
+
+Pedí mantener visible en HALLAZGOS la posibilidad ya investigada de relacionar productos por nombre normalizado y coincidencia entre el número final del handle y el segmento numérico ERP. Mi decisión actual es tenerla presente para la futura conciliación, sin aplicarla todavía. La evidencia está en [conciliación de handles](../05_antecedentes/conciliacion_handles.md); no convierte los mapeos incompletos en informados ni modifica las exploraciones aisladas. Al retomar la conciliación corresponde revisar vigencia, unicidad y conflictos antes de plantear su uso.
+
 ## Conclusión
 
 Tengo los notebooks e informes aislados de sales, exchange_rates e inventory ejecutados por la IA. Continúo con e-commerce y la conciliación, conservando las dudas de granularidad y los cambios de versión; el pipeline y las respuestas finales siguen pendientes.

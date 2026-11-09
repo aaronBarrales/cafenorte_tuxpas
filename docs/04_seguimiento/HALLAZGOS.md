@@ -1,6 +1,6 @@
 # Hallazgos importantes
 
-Actualizado: 8 de noviembre de 2026. Mantener entradas breves; distinguir hechos de relaciones o reglas propuestas. Las cifras del EDA integral son antecedentes; su hash de sales no coincide con la fuente actual.
+Actualizado: 9 de noviembre de 2026. Mantener entradas breves; distinguir hechos de relaciones o reglas propuestas. Las cifras del EDA integral son antecedentes; su hash de sales no coincide con la fuente actual.
 
 ## Notebook de ventas actualizado
 
@@ -28,7 +28,7 @@ Resultados de [01_sales.ipynb](../../notebooks/01_sales.ipynb), ejecutado sobre 
 | 38 de 65 mapeos no tienen handle. | No implica que el producto no se venda online; handle no es descripción. |
 | E-commerce: 9,947 filas, 33 handles y monedas MXN, USD y EUR. | Normalizar monedas antes de sumar importes. |
 | Seis handles no aparecen en el mapeo: representan 1,849 filas. | Conservar y reportar pendientes de conciliación. |
-| Nombre normalizado + número del SKU ERP identifica un candidato para cada uno de esos seis handles. | Regla consistente con 23/23 mapeos completos; relaciones inferidas, aún sin aplicar. |
+| Nombre del producto normalizado + coincidencia del número final del handle con el segmento numérico del SKU ERP identifica un candidato para cada uno de esos seis handles. | Coincide con 23/23 mapeos completos del estudio previo. Mi decisión actual es conservarlo como alternativa para la futura conciliación, sin aplicarlo todavía ni dar los enlaces por confirmados. |
 | Los candidatos ERP son 013-B, 030-C, 031-A, 032-D, 041-D y 052-C, con prefijo ERP-PROV-MX-. | Detalle en [conciliación de handles](../05_antecedentes/conciliacion_handles.md). No unir solo por nombre: hay nombres repetidos. |
 | Cuatro mapeos con handle tienen ERP nulo: POS 006, 026, 036 y 046. | Reconocer el handle no garantiza llegar a costos del ERP. |
 | Inventario incluye zonas horarias por tienda y snapshots diarios, sin movimientos transaccionales. | Confirmar zona del POS; ausencia de snapshot no equivale a stock cero. |
@@ -62,6 +62,8 @@ En [mi informe de tasas](../02_exploracion/resultados_exchange_rates.md) y [02_e
 ## Exploración aislada actual de inventory — 9 de noviembre de 2026
 
 En [mi informe de inventario](../02_exploracion/resultados_inventory.md) documento 230,776 snapshots de 1,268 pares tienda–SKU durante 182 días, sin duplicados de clave ni huecos internos por par. Distingo 4,417 N/A y 11,726 ceros; 1,232 pares tienen algún saldo desconocido. Las tres rachas trimestrales de cuatro ceros diarios son evidencia observada, pendiente de definición operativa de quiebre. Los cinco ERP nulos en mapeos, los diez productos sin referencia ERP informada y la base de los costos siguen abiertos en Q03–Q08/Q16/Q21–Q30. No consulto las otras fuentes; no confirmo margen, rotación ni compatibilidad entre sistemas.
+
+Tengo presente para la siguiente etapa la [propuesta previa de conciliación por nombre y número](../05_antecedentes/conciliacion_handles.md). Es evidencia anterior entre fuentes: no cambia los conteos de mapeos informados del análisis aislado de inventory ni completa sus claves nulas. Retomaré su validación al conciliar las fuentes; por ahora mantengo las relaciones como candidatas sin aplicar.
 
 ## Conclusión
 
