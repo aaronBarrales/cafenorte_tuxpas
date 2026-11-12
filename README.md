@@ -8,7 +8,6 @@ Integro POS, ERP y Shopify en un modelo SQLite reproducible y respondo cuatro pr
 2. [Propuesta AWS: arquitectura, costos y fases](docs/03_negocio/PROPUESTA_TECNICA.md).
 3. [Bitácora de IA](AI_LOG.md): mis intervenciones, propuestas, correcciones y evidencia.
 4. [Modelo, granularidad y reglas](docs/03_negocio/MODELO_ETL.md).
-5. [Lista de entrega y guion de entrevista](docs/04_seguimiento/ENTREGA.md).
 
 Conservo el [enunciado original](docs/01_reto/TX%20Challenge%20Data%20Solutions%20Engineer.docx), su [transcripción](docs/01_reto/enunciado_extraido.md), los [requisitos](docs/01_reto/guia_entrega.md) y el [índice completo](docs/README.md). La solución local no requiere AWS; el reto solicita una propuesta productiva y no un despliegue.
 
