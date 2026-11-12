@@ -402,6 +402,10 @@ La IA añadió conclusiones específicas a los Markdown propios del proyecto y g
 
 **Comprobación de cierre:** la guía PDF tiene ocho páginas y la propuesta dos; ambas se renderizaron e inspeccionaron y sus bloques de texto permanecen dentro de los márgenes de página. Se verificaron 78 enlaces locales de los documentos modificados, la instantánea de respuestas y Git diff --check. La consulta anónima a la API de GitHub confirma visibility=public y private=false. La revisión del inventario histórico de Git no encontró fuentes CSV/JSON/Parquet, outputs ni .env versionados. El paquete ZIP se construye desde el commit final y contiene código y documentación; los dos PDF se entregan por separado. El envío del correo no se ejecutó.
 
+## Simplificación de la estructura final — 12 de noviembre de 2026
+
+Concentro el código entregado en el ETL, sus pruebas y el validador independiente. Retiré nueve auxiliares de exploración y generación de documentos, junto con las dependencias exclusivas de PDF; conservo los notebooks, informes y PDF terminados. Ajusté README, convenciones, navegación y comandos afectados, distinguiendo las referencias históricas de las instrucciones vigentes. La IA comprobó que los tres scripts esenciales y todos los notebooks permanecen idénticos a la versión auditada; las diez pruebas y el contraste independiente de las cuatro métricas pasan. La revisión de navegación detectó una referencia antigua a D005 y la sustituyó por las ventanas ya definidas en el modelo. Actualizo el ZIP desde el nuevo commit para que contenga la misma estructura simplificada.
+
 ## Conclusión
 
 Mi aportación documentada está en las preguntas que orientan la investigación, las hipótesis que pido contrastar y las correcciones con las que ajusto el análisis y su presentación. Uso la IA para agilizar implementación y comprobaciones; conservo su atribución y la evidencia para poder defender qué resultados están sustentados y qué decisiones requieren todavía mi revisión.

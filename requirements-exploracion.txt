@@ -1,5 +1,4 @@
-# Lectura del Parquet y exportación de consulta. Stack final del pipeline pendiente.
-pyarrow==26.0.1
-pandas>=2.2,<4
+# Dependencias opcionales de los notebooks; reutilizo las versiones del ETL.
+-r requirements.txt
 jupyterlab>=4,<5
 ipykernel>=6,<8

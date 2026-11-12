@@ -154,19 +154,9 @@ Estas ambigüedades de métricas se resolverán en el README conforme al reto, s
 
 Con comprobantes I, mapeo exacto y el supuesto de monto total y costo unitario comparable: 70,721 de 82,518 registros I tienen costo; 11,797 quedan sin costo por conciliación. Entre los que tienen costo, 2,369 registros dan margen negativo en la cobertura de 18 meses. No implica 2,369 productos ni 2,369 tiendas, ni define por sí solo el resultado agregado por SKU. El caso V00000000 está explicado en [casos de margen](casos_margen.md).
 
-## Reproducción y validación
+## Validación histórica
 
-```powershell
-.\.venv\Scripts\python.exe scripts/eda_completo.py
-.\.venv\Scripts\python.exe scripts/perfil_sales.py
-.\.venv\Scripts\python.exe scripts/validar_eda.py
-```
-
-Dependencias: `requirements-exploracion.txt`. El perfilador de sales ahora admite ambos formatos observados y conserva el hash de la versión que lee. No modifica fechas ni vuelve a introducir segundos.
-
-El EDA concilia conteos por comprobante, mes, moneda, estado de mapeo y clave de snapshot. Sus seis controles pasaron. Además, `validar_eda.py` contrasta hashes, conteos e importe original, N/A frente a cero, episodios por un método independiente de ventanas, cobertura, ambos formatos de fecha, rechazo de fechas imposibles, el caso de margen con costo vigente y los 60 identificadores de preguntas. Sus diez comprobaciones pasaron.
-
-Esto verifica conservación y consistencia del perfil, no la veracidad de las reglas de negocio. Antes de cerrar la entrega se necesitan pruebas del pipeline para signos, costos vigentes, monedas, ventanas y episodios consecutivos.
+Conservo el diagnóstico y sus huellas como evidencia de su etapa. Los seis controles de conservación y las diez comprobaciones independientes de esa ejecución pasaron; no representan una validación de versiones posteriores. Retiré los auxiliares exploratorios de la estructura final. Los notebooks conservan la exploración y los comandos actuales del ETL y sus pruebas están en el README principal.
 
 ### Identificación de fuentes analizadas
 

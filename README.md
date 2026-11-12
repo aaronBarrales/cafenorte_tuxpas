@@ -38,17 +38,13 @@ Resuelvo rutas desde el script; puedo ejecutarlo desde otra carpeta o indicar `-
 .venv/Scripts/python -c "import sqlite3; c=sqlite3.connect('outputs/etl/modelo.sqlite'); print(c.execute('SELECT * FROM quiebres_tiendas').fetchall()); c.close()"
 ```
 
-Para generar el PDF de dos páginas instalo las dependencias opcionales y ejecuto:
+Conservo la propuesta PDF de dos páginas y la guía PDF de estudio en `outputs/entrega/`; sus documentos Markdown están en `docs/`. Los PDF terminados se adjuntan según la [lista de entrega](docs/04_seguimiento/ENTREGA.md).
 
-```powershell
-.venv/Scripts/python -m pip install -r requirements-entrega.txt
-.venv/Scripts/python scripts/generar_propuesta_pdf.py
-.venv/Scripts/python scripts/generar_guia_estudio.py
-```
+Mantengo únicamente tres scripts ejecutables: [pipeline.py](scripts/pipeline.py) para ejecutar el ETL, [test_pipeline.py](scripts/test_pipeline.py) para probar sus reglas y [validar_entrega.py](scripts/validar_entrega.py) para contrastar los resultados de manera independiente.
 
 ## Stack y confiabilidad
 
-Elijo pandas para los tres formatos y las uniones temporales, Decimal para el redondeo financiero y SQLite para persistir y consultar sin servidor. El volumen cabe en memoria; un clúster aumentaría complejidad sin una necesidad demostrada. Fijo las versiones ejecutadas en requirements.txt. El PDF usa dependencias opcionales separadas del ETL.
+Elijo pandas para los tres formatos y las uniones temporales, Decimal para el redondeo financiero y SQLite para persistir y consultar sin servidor. El volumen cabe en memoria; un clúster aumentaría complejidad sin una necesidad demostrada. Fijo las versiones ejecutadas en requirements.txt. Las dependencias opcionales de los notebooks están en requirements-exploracion.txt.
 
 Controlo claves únicas, relaciones m:1, fechas nulas, cantidades, monedas, stock finito, costos positivos y referencias de catálogo. Conservo filas, cantidades e importes antes y después de enriquecer; un costo o equivalente ausente nunca se vuelve cero. Guardo centavos monetarios enteros y publico la base al cerrar su conexión, después de comprobar integridad. Reconstruyo la carga completa, de modo que repetirla no duplica registros. El manifiesto se publica al final; una interrupción entre exportaciones puede dejar una versión incompleta que debe rechazarse y regenerarse.
 
@@ -74,7 +70,7 @@ Leyenda: cada fila define una pregunta; cantidades en unidades de catálogo bajo
 ```text
 datos/              Originales locales excluidos de Git.
 notebooks/          Cuatro exploraciones individuales y conciliación conjunta.
-scripts/            ETL, tests, validadores, perfiles y generador PDF.
+scripts/            ETL, pruebas de sus reglas y validador independiente.
 outputs/            Modelo, CSV, manifiesto, PDF y paquete de entrega; excluidos.
 docs/01_reto/       Enunciado original y requisitos.
 docs/02_exploracion/ Resultados exploratorios de su versión de fuentes.

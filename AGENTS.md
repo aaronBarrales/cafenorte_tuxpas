@@ -8,8 +8,7 @@ Estas convenciones aplican a todos los archivos del proyecto. Antes de crear o m
 |---|---|
 | `datos/` | Fuentes originales. No sobrescribir ni corregir los archivos de entrada. Mantenerlos fuera de Git según `.gitignore`. |
 | `notebooks/` | Exploración interactiva; un notebook por fuente y análisis conjunto de conciliación. |
-| `scripts/` | Perfiles reproducibles, exportaciones y validaciones ejecutables. |
-| `scripts/` (ETL y entrega) | Pipeline, pruebas, validadores y generadores de entregables reproducibles. |
+| `scripts/` | Código esencial del ETL, sus pruebas y el validador independiente. No incluir generadores de documentos, exportadores auxiliares ni perfiles exploratorios separados; conservar la exploración en notebooks y sus informes. |
 | `outputs/` | Reportes, exportaciones y demás resultados generados; fuera de Git. |
 | `docs/README.md` | Entrada principal a la documentación, ruta de lectura e inventario de documentos. |
 | `docs/01_reto/` | Enunciado original, transcripción y requisitos de entrega. |

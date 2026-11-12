@@ -1,5 +1,9 @@
 # Resumen para retomar el proyecto CaféNorte
 
+## Estructura final simplificada — 12 de noviembre de 2026
+
+Mantengo únicamente scripts/pipeline.py, scripts/test_pipeline.py y scripts/validar_entrega.py. Conservo notebooks, documentación y PDF terminados; retiré generadores, perfiles y exportadores auxiliares. Las menciones a estos últimos en las entradas históricas describen herramientas de su etapa y no comandos disponibles en la entrega. Uso el README principal para ejecutar y validar el ETL.
+
 ## Estado final de entrega — 12 de noviembre de 2026
 
 Mi entrega vigente es el ETL auditado con diez tests y contraste independiente de las cuatro métricas, costos y hashes. La propuesta tiene versión PDF de dos páginas; el repositorio se hizo público con mi autorización expresa y preparo un ZIP sin fuentes. Consulto [ENTREGA](ENTREGA.md) para la matriz de cumplimiento, correo y guion. Las entradas cronológicas siguientes conservan el estado de su fecha; no representan tareas pendientes del ETL actual. Mantengo abiertos los límites de fuentes documentados sin tratarlos como fallos de ejecución.
@@ -109,7 +113,7 @@ El perfilador inicialmente solo aceptaba el formato original; se actualizó dura
 6. Redactar propuesta AWS con precios verificados y fases, revisar personalmente AI_LOG y ensayar demo.
 7. Verificar acceso al repositorio y preparar entrega antes del límite. No enviar correos sin instrucción expresa.
 
-## Archivos útiles y hábitos de trabajo
+## Inventario histórico y hábitos de trabajo
 
 - `docs/03_negocio/guia_preguntas_negocio.md`: guía para principiantes de las cuatro solicitudes, con fórmulas, ejemplos ficticios y ambigüedades. Es material explicativo; no adopta reglas definitivas ni contiene resultados calculados del reto.
 

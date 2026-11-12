@@ -49,18 +49,9 @@ Los nulos se exportan como celdas vacías; CSV no conserva los tipos ni la disti
 
 En Excel, usar **Datos → Desde texto/CSV**, elegir UTF-8 y delimitador coma. Revisar los tipos antes de cargar: identificadores como texto, y `amount` con punto decimal usando la configuración regional adecuada. Para conservar el original, guardar cualquier edición con otro nombre.
 
-## Reproducción
+## Alcance histórico de la ejecución
 
-Desde la raíz del proyecto, con Python 3.12 usado en esta exploración:
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-exploracion.txt
-.\.venv\Scripts\python.exe scripts/exportar_ecommerce.py
-.\.venv\Scripts\python.exe scripts/perfil_ecommerce.py
-```
-
-El stack final del pipeline sigue pendiente. En el entorno de esta sesión, la instalación requirió permisos de ejecución adicionales y el almacén de certificados del sistema mediante `pip --use-feature=truststore`; no se desactivó la verificación HTTPS.
+Conservo esta revisión como evidencia de la etapa exploratoria. Retiré los auxiliares de exportación y perfil de la estructura final; el notebook de ecommerce conserva el análisis y el README principal explica cómo ejecutar el ETL. La exportación de consulta no es una entrada necesaria del pipeline.
 
 ## Conclusión
 

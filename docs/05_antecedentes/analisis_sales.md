@@ -1,18 +1,12 @@
 # Exploración inicial de sales
 
-**Antecedente histórico:** este informe conserva el perfil original y su hash; no corresponde a la versión actual. Consulta los [resultados del análisis aislado actual de sales](../02_exploracion/resultados_sales.md). El [EDA integral previo](EDA_COMPLETO.md) también tiene un hash de sales distinto del actual. `scripts/perfil_sales.py` admite ambos formatos de fecha observados; no restaura segundos ausentes de la fuente actual.
+**Antecedente histórico:** este informe conserva el perfil original y su hash; no corresponde a la versión actual. Consulta los [resultados del análisis aislado actual de sales](../02_exploracion/resultados_sales.md). El [EDA integral previo](EDA_COMPLETO.md) también tiene un hash de sales distinto del actual. El perfilador usado en esta etapa admitía ambos formatos de fecha observados, sin restaurar segundos; lo retiré de la estructura final al concentrar la exploración en notebooks.
 
 ## Alcance y reproducción
 
 Perfil de la fuente original, sin limpieza ni filtros de negocio. No constituye aún el cálculo de ventas netas ni las respuestas del reto.
 
-Desde la raíz del repositorio, con Python 3 y sin dependencias externas:
-
-```powershell
-python scripts/perfil_sales.py
-```
-
-El script imprime JSON, conserva los importes con `Decimal` y separa sus sumas por tipo de comprobante y moneda. No modifica la fuente.
+Conservo los resultados del perfil histórico, cuyo auxiliar retiré de la entrega. Para la exploración vigente consulto el notebook de sales y su informe; para ejecutar el ETL uso el README principal.
 
 Archivo: `datos/sales.csv`. SHA-256 analizado: `87628a584d30a353f3bcc9dbe20c2d8f1e55c80a0036ecee88e76fce61031276`.
 

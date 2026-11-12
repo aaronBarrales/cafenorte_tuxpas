@@ -235,7 +235,7 @@ Por ejemplo, **si se adoptara** el 31 de marzo de 2026 como corte y se eligieran
 
 El trimestre calendario divide el año en enero–marzo, abril–junio, julio–septiembre y octubre–diciembre. Tres meses móviles se cuentan hacia atrás desde el corte y pueden no coincidir con esos bloques. «Último año» también podría significar el año calendario anterior; aquí se ilustra como doce meses completos hacia atrás.
 
-Estas ventanas son ejemplos, no decisiones confirmadas del proyecto. La cobertura conjunta de las fuentes y la elección definitiva siguen pendientes en [D005](DUDAS.md#d005-fecha-de-corte-de-las-ventanas-del-reto).
+Estas ventanas son ejemplos didácticos. Las ventanas que aplico en la entrega están definidas en [el modelo del ETL](MODELO_ETL.md#ventanas-y-límites) y en el README principal.
 
 ## Qué debes dejar definido antes de producir los resultados
 

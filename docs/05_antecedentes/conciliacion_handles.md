@@ -45,13 +45,9 @@ Para este reto se puede adoptar la combinación nombre y sufijo como supuesto ex
 
 Si se aplican las propuestas, verificar que no se multipliquen filas ni se alteren importes por moneda, que los seis handles mantengan sus 1,849 registros y que la relación a costos tenga cobertura temporal. Presentar el impacto de las filas inferidas por separado al validar márgenes. Los candidatos aún no se aplicaron: no se han calculado métricas de negocio bajo esta regla.
 
-## Reproducción
+## Alcance histórico del auxiliar
 
-```powershell
-.\.venv\Scripts\python.exe scripts/proponer_mapeos.py
-```
-
-El script consulta el inventario y la columna product_handle de Parquet, emite propuestas en JSON y no modifica las fuentes. El perfil y la exportación CSV siguen documentados en [el análisis de e-commerce](analisis_ecommerce.md).
+Conservo la evidencia de candidatos en este documento. Retiré el auxiliar que los proponía de la estructura final: el ETL usa únicamente equivalencias exactas y mantiene las excepciones visibles. Las propuestas de este antecedente siguen sin aplicarse.
 
 ## Conclusión
 

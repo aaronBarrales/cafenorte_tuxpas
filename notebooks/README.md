@@ -14,11 +14,11 @@ Ejecuta cada notebook de principio a fin con las fuentes en `datos/`.
 - [05_conjunto.ipynb](05_conjunto.ipynb): conciliación de las cuatro fuentes mediante equivalencias exactas, fechas, tiendas, snapshots, costos y tasas; conserva excepciones y no aplica candidatos inferidos.
 - [Informe conjunto](../docs/02_exploracion/resultados_conjunto.md): evidencia de conectores utilizables, cobertura y límites de interpretación.
 
-Tengo completos los cuatro notebooks aislados y el análisis conjunto. Para ejecutar y regenerar el quinto notebook y su informe desde la raíz uso `python scripts/ejecutar_eda_conjunto.py`; desde notebooks uso `python ../scripts/ejecutar_eda_conjunto.py`. El ejecutor captura salidas mediante IPython con historial en memoria, sin arrancar un kernel Jupyter.
+Tengo completos los cuatro notebooks aislados y el análisis conjunto. Para ejecutarlos uso Jupyter con las dependencias de `requirements-exploracion.txt`. Desde la raíz puedo ejecutar el quinto notebook con `python -m jupyter nbconvert --to notebook --execute --inplace notebooks/05_conjunto.ipynb`; desde notebooks uso `python -m jupyter nbconvert --to notebook --execute --inplace 05_conjunto.ipynb`. Si cambia una fuente, documento primero su nueva versión y actualizo el informe Markdown después de revisar las salidas; ejecutar el notebook no actualiza automáticamente ese informe.
 
 Estructura común: objetivo y granularidad, lectura, esquema, diccionario, calidad, cobertura temporal, distribución de valores y conclusiones. Cada fuente añade sus controles particulares.
 
-Los notebooks exploran y documentan; no corrigen ni sobrescriben las fuentes. Los scripts de `../scripts/` conservan los perfiles automáticos existentes. Las salidas guardadas pueden quedar desactualizadas si cambia el archivo: vuelve a ejecutar antes de interpretarlas.
+Los notebooks exploran y documentan; no corrigen ni sobrescriben las fuentes. En `../scripts/` conservo únicamente el ETL, sus pruebas y el validador independiente. Las salidas guardadas pueden quedar desactualizadas si cambia el archivo: documento el cambio y vuelvo a ejecutar antes de interpretarlas.
 
 ## Ubicación de las dudas
 
