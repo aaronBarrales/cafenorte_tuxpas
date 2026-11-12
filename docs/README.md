@@ -77,7 +77,7 @@ No crear documentos para fases todavía no implementadas. Cuando exista una nuev
 
 ## Entrega funcional — 12 de noviembre de 2026
 
-Mi ruta de revisión final es [modelo y reglas](03_negocio/MODELO_ETL.md), [cuatro respuestas calculadas](03_negocio/RESPUESTAS_NEGOCIO.md), [propuesta AWS](03_negocio/PROPUESTA_TECNICA.md), [guion y correo](04_seguimiento/ENTREGA.md) y [versión actual de fuentes](04_seguimiento/VERSION_FUENTES.md). El README principal contiene los comandos de ejecución y pruebas.
+Mi ruta de revisión final es [modelo y reglas](03_negocio/MODELO_ETL.md), [cuatro respuestas calculadas](03_negocio/RESPUESTAS_NEGOCIO.md), [propuesta AWS](03_negocio/PROPUESTA_TECNICA.md), [guion y correo](04_seguimiento/ENTREGA.md) y [versión actual de fuentes](04_seguimiento/VERSION_FUENTES.md). El README principal contiene los comandos de ejecución y pruebas. Uso la [guía de estudio](04_seguimiento/GUIA_ESTUDIO.md) para preparar la defensa; su PDF se genera en outputs/entrega/.
 
 ## Conclusión
 

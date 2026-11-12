@@ -1,5 +1,9 @@
 # Resumen para retomar el proyecto CaféNorte
 
+## Estado final de entrega — 12 de noviembre de 2026
+
+Mi entrega vigente es el ETL auditado con diez tests y contraste independiente de las cuatro métricas, costos y hashes. La propuesta tiene versión PDF de dos páginas; el repositorio se hizo público con mi autorización expresa y preparo un ZIP sin fuentes. Consulto [ENTREGA](ENTREGA.md) para la matriz de cumplimiento, correo y guion. Las entradas cronológicas siguientes conservan el estado de su fecha; no representan tareas pendientes del ETL actual. Mantengo abiertos los límites de fuentes documentados sin tratarlos como fallos de ejecución.
+
 ## Organización vigente de la documentación — 8 de noviembre de 2026
 
 El punto de entrada es [docs/README.md](../README.md). La documentación se divide en `01_reto/`, `02_exploracion/`, `03_negocio/`, `04_seguimiento/` y `05_antecedentes/`. Los informes aislados actuales están en exploración; los estudios anteriores y casos entre fuentes están en antecedentes. Las referencias a organizaciones anteriores en entradas cronológicas son históricas.

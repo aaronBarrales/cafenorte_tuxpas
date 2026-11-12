@@ -3,10 +3,28 @@ import unittest
 
 import pandas as pd
 
-from pipeline import attach_cost, cents, monthly, rotation, stockouts, unique
+from pipeline import attach_cost, cents, monthly, parse_days, rotation, stockouts, unique
 
 
 class PipelineTests(unittest.TestCase):
+    def test_fecha_nula_se_rechaza(self):
+        with self.assertRaises(ValueError):
+            parse_days(pd.Series(['2026-01-01', None]))
+
+    def test_stock_desconocido_interrumpe_racha(self):
+        s = pd.DataFrame({'dia': pd.date_range('2026-01-01', periods=5), 'tienda_id': 'T', 'sku_erp': 'A', 'stock_num': [0, 0, None, 0, 0]})
+        self.assertTrue(stockouts(s, pd.Timestamp('2026-01-01'), pd.Timestamp('2026-01-31')).empty)
+
+    def test_rotacion_denominador_cero(self):
+        s = pd.DataFrame({'dia': pd.to_datetime(['2026-01-01']), 'tienda_id': 'T', 'sku_erp': 'A', 'stock_num': 0})
+        v = pd.DataFrame({'dia': pd.to_datetime(['2026-01-01']), 'tienda_id': 'T', 'sku_erp': 'A', 'cantidad': 1, 'tipo_comprobante': 'I'})
+        self.assertTrue(pd.isna(rotation(v, s, pd.Timestamp('2026-01-01'), pd.Timestamp('2026-01-01')).rotacion_veces.iloc[0]))
+
+    def test_mom_base_cero(self):
+        f = pd.DataFrame({'dia': pd.to_datetime(['2025-12-01', '2026-01-01']), 'canal': 'fisico', 'ingreso_centavos': [0, 100], 'fila_id': [0, 1]})
+        r = monthly(f, pd.Timestamp('2026-01-01'), pd.Timestamp('2026-01-31'))
+        self.assertTrue(r[r.canal.eq('fisico')].crecimiento_pct.isna().all())
+
     def test_redondeo_financiero(self):
         self.assertEqual(cents('1.005'), 101)
         self.assertEqual(cents('10', '17.1234'), 17123)

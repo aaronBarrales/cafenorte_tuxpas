@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 import sqlite3
+import tempfile
 from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 
@@ -13,6 +14,18 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 FILES = ['sales.csv', 'inventory.json', 'ecommerce_orders.parquet', 'exchange_rates.csv']
+SOURCE_HASHES = {
+    'sales.csv': {'10d526ecaf2686ee97cc946bce23b3f78f6a4ad90e3c41d282b62fe365d035c2'},
+    'inventory.json': {'2355c6cab9ff00a707b5505a464a8f7e1a9bf5a2aa6c7a2b6b008f5299c8eada'},
+    'ecommerce_orders.parquet': {'00c560b39425fe7f0088fbe20c66c2b8861d10c2c7006ba6e7335cdd6dfc856e'},
+    'exchange_rates.csv': {'a0e827ec1e048cf397584eca3d692cb5b5b1f6b477fb78efca2fdbd2f488bddf'},
+}
+
+
+def parse_days(values, date_format=None):
+    result = pd.to_datetime(values, format=date_format, errors='raise').dt.normalize()
+    require(result.notna().all(), 'Fecha nula no permitida')
+    return result
 
 
 def require(condition, message):
@@ -73,7 +86,7 @@ def rotation(sales, stock, start, end):
 def monthly(fact, start, end):
     f = fact[fact.dia.between(start - pd.DateOffset(months=1), end)].copy()
     f['mes'] = f.dia.dt.to_period('M').astype(str)
-    agg = f.groupby(['canal', 'mes']).agg(ingreso_centavos=('ingreso_centavos', 'sum'), registros=('fila_id', 'size'))
+    agg = f.groupby(['canal', 'mes']).agg(ingreso_centavos=('ingreso_centavos', lambda x: x.sum(min_count=1)), registros=('fila_id', 'size'))
     index = pd.MultiIndex.from_product([['fisico', 'online'], pd.period_range(start - pd.DateOffset(months=1), end, freq='M').astype(str)], names=['canal', 'mes'])
     agg = agg.reindex(index).reset_index()
     agg['ingreso_mxn'] = agg.ingreso_centavos / 100
@@ -95,9 +108,8 @@ def run(data_dir=ROOT / 'datos', output_dir=ROOT / 'outputs/etl'):
     data_dir, output_dir = Path(data_dir), Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     hashes = {f: hashlib.sha256((data_dir / f).read_bytes()).hexdigest() for f in FILES}
-    baseline = (ROOT / 'docs/02_exploracion/resultados_conjunto.md').read_text(encoding='utf-8')
-    baseline += (ROOT / 'docs/04_seguimiento/VERSION_FUENTES.md').read_text(encoding='utf-8')
-    require(all(h in baseline for h in hashes.values()), 'Fuente distinta a versiones documentadas')
+    require(all(h in SOURCE_HASHES[f] for f, h in hashes.items()),
+            'Fuente distinta a la versión de entrega: documentar y revisar antes de actualizar SOURCE_HASHES')
     inv = json.loads((data_dir / 'inventory.json').read_text(encoding='utf-8-sig'))
     pos = pd.read_csv(data_dir / 'sales.csv')
     online = pd.read_parquet(data_dir / 'ecommerce_orders.parquet', columns=['order_id', 'fecha', 'product_handle', 'cantidad', 'amount', 'currency'])
@@ -108,16 +120,19 @@ def run(data_dir=ROOT / 'datos', output_dir=ROOT / 'outputs/etl'):
     stock = pd.DataFrame(inv['snapshots'])
     costs = pd.DataFrame([dict(sku_erp=p['sku_erp'], vigencia=h['fecha_vigencia'], costo_mxn=h['costo_mxn'])
                           for p in inv['catalogo']['productos'] for h in p['cost_history']])
-    costs['vigencia'] = pd.to_datetime(costs.vigencia, errors='raise')
-    stock['dia'] = pd.to_datetime(stock.fecha, errors='raise')
+    costs['vigencia'] = parse_days(costs.vigencia)
+    stock['dia'] = parse_days(stock.fecha)
     stock['stock_num'] = pd.to_numeric(stock.cantidad_en_stock, errors='coerce')
-    fx['dia'] = pd.to_datetime(fx.fecha, errors='raise')
+    fx['dia'] = parse_days(fx.fecha)
     for frame, keys in [(products, ['sku_erp']), (stores, ['tienda_id']), (stock, ['dia', 'tienda_id', 'sku_erp']),
                          (costs, ['sku_erp', 'vigencia']), (fx, ['dia', 'currency']), (pos, ['venta_id']), (online, ['order_id'])]:
         unique(frame, keys)
     require((costs.costo_mxn > 0).all() and np.isfinite(costs.costo_mxn).all(), 'Costo inválido')
     require((fx.rate_to_mxn > 0).all() and np.isfinite(fx.rate_to_mxn).all(), 'FX inválido')
     require(stock.stock_num.dropna().ge(0).all(), 'Stock negativo no soportado')
+    require(np.isfinite(stock.stock_num.dropna()).all(), 'Stock infinito no permitido')
+    require(stock.sku_erp.isin(products.sku_erp).all() and stock.tienda_id.isin(stores.tienda_id).all(), 'Snapshot fuera de catálogo')
+    require(costs.sku_erp.isin(products.sku_erp).all(), 'Costo fuera de catálogo')
     require(set(pos.tipo_comprobante) <= set('IENTP'), 'Código POS desconocido')
     require(pos.moneda.eq('MXN').all(), 'Moneda POS no soportada')
     require(pos.tienda_id.isin(stores.tienda_id).all(), 'Tienda desconocida')
@@ -126,7 +141,7 @@ def run(data_dir=ROOT / 'datos', output_dir=ROOT / 'outputs/etl'):
                                                          (online, 'product_handle', 'handle', 'fecha', None, 'online')]:
         f = source.copy()
         f['fila_id'] = np.arange(len(f))
-        f['dia'] = pd.to_datetime(f[datecol], format=datefmt, errors='raise').dt.normalize()
+        f['dia'] = parse_days(f[datecol], datefmt)
         m = mappings[mappings[mapkey].notna()][[mapkey, 'sku_erp']]
         unique(m, [mapkey])
         f = f.merge(m, left_on=key, right_on=mapkey, how='left', validate='m:1', indicator=True)
@@ -136,14 +151,15 @@ def run(data_dir=ROOT / 'datos', output_dir=ROOT / 'outputs/etl'):
         f['canal'] = channel
         f['currency'] = f['moneda'] if channel == 'fisico' else f.currency
         f['importe_original'] = f['monto'] if channel == 'fisico' else f.amount
-        require(f.cantidad.gt(0).all() and np.isfinite(f.importe_original).all() and f.importe_original.ge(0).all(), 'Cantidad o importe no soportado')
+        require(f.cantidad.gt(0).all() and np.isfinite(f.cantidad).all() and f.cantidad.mod(1).eq(0).all()
+                and np.isfinite(f.importe_original).all() and f.importe_original.ge(0).all(), 'Cantidad o importe no soportado')
         f = f.merge(fx[['dia', 'currency', 'rate_to_mxn']], on=['dia', 'currency'], how='left', validate='m:1')
         f.loc[f.currency.eq('MXN'), 'rate_to_mxn'] = 1
         require(f.rate_to_mxn.notna().all(), 'Falta tasa del día')
         f['importe_centavos'] = [cents(a, r) for a, r in zip(f.importe_original, f.rate_to_mxn)]
         f['signo_ingreso'] = f.tipo_comprobante.map({'I': 1, 'E': -1, 'N': 0, 'P': 0, 'T': 0}) if channel == 'fisico' else 1
         f['ingreso_centavos'] = f.importe_centavos * f.signo_ingreso
-        f['costo_centavos'] = [cents(c, q) if pd.notna(c) else None for c, q in zip(f.costo_mxn, f.cantidad)]
+        f['costo_centavos'] = pd.array([cents(c, q) if pd.notna(c) else None for c, q in zip(f.costo_mxn, f.cantidad)], dtype='Int64')
         if channel == 'online':
             f['tienda_id'] = 'ONLINE_SIN_ALMACEN'
             f['tipo_comprobante'] = 'ORDEN'
@@ -170,13 +186,19 @@ def run(data_dir=ROOT / 'datos', output_dir=ROOT / 'outputs/etl'):
     eligible_stock = stock[stock.dia.between(half, end)].groupby(['tienda_id', 'sku_erp']).stock_num.count()
     results['cobertura_rotacion'] = pd.DataFrame({'medida': ['pares_observados', 'pares_cobertura_completa', 'dias_exigidos'],
                                                'valor': [len(eligible_stock), int(eligible_stock.eq((end-half).days+1).sum()), (end-half).days+1]})
-    temp = output_dir / 'modelo.tmp.sqlite'
+    results['quiebres_tiendas'] = results['quiebres_episodios'].groupby('tienda_id').agg(
+        productos=('sku_erp', 'nunique'), episodios=('dias', 'size'), duracion_maxima_dias=('dias', 'max')).reset_index()
+    descriptor, temporary_name = tempfile.mkstemp(prefix='modelo-', suffix='.tmp.sqlite', dir=output_dir)
+    os.close(descriptor)
+    temp = Path(temporary_name)
     # Publico la base solamente después de completar las validaciones y la carga.
     with closing(sqlite3.connect(temp)) as db, db:
         for name, frame in dict(dim_producto=products, dim_tienda=stores, puente_producto=mappings, historial_costo=costs,
                                 fact_stock=stock, fact_movimiento=fact, tasas=fx, **results).items():
             frame.to_sql(name, db, if_exists='replace', index=False)
         db.execute('CREATE UNIQUE INDEX IF NOT EXISTS movimiento_pk ON fact_movimiento(canal, fila_id)')
+        db.execute('CREATE UNIQUE INDEX IF NOT EXISTS venta_origen_pk ON fact_movimiento(venta_id) WHERE venta_id IS NOT NULL')
+        db.execute('CREATE UNIQUE INDEX IF NOT EXISTS orden_origen_pk ON fact_movimiento(order_id) WHERE order_id IS NOT NULL')
         db.execute('CREATE UNIQUE INDEX IF NOT EXISTS stock_pk ON fact_stock(dia, tienda_id, sku_erp)')
         require(db.execute('PRAGMA integrity_check').fetchone()[0] == 'ok', 'SQLite inconsistente')
     require(hashes == {f: hashlib.sha256((data_dir / f).read_bytes()).hexdigest() for f in FILES}, 'La fuente cambió durante la ejecución')
@@ -186,14 +208,43 @@ def run(data_dir=ROOT / 'datos', output_dir=ROOT / 'outputs/etl'):
     manifest = dict(hashes=hashes, corte=str(end.date()), inicio_semestre=str(half.date()), inicio_trimestre=str(quarter.date()),
                     inicio_anio=str(year.date()), filas_pos=len(pos), filas_online=len(online), filas_stock=len(stock),
                     python=__import__('platform').python_version(), pandas=pd.__version__)
-    (output_dir / 'manifiesto.json').write_text(json.dumps(manifest, indent=2), encoding='utf-8')
     sections = ['# Respuestas calculadas de CaféNorte',
                 f'Mi corte es {end.date()}; analizo conjuntamente las cuatro fuentes identificadas en el manifiesto. Aplico las interpretaciones del README; no certifico ingresos contables ni unidades equivalentes.',
                 'Para rotación uso unidades I y pares tienda–SKU con cobertura diaria completa. Para quiebres cuento ceros consecutivos observados, sin completar ausencias. MoM usa I menos E y órdenes online sin estatus. Margen compara importe con costo vigente y es anterior a gastos e impuestos no identificados.']
+    sections += ['## Lectura ejecutiva',
+                 f'Mi ranking se limita a {int(eligible_stock.eq((end-half).days+1).sum())} de {len(eligible_stock)} pares tienda–SKU observados; no extrapolo a la cadena. '
+                 f'Encuentro {len(results["quiebres_episodios"])} episodios y {len(results["quiebres_tiendas"])} tiendas con más de tres ceros diarios consecutivos. '
+                 f'El año contiene {len(results["crecimiento_mensual"])} filas canal–mes. '
+                 f'Identifico {len(results["margen_negativo_acumulado"])} grupos canal–tienda–SKU con margen acumulado negativo; las operaciones sin costo permanecen fuera del cálculo, visibles en cobertura.']
+    labels = {
+        'rotacion_top10': ('1. Top 10 por rotación — octubre a marzo', 'Unidades I e inventario promedio en unidades de catálogo; rotación en veces del semestre, solo pares con 182 días conocidos. Tiendas cuenta sucursales incluidas por SKU. Orden descendente y desempate por SKU.'),
+        'quiebres_episodios': ('2. Episodios observados — enero a marzo', 'Fechas inclusivas por tienda y SKU; días cuenta ceros consecutivos. Los indicadores de borde solo señalan que el episodio toca el límite consultado, sin afirmar su duración real fuera de él.'),
+        'quiebres_tiendas': ('2.1 Tiendas afectadas', 'Una fila por tienda; productos distintos, cantidad de episodios y duración máxima observada en días.'),
+        'crecimiento_mensual': ('3. Crecimiento por canal — abril a marzo', 'Ingresos estimados y base anterior en MXN; crecimiento en porcentaje. Registros incluye todos los códigos conservados aunque N/P/T contribuyen cero. Base ausente o cero: no disponible.'),
+        'margen_negativo_operaciones': ('4. Operaciones con margen negativo — abril a marzo', 'Por canal, tienda y SKU: cuento operaciones I u órdenes negativas y sumo únicamente su margen en MXN. No representa el margen de todas las operaciones del grupo.'),
+        'margen_negativo_acumulado': ('4.1 Margen acumulado negativo — abril a marzo', 'Sumo operaciones positivas y negativas elegibles con costo dentro del año por canal, tienda y SKU; muestro solo grupos negativos. Margen en MXN, anterior a gastos y ajuste fiscal no disponible.'),
+        'cobertura': ('Cobertura de equivalencias — toda la fuente', 'Registros por canal y estado excluyente: exacto, sin equivalencia y equivalencia con ERP nulo. Sin filtrado temporal de negocio.'),
+        'cobertura_margen': ('Cobertura de costo — toda la fuente', 'Cuento todos los registros, incluidos comprobantes no elegibles, según costo disponible. No es el denominador de operaciones de margen del año.'),
+        'cobertura_rotacion': ('Cobertura del ranking', 'Conteos de pares observados, pares con todos los saldos conocidos y días exigidos del semestre; desconocido nunca equivale a cero.'),
+    }
     for name, frame in results.items():
-        sections += [f'## {name}', 'Leyenda: muestro todas las filas sin índice; centavos son centésimas de MXN; crecimiento_pct es porcentaje y rotacion_veces son vueltas del semestre. No disponible expresa ausencia de base o denominador válido; tiendas cuenta sucursales incluidas. Ordeno el ranking por rotación descendente y SKU ascendente para desempatar.', markdown(frame)]
+        title, legend = labels[name]
+        display = frame.copy()
+        for col in list(display.columns):
+            if col.endswith('_centavos'):
+                display[col.replace('_centavos', '_mxn')] = display.pop(col) / 100
+        if 'sku_erp' in display:
+            display = display.merge(products[['sku_erp', 'nombre']], how='left', on='sku_erp', validate='m:1')
+        sections += [f'## {title}', 'Leyenda: ' + legend + ' Muestro todas las filas sin índice. No disponible indica dato o base ausente.', markdown(display)]
     sections += ['## Conclusión', 'Obtengo cuatro respuestas reproducibles con cobertura explícita y excepciones conservadas. Interpreto los resultados como escenarios operativos sujetos a los límites de las fuentes.']
     (output_dir / 'RESPUESTAS.md').write_text('\n\n'.join(sections) + '\n', encoding='utf-8')
+    manifest['codigo_sha256'] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    manifest['artefactos_sha256'] = {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+                                   for p in [output_dir / 'modelo.sqlite', output_dir / 'RESPUESTAS.md'] +
+                                   [output_dir / f'{name}.csv' for name in results]}
+    marker = output_dir / 'manifiesto.tmp'
+    marker.write_text(json.dumps(manifest, indent=2), encoding='utf-8')
+    os.replace(marker, output_dir / 'manifiesto.json')
     print(json.dumps(manifest, indent=2))
     print({k: len(v) for k, v in results.items()})
     return results

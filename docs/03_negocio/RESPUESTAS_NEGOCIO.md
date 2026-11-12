@@ -4,36 +4,40 @@ Mi corte es 2026-03-31; analizo conjuntamente las cuatro fuentes identificadas e
 
 Para rotación uso unidades I y pares tienda–SKU con cobertura diaria completa. Para quiebres cuento ceros consecutivos observados, sin completar ausencias. MoM usa I menos E y órdenes online sin estatus. Margen compara importe con costo vigente y es anterior a gastos e impuestos no identificados.
 
-## rotacion_top10
+## Lectura ejecutiva
 
-Leyenda: muestro todas las filas sin índice; centavos son centésimas de MXN; crecimiento_pct es porcentaje y rotacion_veces son vueltas del semestre. No disponible expresa ausencia de base o denominador válido; tiendas cuenta sucursales incluidas. Ordeno el ranking por rotación descendente y SKU ascendente para desempatar.
+Mi ranking se limita a 36 de 1268 pares tienda–SKU observados; no extrapolo a la cadena. Encuentro 3 episodios y 3 tiendas con más de tres ceros diarios consecutivos. El año contiene 24 filas canal–mes. Identifico 80 grupos canal–tienda–SKU con margen acumulado negativo; las operaciones sin costo permanecen fuera del cálculo, visibles en cobertura.
 
-| sku_erp | inventario_promedio | tiendas | unidades_I | rotacion_veces |
-| --- | --- | --- | --- | --- |
-| ERP-PROV-MX-027-B | 39.9615 | 1 | 29 | 0.7257 |
-| ERP-PROV-MX-005-C | 83.3462 | 2 | 48 | 0.5759 |
-| ERP-PROV-MX-034-D | 39.6978 | 1 | 20 | 0.5038 |
-| ERP-PROV-MX-003-D | 36.4396 | 1 | 18 | 0.4940 |
-| ERP-PROV-MX-040-A | 36.7033 | 1 | 17 | 0.4632 |
-| ERP-PROV-MX-032-D | 39.0824 | 1 | 18 | 0.4606 |
-| ERP-PROV-MX-013-B | 36.1484 | 1 | 16 | 0.4426 |
-| ERP-PROV-MX-061-D | 40.8077 | 1 | 18 | 0.4411 |
-| ERP-PROV-MX-007-D | 77.3132 | 2 | 34 | 0.4398 |
-| ERP-PROV-MX-054-B | 163.8956 | 4 | 72 | 0.4393 |
+## 1. Top 10 por rotación — octubre a marzo
 
-## quiebres_episodios
+Leyenda: Unidades I e inventario promedio en unidades de catálogo; rotación en veces del semestre, solo pares con 182 días conocidos. Tiendas cuenta sucursales incluidas por SKU. Orden descendente y desempate por SKU. Muestro todas las filas sin índice. No disponible indica dato o base ausente.
 
-Leyenda: muestro todas las filas sin índice; centavos son centésimas de MXN; crecimiento_pct es porcentaje y rotacion_veces son vueltas del semestre. No disponible expresa ausencia de base o denominador válido; tiendas cuenta sucursales incluidas. Ordeno el ranking por rotación descendente y SKU ascendente para desempatar.
+| sku_erp | inventario_promedio | tiendas | unidades_I | rotacion_veces | nombre |
+| --- | --- | --- | --- | --- | --- |
+| ERP-PROV-MX-027-B | 39.9615 | 1 | 29 | 0.7257 | Latte Bebidas |
+| ERP-PROV-MX-005-C | 83.3462 | 2 | 48 | 0.5759 | Croissant Panaderia |
+| ERP-PROV-MX-034-D | 39.6978 | 1 | 20 | 0.5038 | Estándar Cafe Molido |
+| ERP-PROV-MX-003-D | 36.4396 | 1 | 18 | 0.4940 | Filtros Mercancia |
+| ERP-PROV-MX-040-A | 36.7033 | 1 | 17 | 0.4632 | Chocolate Bebidas |
+| ERP-PROV-MX-032-D | 39.0824 | 1 | 18 | 0.4606 | Americano Cafe Grano |
+| ERP-PROV-MX-013-B | 36.1484 | 1 | 16 | 0.4426 | Selección Cafe Molido |
+| ERP-PROV-MX-061-D | 40.8077 | 1 | 18 | 0.4411 | Descafeinado Cafe Molido |
+| ERP-PROV-MX-007-D | 77.3132 | 2 | 34 | 0.4398 | Selección Cafe Grano |
+| ERP-PROV-MX-054-B | 163.8956 | 4 | 72 | 0.4393 | Espresso Cafe Molido |
 
-| tienda_id | sku_erp | inicio | fin | dias | toca_inicio_ventana | toca_fin_ventana |
-| --- | --- | --- | --- | --- | --- | --- |
-| T015 | ERP-PROV-MX-014-D | 2026-02-09 00:00:00 | 2026-02-12 00:00:00 | 4 | False | False |
-| T023 | ERP-PROV-MX-046-A | 2026-01-25 00:00:00 | 2026-01-28 00:00:00 | 4 | False | False |
-| T038 | ERP-PROV-MX-040-A | 2026-03-18 00:00:00 | 2026-03-21 00:00:00 | 4 | False | False |
+## 2. Episodios observados — enero a marzo
 
-## crecimiento_mensual
+Leyenda: Fechas inclusivas por tienda y SKU; días cuenta ceros consecutivos. Los indicadores de borde solo señalan que el episodio toca el límite consultado, sin afirmar su duración real fuera de él. Muestro todas las filas sin índice. No disponible indica dato o base ausente.
 
-Leyenda: muestro todas las filas sin índice; centavos son centésimas de MXN; crecimiento_pct es porcentaje y rotacion_veces son vueltas del semestre. No disponible expresa ausencia de base o denominador válido; tiendas cuenta sucursales incluidas. Ordeno el ranking por rotación descendente y SKU ascendente para desempatar.
+| tienda_id | sku_erp | inicio | fin | dias | toca_inicio_ventana | toca_fin_ventana | nombre |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| T015 | ERP-PROV-MX-014-D | 2026-02-09 00:00:00 | 2026-02-12 00:00:00 | 4 | False | False | Descafeinado Cafe Grano |
+| T023 | ERP-PROV-MX-046-A | 2026-01-25 00:00:00 | 2026-01-28 00:00:00 | 4 | False | False | Termo Mercancia |
+| T038 | ERP-PROV-MX-040-A | 2026-03-18 00:00:00 | 2026-03-21 00:00:00 | 4 | False | False | Chocolate Bebidas |
+
+## 3. Crecimiento por canal — abril a marzo
+
+Leyenda: Ingresos estimados y base anterior en MXN; crecimiento en porcentaje. Registros incluye todos los códigos conservados aunque N/P/T contribuyen cero. Base ausente o cero: no disponible. Muestro todas las filas sin índice. No disponible indica dato o base ausente.
 
 | canal | mes | registros | ingreso_mxn | anterior_mxn | crecimiento_pct |
 | --- | --- | --- | --- | --- | --- |
@@ -62,183 +66,183 @@ Leyenda: muestro todas las filas sin índice; centavos son centésimas de MXN; c
 | online | 2026-02 | 759.0000 | 323,250.6000 | 344,899.0400 | -6.2767 |
 | online | 2026-03 | 835.0000 | 350,763.4500 | 323,250.6000 | 8.5113 |
 
-## margen_negativo_operaciones
+## 4. Operaciones con margen negativo — abril a marzo
 
-Leyenda: muestro todas las filas sin índice; centavos son centésimas de MXN; crecimiento_pct es porcentaje y rotacion_veces son vueltas del semestre. No disponible expresa ausencia de base o denominador válido; tiendas cuenta sucursales incluidas. Ordeno el ranking por rotación descendente y SKU ascendente para desempatar.
+Leyenda: Por canal, tienda y SKU: cuento operaciones I u órdenes negativas y sumo únicamente su margen en MXN. No representa el margen de todas las operaciones del grupo. Muestro todas las filas sin índice. No disponible indica dato o base ausente.
 
-| canal | tienda_id | sku_erp | operaciones_negativas | margen_negativo_centavos |
-| --- | --- | --- | --- | --- |
-| fisico | T001 | ERP-PROV-MX-002-B | 20 | -80,878.0000 |
-| fisico | T001 | ERP-PROV-MX-015-D | 24 | -393,801.0000 |
-| fisico | T002 | ERP-PROV-MX-002-B | 13 | -100,912.0000 |
-| fisico | T002 | ERP-PROV-MX-015-D | 17 | -321,954.0000 |
-| fisico | T003 | ERP-PROV-MX-002-B | 12 | -52,789.0000 |
-| fisico | T003 | ERP-PROV-MX-015-D | 21 | -285,319.0000 |
-| fisico | T004 | ERP-PROV-MX-002-B | 15 | -71,800.0000 |
-| fisico | T004 | ERP-PROV-MX-015-D | 21 | -441,397.0000 |
-| fisico | T005 | ERP-PROV-MX-002-B | 23 | -115,635.0000 |
-| fisico | T005 | ERP-PROV-MX-015-D | 21 | -271,253.0000 |
-| fisico | T006 | ERP-PROV-MX-002-B | 22 | -127,540.0000 |
-| fisico | T006 | ERP-PROV-MX-015-D | 25 | -402,788.0000 |
-| fisico | T007 | ERP-PROV-MX-002-B | 19 | -115,387.0000 |
-| fisico | T007 | ERP-PROV-MX-015-D | 27 | -445,243.0000 |
-| fisico | T008 | ERP-PROV-MX-002-B | 21 | -103,977.0000 |
-| fisico | T008 | ERP-PROV-MX-015-D | 14 | -230,427.0000 |
-| fisico | T009 | ERP-PROV-MX-002-B | 22 | -126,487.0000 |
-| fisico | T009 | ERP-PROV-MX-015-D | 16 | -210,653.0000 |
-| fisico | T010 | ERP-PROV-MX-002-B | 11 | -63,176.0000 |
-| fisico | T010 | ERP-PROV-MX-015-D | 13 | -161,662.0000 |
-| fisico | T011 | ERP-PROV-MX-002-B | 24 | -155,343.0000 |
-| fisico | T011 | ERP-PROV-MX-015-D | 18 | -482,059.0000 |
-| fisico | T012 | ERP-PROV-MX-002-B | 14 | -74,298.0000 |
-| fisico | T012 | ERP-PROV-MX-015-D | 14 | -292,712.0000 |
-| fisico | T013 | ERP-PROV-MX-002-B | 28 | -232,316.0000 |
-| fisico | T013 | ERP-PROV-MX-015-D | 14 | -267,202.0000 |
-| fisico | T014 | ERP-PROV-MX-002-B | 31 | -151,597.0000 |
-| fisico | T014 | ERP-PROV-MX-015-D | 20 | -393,022.0000 |
-| fisico | T015 | ERP-PROV-MX-002-B | 16 | -106,884.0000 |
-| fisico | T015 | ERP-PROV-MX-015-D | 19 | -274,924.0000 |
-| fisico | T016 | ERP-PROV-MX-002-B | 17 | -158,516.0000 |
-| fisico | T016 | ERP-PROV-MX-015-D | 21 | -455,049.0000 |
-| fisico | T017 | ERP-PROV-MX-002-B | 11 | -53,195.0000 |
-| fisico | T017 | ERP-PROV-MX-015-D | 21 | -331,027.0000 |
-| fisico | T018 | ERP-PROV-MX-002-B | 20 | -140,047.0000 |
-| fisico | T018 | ERP-PROV-MX-015-D | 13 | -313,395.0000 |
-| fisico | T019 | ERP-PROV-MX-002-B | 11 | -69,628.0000 |
-| fisico | T019 | ERP-PROV-MX-015-D | 27 | -422,321.0000 |
-| fisico | T020 | ERP-PROV-MX-002-B | 20 | -140,356.0000 |
-| fisico | T020 | ERP-PROV-MX-015-D | 19 | -261,237.0000 |
-| fisico | T021 | ERP-PROV-MX-002-B | 13 | -82,497.0000 |
-| fisico | T021 | ERP-PROV-MX-015-D | 15 | -211,878.0000 |
-| fisico | T022 | ERP-PROV-MX-002-B | 20 | -96,300.0000 |
-| fisico | T022 | ERP-PROV-MX-015-D | 28 | -414,782.0000 |
-| fisico | T023 | ERP-PROV-MX-002-B | 16 | -117,339.0000 |
-| fisico | T023 | ERP-PROV-MX-015-D | 22 | -574,717.0000 |
-| fisico | T024 | ERP-PROV-MX-002-B | 15 | -94,534.0000 |
-| fisico | T024 | ERP-PROV-MX-015-D | 15 | -248,598.0000 |
-| fisico | T025 | ERP-PROV-MX-002-B | 19 | -118,520.0000 |
-| fisico | T025 | ERP-PROV-MX-015-D | 18 | -334,011.0000 |
-| fisico | T026 | ERP-PROV-MX-002-B | 16 | -66,770.0000 |
-| fisico | T026 | ERP-PROV-MX-015-D | 26 | -552,707.0000 |
-| fisico | T027 | ERP-PROV-MX-002-B | 25 | -116,730.0000 |
-| fisico | T027 | ERP-PROV-MX-015-D | 28 | -496,729.0000 |
-| fisico | T028 | ERP-PROV-MX-002-B | 15 | -71,508.0000 |
-| fisico | T028 | ERP-PROV-MX-015-D | 14 | -218,794.0000 |
-| fisico | T029 | ERP-PROV-MX-002-B | 22 | -175,865.0000 |
-| fisico | T029 | ERP-PROV-MX-015-D | 19 | -432,263.0000 |
-| fisico | T030 | ERP-PROV-MX-002-B | 21 | -103,465.0000 |
-| fisico | T030 | ERP-PROV-MX-015-D | 28 | -467,777.0000 |
-| fisico | T031 | ERP-PROV-MX-002-B | 22 | -147,909.0000 |
-| fisico | T031 | ERP-PROV-MX-015-D | 19 | -393,924.0000 |
-| fisico | T032 | ERP-PROV-MX-002-B | 21 | -113,689.0000 |
-| fisico | T032 | ERP-PROV-MX-015-D | 28 | -506,898.0000 |
-| fisico | T033 | ERP-PROV-MX-002-B | 23 | -136,861.0000 |
-| fisico | T033 | ERP-PROV-MX-015-D | 24 | -402,592.0000 |
-| fisico | T034 | ERP-PROV-MX-002-B | 18 | -133,921.0000 |
-| fisico | T034 | ERP-PROV-MX-015-D | 17 | -445,842.0000 |
-| fisico | T035 | ERP-PROV-MX-002-B | 18 | -81,061.0000 |
-| fisico | T035 | ERP-PROV-MX-015-D | 17 | -259,575.0000 |
-| fisico | T036 | ERP-PROV-MX-002-B | 27 | -176,780.0000 |
-| fisico | T036 | ERP-PROV-MX-015-D | 33 | -906,168.0000 |
-| fisico | T037 | ERP-PROV-MX-002-B | 21 | -170,465.0000 |
-| fisico | T037 | ERP-PROV-MX-015-D | 17 | -301,487.0000 |
-| fisico | T038 | ERP-PROV-MX-002-B | 19 | -101,073.0000 |
-| fisico | T038 | ERP-PROV-MX-015-D | 26 | -516,350.0000 |
-| fisico | T039 | ERP-PROV-MX-002-B | 19 | -102,458.0000 |
-| fisico | T039 | ERP-PROV-MX-015-D | 23 | -372,356.0000 |
-| fisico | T040 | ERP-PROV-MX-002-B | 22 | -119,037.0000 |
-| fisico | T040 | ERP-PROV-MX-015-D | 20 | -314,675.0000 |
+| canal | tienda_id | sku_erp | operaciones_negativas | margen_negativo_mxn | nombre |
+| --- | --- | --- | --- | --- | --- |
+| fisico | T001 | ERP-PROV-MX-002-B | 20 | -808.7800 | Sándwich Comida Caliente |
+| fisico | T001 | ERP-PROV-MX-015-D | 24 | -3,938.0100 | Especial Cafe Molido |
+| fisico | T002 | ERP-PROV-MX-002-B | 13 | -1,009.1200 | Sándwich Comida Caliente |
+| fisico | T002 | ERP-PROV-MX-015-D | 17 | -3,219.5400 | Especial Cafe Molido |
+| fisico | T003 | ERP-PROV-MX-002-B | 12 | -527.8900 | Sándwich Comida Caliente |
+| fisico | T003 | ERP-PROV-MX-015-D | 21 | -2,853.1900 | Especial Cafe Molido |
+| fisico | T004 | ERP-PROV-MX-002-B | 15 | -718.0000 | Sándwich Comida Caliente |
+| fisico | T004 | ERP-PROV-MX-015-D | 21 | -4,413.9700 | Especial Cafe Molido |
+| fisico | T005 | ERP-PROV-MX-002-B | 23 | -1,156.3500 | Sándwich Comida Caliente |
+| fisico | T005 | ERP-PROV-MX-015-D | 21 | -2,712.5300 | Especial Cafe Molido |
+| fisico | T006 | ERP-PROV-MX-002-B | 22 | -1,275.4000 | Sándwich Comida Caliente |
+| fisico | T006 | ERP-PROV-MX-015-D | 25 | -4,027.8800 | Especial Cafe Molido |
+| fisico | T007 | ERP-PROV-MX-002-B | 19 | -1,153.8700 | Sándwich Comida Caliente |
+| fisico | T007 | ERP-PROV-MX-015-D | 27 | -4,452.4300 | Especial Cafe Molido |
+| fisico | T008 | ERP-PROV-MX-002-B | 21 | -1,039.7700 | Sándwich Comida Caliente |
+| fisico | T008 | ERP-PROV-MX-015-D | 14 | -2,304.2700 | Especial Cafe Molido |
+| fisico | T009 | ERP-PROV-MX-002-B | 22 | -1,264.8700 | Sándwich Comida Caliente |
+| fisico | T009 | ERP-PROV-MX-015-D | 16 | -2,106.5300 | Especial Cafe Molido |
+| fisico | T010 | ERP-PROV-MX-002-B | 11 | -631.7600 | Sándwich Comida Caliente |
+| fisico | T010 | ERP-PROV-MX-015-D | 13 | -1,616.6200 | Especial Cafe Molido |
+| fisico | T011 | ERP-PROV-MX-002-B | 24 | -1,553.4300 | Sándwich Comida Caliente |
+| fisico | T011 | ERP-PROV-MX-015-D | 18 | -4,820.5900 | Especial Cafe Molido |
+| fisico | T012 | ERP-PROV-MX-002-B | 14 | -742.9800 | Sándwich Comida Caliente |
+| fisico | T012 | ERP-PROV-MX-015-D | 14 | -2,927.1200 | Especial Cafe Molido |
+| fisico | T013 | ERP-PROV-MX-002-B | 28 | -2,323.1600 | Sándwich Comida Caliente |
+| fisico | T013 | ERP-PROV-MX-015-D | 14 | -2,672.0200 | Especial Cafe Molido |
+| fisico | T014 | ERP-PROV-MX-002-B | 31 | -1,515.9700 | Sándwich Comida Caliente |
+| fisico | T014 | ERP-PROV-MX-015-D | 20 | -3,930.2200 | Especial Cafe Molido |
+| fisico | T015 | ERP-PROV-MX-002-B | 16 | -1,068.8400 | Sándwich Comida Caliente |
+| fisico | T015 | ERP-PROV-MX-015-D | 19 | -2,749.2400 | Especial Cafe Molido |
+| fisico | T016 | ERP-PROV-MX-002-B | 17 | -1,585.1600 | Sándwich Comida Caliente |
+| fisico | T016 | ERP-PROV-MX-015-D | 21 | -4,550.4900 | Especial Cafe Molido |
+| fisico | T017 | ERP-PROV-MX-002-B | 11 | -531.9500 | Sándwich Comida Caliente |
+| fisico | T017 | ERP-PROV-MX-015-D | 21 | -3,310.2700 | Especial Cafe Molido |
+| fisico | T018 | ERP-PROV-MX-002-B | 20 | -1,400.4700 | Sándwich Comida Caliente |
+| fisico | T018 | ERP-PROV-MX-015-D | 13 | -3,133.9500 | Especial Cafe Molido |
+| fisico | T019 | ERP-PROV-MX-002-B | 11 | -696.2800 | Sándwich Comida Caliente |
+| fisico | T019 | ERP-PROV-MX-015-D | 27 | -4,223.2100 | Especial Cafe Molido |
+| fisico | T020 | ERP-PROV-MX-002-B | 20 | -1,403.5600 | Sándwich Comida Caliente |
+| fisico | T020 | ERP-PROV-MX-015-D | 19 | -2,612.3700 | Especial Cafe Molido |
+| fisico | T021 | ERP-PROV-MX-002-B | 13 | -824.9700 | Sándwich Comida Caliente |
+| fisico | T021 | ERP-PROV-MX-015-D | 15 | -2,118.7800 | Especial Cafe Molido |
+| fisico | T022 | ERP-PROV-MX-002-B | 20 | -963.0000 | Sándwich Comida Caliente |
+| fisico | T022 | ERP-PROV-MX-015-D | 28 | -4,147.8200 | Especial Cafe Molido |
+| fisico | T023 | ERP-PROV-MX-002-B | 16 | -1,173.3900 | Sándwich Comida Caliente |
+| fisico | T023 | ERP-PROV-MX-015-D | 22 | -5,747.1700 | Especial Cafe Molido |
+| fisico | T024 | ERP-PROV-MX-002-B | 15 | -945.3400 | Sándwich Comida Caliente |
+| fisico | T024 | ERP-PROV-MX-015-D | 15 | -2,485.9800 | Especial Cafe Molido |
+| fisico | T025 | ERP-PROV-MX-002-B | 19 | -1,185.2000 | Sándwich Comida Caliente |
+| fisico | T025 | ERP-PROV-MX-015-D | 18 | -3,340.1100 | Especial Cafe Molido |
+| fisico | T026 | ERP-PROV-MX-002-B | 16 | -667.7000 | Sándwich Comida Caliente |
+| fisico | T026 | ERP-PROV-MX-015-D | 26 | -5,527.0700 | Especial Cafe Molido |
+| fisico | T027 | ERP-PROV-MX-002-B | 25 | -1,167.3000 | Sándwich Comida Caliente |
+| fisico | T027 | ERP-PROV-MX-015-D | 28 | -4,967.2900 | Especial Cafe Molido |
+| fisico | T028 | ERP-PROV-MX-002-B | 15 | -715.0800 | Sándwich Comida Caliente |
+| fisico | T028 | ERP-PROV-MX-015-D | 14 | -2,187.9400 | Especial Cafe Molido |
+| fisico | T029 | ERP-PROV-MX-002-B | 22 | -1,758.6500 | Sándwich Comida Caliente |
+| fisico | T029 | ERP-PROV-MX-015-D | 19 | -4,322.6300 | Especial Cafe Molido |
+| fisico | T030 | ERP-PROV-MX-002-B | 21 | -1,034.6500 | Sándwich Comida Caliente |
+| fisico | T030 | ERP-PROV-MX-015-D | 28 | -4,677.7700 | Especial Cafe Molido |
+| fisico | T031 | ERP-PROV-MX-002-B | 22 | -1,479.0900 | Sándwich Comida Caliente |
+| fisico | T031 | ERP-PROV-MX-015-D | 19 | -3,939.2400 | Especial Cafe Molido |
+| fisico | T032 | ERP-PROV-MX-002-B | 21 | -1,136.8900 | Sándwich Comida Caliente |
+| fisico | T032 | ERP-PROV-MX-015-D | 28 | -5,068.9800 | Especial Cafe Molido |
+| fisico | T033 | ERP-PROV-MX-002-B | 23 | -1,368.6100 | Sándwich Comida Caliente |
+| fisico | T033 | ERP-PROV-MX-015-D | 24 | -4,025.9200 | Especial Cafe Molido |
+| fisico | T034 | ERP-PROV-MX-002-B | 18 | -1,339.2100 | Sándwich Comida Caliente |
+| fisico | T034 | ERP-PROV-MX-015-D | 17 | -4,458.4200 | Especial Cafe Molido |
+| fisico | T035 | ERP-PROV-MX-002-B | 18 | -810.6100 | Sándwich Comida Caliente |
+| fisico | T035 | ERP-PROV-MX-015-D | 17 | -2,595.7500 | Especial Cafe Molido |
+| fisico | T036 | ERP-PROV-MX-002-B | 27 | -1,767.8000 | Sándwich Comida Caliente |
+| fisico | T036 | ERP-PROV-MX-015-D | 33 | -9,061.6800 | Especial Cafe Molido |
+| fisico | T037 | ERP-PROV-MX-002-B | 21 | -1,704.6500 | Sándwich Comida Caliente |
+| fisico | T037 | ERP-PROV-MX-015-D | 17 | -3,014.8700 | Especial Cafe Molido |
+| fisico | T038 | ERP-PROV-MX-002-B | 19 | -1,010.7300 | Sándwich Comida Caliente |
+| fisico | T038 | ERP-PROV-MX-015-D | 26 | -5,163.5000 | Especial Cafe Molido |
+| fisico | T039 | ERP-PROV-MX-002-B | 19 | -1,024.5800 | Sándwich Comida Caliente |
+| fisico | T039 | ERP-PROV-MX-015-D | 23 | -3,723.5600 | Especial Cafe Molido |
+| fisico | T040 | ERP-PROV-MX-002-B | 22 | -1,190.3700 | Sándwich Comida Caliente |
+| fisico | T040 | ERP-PROV-MX-015-D | 20 | -3,146.7500 | Especial Cafe Molido |
 
-## margen_negativo_acumulado
+## 4.1 Margen acumulado negativo — abril a marzo
 
-Leyenda: muestro todas las filas sin índice; centavos son centésimas de MXN; crecimiento_pct es porcentaje y rotacion_veces son vueltas del semestre. No disponible expresa ausencia de base o denominador válido; tiendas cuenta sucursales incluidas. Ordeno el ranking por rotación descendente y SKU ascendente para desempatar.
+Leyenda: Sumo operaciones positivas y negativas elegibles con costo dentro del año por canal, tienda y SKU; muestro solo grupos negativos. Margen en MXN, anterior a gastos y ajuste fiscal no disponible. Muestro todas las filas sin índice. No disponible indica dato o base ausente.
 
-| canal | tienda_id | sku_erp | operaciones | margen_total_centavos |
-| --- | --- | --- | --- | --- |
-| fisico | T001 | ERP-PROV-MX-002-B | 20 | -80,878.0000 |
-| fisico | T001 | ERP-PROV-MX-015-D | 24 | -393,801.0000 |
-| fisico | T002 | ERP-PROV-MX-002-B | 13 | -100,912.0000 |
-| fisico | T002 | ERP-PROV-MX-015-D | 17 | -321,954.0000 |
-| fisico | T003 | ERP-PROV-MX-002-B | 12 | -52,789.0000 |
-| fisico | T003 | ERP-PROV-MX-015-D | 21 | -285,319.0000 |
-| fisico | T004 | ERP-PROV-MX-002-B | 15 | -71,800.0000 |
-| fisico | T004 | ERP-PROV-MX-015-D | 21 | -441,397.0000 |
-| fisico | T005 | ERP-PROV-MX-002-B | 23 | -115,635.0000 |
-| fisico | T005 | ERP-PROV-MX-015-D | 21 | -271,253.0000 |
-| fisico | T006 | ERP-PROV-MX-002-B | 22 | -127,540.0000 |
-| fisico | T006 | ERP-PROV-MX-015-D | 25 | -402,788.0000 |
-| fisico | T007 | ERP-PROV-MX-002-B | 19 | -115,387.0000 |
-| fisico | T007 | ERP-PROV-MX-015-D | 27 | -445,243.0000 |
-| fisico | T008 | ERP-PROV-MX-002-B | 21 | -103,977.0000 |
-| fisico | T008 | ERP-PROV-MX-015-D | 14 | -230,427.0000 |
-| fisico | T009 | ERP-PROV-MX-002-B | 22 | -126,487.0000 |
-| fisico | T009 | ERP-PROV-MX-015-D | 16 | -210,653.0000 |
-| fisico | T010 | ERP-PROV-MX-002-B | 11 | -63,176.0000 |
-| fisico | T010 | ERP-PROV-MX-015-D | 13 | -161,662.0000 |
-| fisico | T011 | ERP-PROV-MX-002-B | 24 | -155,343.0000 |
-| fisico | T011 | ERP-PROV-MX-015-D | 18 | -482,059.0000 |
-| fisico | T012 | ERP-PROV-MX-002-B | 14 | -74,298.0000 |
-| fisico | T012 | ERP-PROV-MX-015-D | 14 | -292,712.0000 |
-| fisico | T013 | ERP-PROV-MX-002-B | 28 | -232,316.0000 |
-| fisico | T013 | ERP-PROV-MX-015-D | 14 | -267,202.0000 |
-| fisico | T014 | ERP-PROV-MX-002-B | 31 | -151,597.0000 |
-| fisico | T014 | ERP-PROV-MX-015-D | 20 | -393,022.0000 |
-| fisico | T015 | ERP-PROV-MX-002-B | 16 | -106,884.0000 |
-| fisico | T015 | ERP-PROV-MX-015-D | 19 | -274,924.0000 |
-| fisico | T016 | ERP-PROV-MX-002-B | 17 | -158,516.0000 |
-| fisico | T016 | ERP-PROV-MX-015-D | 21 | -455,049.0000 |
-| fisico | T017 | ERP-PROV-MX-002-B | 11 | -53,195.0000 |
-| fisico | T017 | ERP-PROV-MX-015-D | 21 | -331,027.0000 |
-| fisico | T018 | ERP-PROV-MX-002-B | 20 | -140,047.0000 |
-| fisico | T018 | ERP-PROV-MX-015-D | 13 | -313,395.0000 |
-| fisico | T019 | ERP-PROV-MX-002-B | 11 | -69,628.0000 |
-| fisico | T019 | ERP-PROV-MX-015-D | 27 | -422,321.0000 |
-| fisico | T020 | ERP-PROV-MX-002-B | 20 | -140,356.0000 |
-| fisico | T020 | ERP-PROV-MX-015-D | 19 | -261,237.0000 |
-| fisico | T021 | ERP-PROV-MX-002-B | 13 | -82,497.0000 |
-| fisico | T021 | ERP-PROV-MX-015-D | 15 | -211,878.0000 |
-| fisico | T022 | ERP-PROV-MX-002-B | 20 | -96,300.0000 |
-| fisico | T022 | ERP-PROV-MX-015-D | 28 | -414,782.0000 |
-| fisico | T023 | ERP-PROV-MX-002-B | 16 | -117,339.0000 |
-| fisico | T023 | ERP-PROV-MX-015-D | 22 | -574,717.0000 |
-| fisico | T024 | ERP-PROV-MX-002-B | 15 | -94,534.0000 |
-| fisico | T024 | ERP-PROV-MX-015-D | 15 | -248,598.0000 |
-| fisico | T025 | ERP-PROV-MX-002-B | 19 | -118,520.0000 |
-| fisico | T025 | ERP-PROV-MX-015-D | 18 | -334,011.0000 |
-| fisico | T026 | ERP-PROV-MX-002-B | 16 | -66,770.0000 |
-| fisico | T026 | ERP-PROV-MX-015-D | 26 | -552,707.0000 |
-| fisico | T027 | ERP-PROV-MX-002-B | 25 | -116,730.0000 |
-| fisico | T027 | ERP-PROV-MX-015-D | 28 | -496,729.0000 |
-| fisico | T028 | ERP-PROV-MX-002-B | 15 | -71,508.0000 |
-| fisico | T028 | ERP-PROV-MX-015-D | 14 | -218,794.0000 |
-| fisico | T029 | ERP-PROV-MX-002-B | 22 | -175,865.0000 |
-| fisico | T029 | ERP-PROV-MX-015-D | 19 | -432,263.0000 |
-| fisico | T030 | ERP-PROV-MX-002-B | 21 | -103,465.0000 |
-| fisico | T030 | ERP-PROV-MX-015-D | 28 | -467,777.0000 |
-| fisico | T031 | ERP-PROV-MX-002-B | 22 | -147,909.0000 |
-| fisico | T031 | ERP-PROV-MX-015-D | 19 | -393,924.0000 |
-| fisico | T032 | ERP-PROV-MX-002-B | 21 | -113,689.0000 |
-| fisico | T032 | ERP-PROV-MX-015-D | 28 | -506,898.0000 |
-| fisico | T033 | ERP-PROV-MX-002-B | 23 | -136,861.0000 |
-| fisico | T033 | ERP-PROV-MX-015-D | 24 | -402,592.0000 |
-| fisico | T034 | ERP-PROV-MX-002-B | 18 | -133,921.0000 |
-| fisico | T034 | ERP-PROV-MX-015-D | 17 | -445,842.0000 |
-| fisico | T035 | ERP-PROV-MX-002-B | 18 | -81,061.0000 |
-| fisico | T035 | ERP-PROV-MX-015-D | 17 | -259,575.0000 |
-| fisico | T036 | ERP-PROV-MX-002-B | 27 | -176,780.0000 |
-| fisico | T036 | ERP-PROV-MX-015-D | 33 | -906,168.0000 |
-| fisico | T037 | ERP-PROV-MX-002-B | 21 | -170,465.0000 |
-| fisico | T037 | ERP-PROV-MX-015-D | 17 | -301,487.0000 |
-| fisico | T038 | ERP-PROV-MX-002-B | 19 | -101,073.0000 |
-| fisico | T038 | ERP-PROV-MX-015-D | 26 | -516,350.0000 |
-| fisico | T039 | ERP-PROV-MX-002-B | 19 | -102,458.0000 |
-| fisico | T039 | ERP-PROV-MX-015-D | 23 | -372,356.0000 |
-| fisico | T040 | ERP-PROV-MX-002-B | 22 | -119,037.0000 |
-| fisico | T040 | ERP-PROV-MX-015-D | 20 | -314,675.0000 |
+| canal | tienda_id | sku_erp | operaciones | margen_total_mxn | nombre |
+| --- | --- | --- | --- | --- | --- |
+| fisico | T001 | ERP-PROV-MX-002-B | 20 | -808.7800 | Sándwich Comida Caliente |
+| fisico | T001 | ERP-PROV-MX-015-D | 24 | -3,938.0100 | Especial Cafe Molido |
+| fisico | T002 | ERP-PROV-MX-002-B | 13 | -1,009.1200 | Sándwich Comida Caliente |
+| fisico | T002 | ERP-PROV-MX-015-D | 17 | -3,219.5400 | Especial Cafe Molido |
+| fisico | T003 | ERP-PROV-MX-002-B | 12 | -527.8900 | Sándwich Comida Caliente |
+| fisico | T003 | ERP-PROV-MX-015-D | 21 | -2,853.1900 | Especial Cafe Molido |
+| fisico | T004 | ERP-PROV-MX-002-B | 15 | -718.0000 | Sándwich Comida Caliente |
+| fisico | T004 | ERP-PROV-MX-015-D | 21 | -4,413.9700 | Especial Cafe Molido |
+| fisico | T005 | ERP-PROV-MX-002-B | 23 | -1,156.3500 | Sándwich Comida Caliente |
+| fisico | T005 | ERP-PROV-MX-015-D | 21 | -2,712.5300 | Especial Cafe Molido |
+| fisico | T006 | ERP-PROV-MX-002-B | 22 | -1,275.4000 | Sándwich Comida Caliente |
+| fisico | T006 | ERP-PROV-MX-015-D | 25 | -4,027.8800 | Especial Cafe Molido |
+| fisico | T007 | ERP-PROV-MX-002-B | 19 | -1,153.8700 | Sándwich Comida Caliente |
+| fisico | T007 | ERP-PROV-MX-015-D | 27 | -4,452.4300 | Especial Cafe Molido |
+| fisico | T008 | ERP-PROV-MX-002-B | 21 | -1,039.7700 | Sándwich Comida Caliente |
+| fisico | T008 | ERP-PROV-MX-015-D | 14 | -2,304.2700 | Especial Cafe Molido |
+| fisico | T009 | ERP-PROV-MX-002-B | 22 | -1,264.8700 | Sándwich Comida Caliente |
+| fisico | T009 | ERP-PROV-MX-015-D | 16 | -2,106.5300 | Especial Cafe Molido |
+| fisico | T010 | ERP-PROV-MX-002-B | 11 | -631.7600 | Sándwich Comida Caliente |
+| fisico | T010 | ERP-PROV-MX-015-D | 13 | -1,616.6200 | Especial Cafe Molido |
+| fisico | T011 | ERP-PROV-MX-002-B | 24 | -1,553.4300 | Sándwich Comida Caliente |
+| fisico | T011 | ERP-PROV-MX-015-D | 18 | -4,820.5900 | Especial Cafe Molido |
+| fisico | T012 | ERP-PROV-MX-002-B | 14 | -742.9800 | Sándwich Comida Caliente |
+| fisico | T012 | ERP-PROV-MX-015-D | 14 | -2,927.1200 | Especial Cafe Molido |
+| fisico | T013 | ERP-PROV-MX-002-B | 28 | -2,323.1600 | Sándwich Comida Caliente |
+| fisico | T013 | ERP-PROV-MX-015-D | 14 | -2,672.0200 | Especial Cafe Molido |
+| fisico | T014 | ERP-PROV-MX-002-B | 31 | -1,515.9700 | Sándwich Comida Caliente |
+| fisico | T014 | ERP-PROV-MX-015-D | 20 | -3,930.2200 | Especial Cafe Molido |
+| fisico | T015 | ERP-PROV-MX-002-B | 16 | -1,068.8400 | Sándwich Comida Caliente |
+| fisico | T015 | ERP-PROV-MX-015-D | 19 | -2,749.2400 | Especial Cafe Molido |
+| fisico | T016 | ERP-PROV-MX-002-B | 17 | -1,585.1600 | Sándwich Comida Caliente |
+| fisico | T016 | ERP-PROV-MX-015-D | 21 | -4,550.4900 | Especial Cafe Molido |
+| fisico | T017 | ERP-PROV-MX-002-B | 11 | -531.9500 | Sándwich Comida Caliente |
+| fisico | T017 | ERP-PROV-MX-015-D | 21 | -3,310.2700 | Especial Cafe Molido |
+| fisico | T018 | ERP-PROV-MX-002-B | 20 | -1,400.4700 | Sándwich Comida Caliente |
+| fisico | T018 | ERP-PROV-MX-015-D | 13 | -3,133.9500 | Especial Cafe Molido |
+| fisico | T019 | ERP-PROV-MX-002-B | 11 | -696.2800 | Sándwich Comida Caliente |
+| fisico | T019 | ERP-PROV-MX-015-D | 27 | -4,223.2100 | Especial Cafe Molido |
+| fisico | T020 | ERP-PROV-MX-002-B | 20 | -1,403.5600 | Sándwich Comida Caliente |
+| fisico | T020 | ERP-PROV-MX-015-D | 19 | -2,612.3700 | Especial Cafe Molido |
+| fisico | T021 | ERP-PROV-MX-002-B | 13 | -824.9700 | Sándwich Comida Caliente |
+| fisico | T021 | ERP-PROV-MX-015-D | 15 | -2,118.7800 | Especial Cafe Molido |
+| fisico | T022 | ERP-PROV-MX-002-B | 20 | -963.0000 | Sándwich Comida Caliente |
+| fisico | T022 | ERP-PROV-MX-015-D | 28 | -4,147.8200 | Especial Cafe Molido |
+| fisico | T023 | ERP-PROV-MX-002-B | 16 | -1,173.3900 | Sándwich Comida Caliente |
+| fisico | T023 | ERP-PROV-MX-015-D | 22 | -5,747.1700 | Especial Cafe Molido |
+| fisico | T024 | ERP-PROV-MX-002-B | 15 | -945.3400 | Sándwich Comida Caliente |
+| fisico | T024 | ERP-PROV-MX-015-D | 15 | -2,485.9800 | Especial Cafe Molido |
+| fisico | T025 | ERP-PROV-MX-002-B | 19 | -1,185.2000 | Sándwich Comida Caliente |
+| fisico | T025 | ERP-PROV-MX-015-D | 18 | -3,340.1100 | Especial Cafe Molido |
+| fisico | T026 | ERP-PROV-MX-002-B | 16 | -667.7000 | Sándwich Comida Caliente |
+| fisico | T026 | ERP-PROV-MX-015-D | 26 | -5,527.0700 | Especial Cafe Molido |
+| fisico | T027 | ERP-PROV-MX-002-B | 25 | -1,167.3000 | Sándwich Comida Caliente |
+| fisico | T027 | ERP-PROV-MX-015-D | 28 | -4,967.2900 | Especial Cafe Molido |
+| fisico | T028 | ERP-PROV-MX-002-B | 15 | -715.0800 | Sándwich Comida Caliente |
+| fisico | T028 | ERP-PROV-MX-015-D | 14 | -2,187.9400 | Especial Cafe Molido |
+| fisico | T029 | ERP-PROV-MX-002-B | 22 | -1,758.6500 | Sándwich Comida Caliente |
+| fisico | T029 | ERP-PROV-MX-015-D | 19 | -4,322.6300 | Especial Cafe Molido |
+| fisico | T030 | ERP-PROV-MX-002-B | 21 | -1,034.6500 | Sándwich Comida Caliente |
+| fisico | T030 | ERP-PROV-MX-015-D | 28 | -4,677.7700 | Especial Cafe Molido |
+| fisico | T031 | ERP-PROV-MX-002-B | 22 | -1,479.0900 | Sándwich Comida Caliente |
+| fisico | T031 | ERP-PROV-MX-015-D | 19 | -3,939.2400 | Especial Cafe Molido |
+| fisico | T032 | ERP-PROV-MX-002-B | 21 | -1,136.8900 | Sándwich Comida Caliente |
+| fisico | T032 | ERP-PROV-MX-015-D | 28 | -5,068.9800 | Especial Cafe Molido |
+| fisico | T033 | ERP-PROV-MX-002-B | 23 | -1,368.6100 | Sándwich Comida Caliente |
+| fisico | T033 | ERP-PROV-MX-015-D | 24 | -4,025.9200 | Especial Cafe Molido |
+| fisico | T034 | ERP-PROV-MX-002-B | 18 | -1,339.2100 | Sándwich Comida Caliente |
+| fisico | T034 | ERP-PROV-MX-015-D | 17 | -4,458.4200 | Especial Cafe Molido |
+| fisico | T035 | ERP-PROV-MX-002-B | 18 | -810.6100 | Sándwich Comida Caliente |
+| fisico | T035 | ERP-PROV-MX-015-D | 17 | -2,595.7500 | Especial Cafe Molido |
+| fisico | T036 | ERP-PROV-MX-002-B | 27 | -1,767.8000 | Sándwich Comida Caliente |
+| fisico | T036 | ERP-PROV-MX-015-D | 33 | -9,061.6800 | Especial Cafe Molido |
+| fisico | T037 | ERP-PROV-MX-002-B | 21 | -1,704.6500 | Sándwich Comida Caliente |
+| fisico | T037 | ERP-PROV-MX-015-D | 17 | -3,014.8700 | Especial Cafe Molido |
+| fisico | T038 | ERP-PROV-MX-002-B | 19 | -1,010.7300 | Sándwich Comida Caliente |
+| fisico | T038 | ERP-PROV-MX-015-D | 26 | -5,163.5000 | Especial Cafe Molido |
+| fisico | T039 | ERP-PROV-MX-002-B | 19 | -1,024.5800 | Sándwich Comida Caliente |
+| fisico | T039 | ERP-PROV-MX-015-D | 23 | -3,723.5600 | Especial Cafe Molido |
+| fisico | T040 | ERP-PROV-MX-002-B | 22 | -1,190.3700 | Sándwich Comida Caliente |
+| fisico | T040 | ERP-PROV-MX-015-D | 20 | -3,146.7500 | Especial Cafe Molido |
 
-## cobertura
+## Cobertura de equivalencias — toda la fuente
 
-Leyenda: muestro todas las filas sin índice; centavos son centésimas de MXN; crecimiento_pct es porcentaje y rotacion_veces son vueltas del semestre. No disponible expresa ausencia de base o denominador válido; tiendas cuenta sucursales incluidas. Ordeno el ranking por rotación descendente y SKU ascendente para desempatar.
+Leyenda: Registros por canal y estado excluyente: exacto, sin equivalencia y equivalencia con ERP nulo. Sin filtrado temporal de negocio. Muestro todas las filas sin índice. No disponible indica dato o base ausente.
 
 | canal | estado_mapeo | registros |
 | --- | --- | --- |
@@ -249,9 +253,9 @@ Leyenda: muestro todas las filas sin índice; centavos son centésimas de MXN; c
 | online | exacto | 6959 |
 | online | sin_equivalencia | 1849 |
 
-## cobertura_margen
+## Cobertura de costo — toda la fuente
 
-Leyenda: muestro todas las filas sin índice; centavos son centésimas de MXN; crecimiento_pct es porcentaje y rotacion_veces son vueltas del semestre. No disponible expresa ausencia de base o denominador válido; tiendas cuenta sucursales incluidas. Ordeno el ranking por rotación descendente y SKU ascendente para desempatar.
+Leyenda: Cuento todos los registros, incluidos comprobantes no elegibles, según costo disponible. No es el denominador de operaciones de margen del año. Muestro todas las filas sin índice. No disponible indica dato o base ausente.
 
 | canal | costo_disponible | registros |
 | --- | --- | --- |
@@ -260,15 +264,25 @@ Leyenda: muestro todas las filas sin índice; centavos son centésimas de MXN; c
 | online | False | 2988 |
 | online | True | 6959 |
 
-## cobertura_rotacion
+## Cobertura del ranking
 
-Leyenda: muestro todas las filas sin índice; centavos son centésimas de MXN; crecimiento_pct es porcentaje y rotacion_veces son vueltas del semestre. No disponible expresa ausencia de base o denominador válido; tiendas cuenta sucursales incluidas. Ordeno el ranking por rotación descendente y SKU ascendente para desempatar.
+Leyenda: Conteos de pares observados, pares con todos los saldos conocidos y días exigidos del semestre; desconocido nunca equivale a cero. Muestro todas las filas sin índice. No disponible indica dato o base ausente.
 
 | medida | valor |
 | --- | --- |
 | pares_observados | 1268 |
 | pares_cobertura_completa | 36 |
 | dias_exigidos | 182 |
+
+## 2.1 Tiendas afectadas
+
+Leyenda: Una fila por tienda; productos distintos, cantidad de episodios y duración máxima observada en días. Muestro todas las filas sin índice. No disponible indica dato o base ausente.
+
+| tienda_id | productos | episodios | duracion_maxima_dias |
+| --- | --- | --- | --- |
+| T015 | 1 | 1 | 4 |
+| T023 | 1 | 1 | 4 |
+| T038 | 1 | 1 | 4 |
 
 ## Conclusión
 

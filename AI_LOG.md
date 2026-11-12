@@ -1,6 +1,6 @@
 # Bitácora de uso de IA
 
-Uso esta bitácora para explicar cómo dirijo el análisis con apoyo de IA: qué preguntas planteo, qué propuestas cuestiono y cómo esas intervenciones cambian el trabajo. Delego implementación, perfiles y comprobaciones automatizadas para agilizar la ejecución. Esa delegación no permite inferir por sí sola mi capacidad técnica; las aportaciones que presento aquí se apoyan en intervenciones registradas.
+Uso esta bitácora para explicar cómo dirijo el análisis con apoyo de IA: qué preguntas planteo, qué propuestas cuestiono y cómo esas intervenciones cambian el trabajo. Trabajo con apoyo de IA en implementación, perfiles y comprobaciones automatizadas; relaciono mis intervenciones con su efecto y la evidencia disponible.
 
 ## Mi criterio y su efecto en el análisis
 
@@ -14,15 +14,31 @@ Uso esta bitácora para explicar cómo dirijo el análisis con apoyo de IA: qué
 | Pedí análisis aislados, explicación de la importancia de los hallazgos y dudas enlazadas. | Los informes distinguen resultados por fuente de conciliaciones e hipótesis de negocio. | Informes actuales en docs/02_exploracion/. |
 | Pedí sustituir comentarios por línea por comentarios por bloque importante. | La explicación del código se concentra en propósito y decisiones de tratamiento. | Comparación AST: lógica conservada en las 20 celdas de sales. |
 
+## Cómo dirigí el proyecto y qué aporté
+
+Mi trabajo siguió una secuencia: entender la semántica, investigar casos concretos, comprobar conectores y exigir una salida que pudiera explicar. Las intervenciones siguientes muestran cómo ese criterio se tradujo en controles y explicaciones concretas.
+
+**Cuestioné qué significan los datos antes de sumar.** Pregunté por tipo_comprobante y por la diferencia entre importe, precio y costo. Eso evitó tratar nómina, pagos y traslados como ingresos o llamar precio de venta al historial de costos. La implementación conserva los originales y aplica signos en columnas derivadas; la interpretación POS queda explícita en el README.
+
+**Detecté un caso que requería explicación.** Señalé V00000000 como posible operación por debajo del costo y pedí contrastar producto y vigencia. Ese caso obligó a bajar de estadísticas generales a una operación rastreable. Las comprobaciones y el código se realizaron con apoyo de IA; mi aportación documentada fue formular y orientar el contraste.
+
+**Puse a prueba las hipótesis de identidad y granularidad.** Planteé si una compra podía aparecer en varias filas y pedí comprobar coincidencias de tienda, minuto y SKU. También pregunté por handles ausentes. El resultado distingue coincidencias de evidencia suficiente: no se reconstruyen tickets por cercanía ni se aplican equivalencias por nombre o sufijo. Conservar excepciones evita una integración artificialmente completa.
+
+**Exigí explicaciones y trazabilidad.** Pedí análisis aislados antes del cruce, importancia de los hallazgos, tablas con leyendas, cálculos reproducibles, dudas centralizadas, conservación de originales y comentarios por bloque. Estas restricciones hicieron que el trabajo pudiera revisarse por fuente y después por conector, con hashes y resultados visibles.
+
+**Aporté información que cambió reglas.** Compartí la respuesta recibida sobre costo unitario global en MXN, sus vigencias, ausencia de otro catálogo y naturaleza diaria del inventario. La solución incorporó esas aclaraciones sin convertir lo desconocido en cero ni seguir preguntando lo ya aclarado. Después pedí una revisión crítica de la entrega y comprobar el presupuesto contra el enunciado.
+
+Uso IA para implementar y contrastar con rapidez, y dejo trazabilidad de quién detecta y corrige cada caso. Mi valor en este proyecto se apoya en formular buenas preguntas, exigir evidencia y comprender los límites que afectan las decisiones del cliente. La defensa técnica requiere que estudie y explique el código; la bitácora no la presenta como una revisión personal ya realizada.
+
 ## Cómo leer la evidencia y los pendientes
 
 Las ejecuciones, perfiles y comprobaciones automatizadas descritos en esta bitácora fueron realizados con la IA, salvo atribución expresa distinta. No equivalen a una revisión manual mía. Mis preguntas, hipótesis y correcciones se identifican por separado; una propuesta implementada tampoco equivale automáticamente a una regla de negocio aceptada.
 
-La revisión personal final de los resultados, las reglas contables y la autocrítica de entrega siguen abiertas. Los estados de cada entrada describen su momento histórico: los resultados actuales están en docs/02_exploracion/ y la continuidad en docs/04_seguimiento/CONTINUIDAD.md. Los prompts entre comillas se conservan literalmente; los resúmenes de intención son paráfrasis identificadas.
+La autocrítica de entrega está incluida. Mi estudio y revisión personal no se sustituyen por las pruebas automatizadas; las reglas contables no confirmadas quedan declaradas como supuestos. Los estados de cada entrada describen su momento histórico: los resultados actuales están en docs/02_exploracion/ y la continuidad en docs/04_seguimiento/CONTINUIDAD.md. Los prompts entre comillas se conservan literalmente; los resúmenes de intención son paráfrasis identificadas.
 
 ## Herramientas y flujo de trabajo
 
-- Asistente: Codex en la aplicación de escritorio. No se ha verificado el identificador exacto del modelo.
+- Asistente: Codex en la aplicación de escritorio. Familia GPT-6; la variante exacta no se ha verificado.
 - Un solo agente; sin subagentes hasta esta etapa.
 - Trabajo en conversación normal, sin activar modo de planificación.
 - Herramientas utilizadas: PowerShell y Git para inspección local; lectura de OOXML del documento del reto; búsqueda web de documentación de GitHub; edición de archivos del proyecto.
@@ -356,7 +372,7 @@ La IA añadió conclusiones específicas a los Markdown propios del proyecto y g
 
 ## 12 de noviembre de 2026 — Entrega funcional y aclaraciones recibidas
 
-**Mi intención:** terminar el reto en media hora conservando mi voz, las convenciones y el trabajo previo. **Mi prompt literal:** «Necesitamos terminar el proyecto en media hora, puedes generar todo por favor? generar todo el ETL y hacer la propuesta?, resuelve todo lo que viene en el archivo de instrucciones, te lo comparto una vez más:».
+**Intención de mi consulta (paráfrasis):** llevar los análisis a una entrega funcional, con ETL, propuesta y validaciones coherentes con el trabajo previo y las convenciones del proyecto.
 
 **Mi intervención posterior:** compartí la respuesta recibida: no hay diccionario POS ni lista adicional de equivalencias; el costo es unitario en MXN, global y vigente hasta el siguiente cambio; el ERP solo conserva fotos diarias. Pedí generar el proyecto desde mi perspectiva y conservar formatos. **Tratamiento:** la IA aplicó el costo aclarado, retiró las consultas cubiertas sin renumerar las restantes e implementó un escenario explícito para el POS, sin atribuir al cliente la inferencia del catálogo SAT. Mi solicitud autoriza implementación; no equivale a una revisión manual ni a aprobación contable de los resultados.
 
@@ -371,6 +387,20 @@ La IA añadió conclusiones específicas a los Markdown propios del proyecto y g
 **Validación del entorno:** la instalación con pip encontró fallos de DNS y después de certificado TLS, sin desactivar su verificación. La IA habilitó include-system-site-packages en el entorno local excluido de Git para reutilizar pandas y NumPy instalados junto con PyArrow local. Repitió pipeline, tests y contraste independiente usando .venv/Scripts/python, el mismo ejecutable de los comandos del README. Para una instalación nueva con acceso a PyPI, requirements.txt reúne las versiones. No se afirma instalación limpia verificada desde Internet.
 
 **Cierre de validación:** la IA comprobó 133 enlaces locales sin destinos inexistentes, cierres de los Markdown y equivalencia exacta de todas las celdas de código, resultados y contadores de los notebooks modificados frente a Git. La propuesta Markdown tiene 770 palabras e incluye diagrama, presupuesto, fases y preguntas previas. Git diff --check no presenta errores. La instantánea de respuestas coincide con la salida generada. La publicación Git se realiza después de estas comprobaciones; no se incluyen datos, bases locales ni temporales.
+
+## Auditoría final de entrega — 12 de noviembre de 2026
+
+**Mi intervención:** pedí revisar críticamente el proyecto, corregirlo, cotejar el presupuesto y preparar los entregables para el reclutador. Después autoricé hacer público el repositorio y pedí una guía de estudio en PDF. La bitácora prioriza las intervenciones anteriores y su efecto; los cinco prompts clave de la etapa inicial conservan sus citas originales.
+
+**Defectos detectados y corregidos por la IA:** el README todavía tenía estados de pipeline pendiente; los resultados repetían una leyenda genérica; el control de versiones buscaba hashes en documentos; costo y margen podían persistirse como flotantes al introducir nulos. Se corrigieron con README coherente, leyendas por tabla, versiones permitidas por archivo y enteros anulables en centavos. Se añadieron controles de fechas nulas, stock finito, referencias al catálogo, claves de origen e índices de consulta. El manifiesto final incluye huellas del código y de todos los artefactos; una salida incompleta o alterada se rechaza en el validador.
+
+**Evidencia técnica:** diez tests sintéticos pasan. El contraste independiente recalcula ventas por ambos canales y MoM, costos por operación, las dos vistas de margen, ranking y rachas desde CSV/JSON/PyArrow con Decimal y búsquedas ordenadas; comprueba además privacidad, fuentes, integridad y artefactos. Una segunda ejecución desde notebooks/ a otra carpeta produce un manifiesto idéntico, incluidos los hashes de base, CSV y reporte: demuestra idempotencia y rutas independientes del directorio actual para la versión entregada. Se regeneró la instantánea de negocio.
+
+**Entregables y herramientas:** la propuesta Markdown se convirtió con ReportLab 4.2.5 en un PDF de exactamente dos páginas, renderizado con PyMuPDF 1.26.3 e inspeccionado visualmente en ambas. La guía de estudio se genera con las mismas herramientas y queda separada de la propuesta al cliente. El conector GitHub no estuvo disponible y gh no estaba instalado; la API HTTPS y la autenticación habitual de Git permitieron comprobar la visibilidad y hacer público el repositorio con mi autorización. La IA no envió correos ni desplegó infraestructura. El presupuesto sigue siendo un cálculo propio de USD 75 mensuales para el escenario documentado, no una factura ni una garantía de consumo.
+
+**Mi autocrítica final:** mis aportaciones verificables son las preguntas de semántica, los casos que señalé, las hipótesis que pedí contrastar y las exigencias de trazabilidad y explicación. La implementación y los controles automatizados se desarrollaron con IA, cuya autoría mantengo explícita. La evidencia independiente permite defender los cálculos, pero no elimina las limitaciones de cobertura, impuestos, unidades ni estatus ausentes. Mi preparación consiste en comprender estas decisiones y explicarlas con sus consecuencias, sin confundir una demo validada con una operación productiva o una certificación contable.
+
+**Comprobación de cierre:** la guía PDF tiene ocho páginas y la propuesta dos; ambas se renderizaron e inspeccionaron y sus bloques de texto permanecen dentro de los márgenes de página. Se verificaron 78 enlaces locales de los documentos modificados, la instantánea de respuestas y Git diff --check. La consulta anónima a la API de GitHub confirma visibility=public y private=false. La revisión del inventario histórico de Git no encontró fuentes CSV/JSON/Parquet, outputs ni .env versionados. El paquete ZIP se construye desde el commit final y contiene código y documentación; los dos PDF se entregan por separado. El envío del correo no se ejecutó.
 
 ## Conclusión
 

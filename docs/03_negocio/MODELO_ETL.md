@@ -16,6 +16,7 @@ Leyenda: cada fila de la tabla describe una relación SQLite; claves y medidas s
 | fact_movimiento | canal, fila_id de extracción | Un registro comercial conservado, con conversión y costo |
 | tasas | dia, currency | MXN por unidad de divisa |
 | rotacion_top10 | sku_erp | Ranking del semestre en población cubierta |
+| quiebres_tiendas | tienda_id | Resumen de productos, episodios y duración máxima |
 | quiebres_episodios | tienda, SKU, inicio | Ceros consecutivos observados |
 | crecimiento_mensual | canal, mes | Importe, base previa y crecimiento porcentual |
 | margen_negativo_operaciones | canal, tienda, SKU | Operaciones individuales negativas acumuladas |
@@ -28,7 +29,7 @@ Leyenda: cada fila de la tabla describe una relación SQLite; claves y medidas s
 
 `vigencia` interpreta fecha_vigencia. `costo_mxn` es el costo unitario confirmado por la respuesta compartida; tomo el último costo menor o igual al día del movimiento. `rate_to_mxn` viene de la tasa de ese día y moneda; MXN usa 1. Si falta una tasa extranjera detengo la carga. `importe_original` copia monto o amount, tratados como total de línea. `importe_centavos` aplica conversión con Decimal y ROUND_HALF_UP por registro. `signo_ingreso` aplica +1 a I, −1 a E y cero a N/P/T; órdenes online usan +1. `ingreso_centavos` multiplica ese signo por el importe convertido. `costo_centavos` multiplica cantidad por costo unitario vigente y redondea a centavos; queda ausente sin costo. `margen_centavos` resta costo a importe únicamente en I y órdenes, sin inferir restitución física desde E.
 
-`fila_id` identifica la posición dentro de cada extracción; no reemplaza una clave incremental productiva. Conservo venta_id y order_id. La demo reconstruye el modelo completo en una base temporal, comprueba integridad y reemplaza la base vigente al cerrar la conexión. Las exportaciones se regeneran; producción necesitará publicación conjunta por manifiesto para aislar todos los artefactos ante un fallo de escritura.
+`fila_id` identifica la posición dentro de cada extracción; no reemplaza una clave incremental productiva. Conservo venta_id y order_id. La demo reconstruye el modelo completo en una base temporal, comprueba integridad y reemplaza la base vigente al cerrar la conexión. Publico el manifiesto al final con huellas de código, fuentes y artefactos. El validador rechaza un conjunto incompleto o alterado; una interrupción entre exportaciones exige regenerarlo. Producción debe aislar las ejecuciones por prefijo y apuntar a una versión completa. Guardo costo y margen en centavos enteros con nulos explícitos.
 
 ## Ventanas y límites
 
