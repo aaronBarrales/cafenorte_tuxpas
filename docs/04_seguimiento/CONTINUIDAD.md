@@ -216,6 +216,10 @@ Los cruces m:1 y temporales conservan cada movimiento y sus importes originales:
 
 La IA ejecutó siete celdas con trece tablas desde raíz y notebooks/ mediante IPython y captura de salidas; esta validación no acredita arranque de kernel Jupyter ni revisión manual mía. Mi siguiente fase es implementar pipeline y modelo con conectores exactos, cuarentena explícita de excepciones y reglas financieras declaradas; las respuestas de negocio, pruebas del pipeline y propuesta AWS siguen pendientes. Centralizo las definiciones abiertas y tratamientos en DUDAS.md, reutilizando las preguntas existentes. El detalle de herramientas, verificaciones y limitaciones queda en AI_LOG.
 
+## Estado vigente — 12 de noviembre de 2026
+
+Pedí terminar la entrega e incorporé la respuesta compartida sobre costos unitarios globales en MXN, vigencias y ausencia de otra lista de equivalencias. La IA implementó scripts/pipeline.py y seis pruebas sintéticas; ejecutó el ETL sobre la versión actual de sales documentada en VERSION_FUENTES.md. Tengo modelo SQLite, cuatro respuestas y coberturas, propuesta AWS y correo preparado. Las menciones anteriores a pipeline pendiente describen el estado histórico. No se desplegó AWS ni se envió correo. Mi revisión personal y el acceso de evaluadores deben verificarse antes del envío. Los resultados completos están en outputs/etl y la instantánea agregada en docs/03_negocio/RESPUESTAS_NEGOCIO.md.
+
 ## Conclusión
 
 Tengo los cuatro notebooks e informes aislados y la conciliación exploratoria actual ejecutados por la IA. Continúo con el pipeline y el modelo usando conectores comprobados y excepciones visibles, sin dar por confirmadas las unidades, reglas financieras ni respuestas finales.

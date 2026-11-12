@@ -1,17 +1,15 @@
 # Preguntas para validar la solución CaféNorte
 
-Actualizado el 9 de noviembre de 2026. Banco de 60 preguntas relevantes para los datos entregados y una eventual implementación. No se ha enviado al cliente. Las primeras diez son las prioritarias; el banco completo sirve para descubrimiento, no para enviar 60 preguntas de golpe.
+Actualizado el 9 de noviembre de 2026. Banco de preguntas abiertas con identificadores originales para los datos entregados y una eventual implementación. Retiro los asuntos aclarados en la respuesta que compartí; no atribuyo envío ni respuesta a las demás preguntas. Las primeras diez son las prioritarias; el banco completo sirve para descubrimiento, no para enviar 60 preguntas de golpe.
 
 P0: afecta cifras o conciliación. P1: afecta interpretación, alcance o diseño. P2: mejora o decisión productiva que puede posponerse. Si no hay respuesta a una P0, la entrega debe explicitar el supuesto y cuantificar su impacto; no se detiene automáticamente todo el trabajo.
 
-## Diez preguntas prioritarias
+## Preguntas prioritarias abiertas
 
 | ID | Pregunta | Prioridad y evidencia |
 |---|---|---|
-| Q01 | ¿Qué representa cada código I/E/N/P/T del POS y qué efecto debe tener sobre ingresos y unidades? | P0; todos sus importes son positivos. D001. |
 | Q02 | ¿monto es el total de la línea o precio por unidad, y qué impuestos, descuentos o cargos incluye? | P0; falta desglose. D002. |
-| Q03 | ¿costo_mxn es costo unitario, en qué unidad y con qué impuestos y gastos incluidos? | P0; determina margen. D007. |
-| Q04 | ¿Existe un catálogo maestro completo que relacione SKU POS, SKU ERP y producto/variante de Shopify? | P0; diez SKU POS no llegan a ERP. D008. |
+| Q03 | ¿Qué unidad física, impuestos y gastos están incluidos en costo_mxn? | P0; determina margen. D007. |
 | Q05 | ¿El número final de los handles representa oficialmente el mismo producto que el número del SKU ERP? | P0; seis enlaces propuestos y cuatro ERP nulos, aún inferidos. D008. |
 | Q06 | ¿Qué significa N/A en cantidad_en_stock y cómo se obtiene el saldo real en esos casos? | P0; 4,417 snapshots desconocidos. D009. |
 | Q07 | ¿El archivo de inventario incluye todo el surtido por tienda o un subconjunto? ¿Por qué hay ventas de pares tienda–SKU sin snapshots? | P0; 12,687 filas I del semestre con ERP conocido y sin snapshot. D010. |
@@ -49,10 +47,7 @@ La revisión de [sales](../02_exploracion/resultados_sales.md#11-validación-de-
 | Q21 | ¿Qué atributos distinguen SKU con el mismo nombre: tamaño, presentación, receta o variante? | P1; 23 nombres repetidos. D016. |
 | Q22 | ¿Los SKU y handles pueden cambiar o reutilizarse, y hay vigencias de sus equivalencias? | P1; D019. |
 | Q23 | ¿Quién mantiene y aprueba las equivalencias entre sistemas y corrige los enlaces faltantes? | P1; D008/D019. |
-| Q24 | ¿Los costos son globales o varían por tienda, almacén, proveedor, lote o canal? | P0; D007. |
-| Q25 | ¿Una fecha de vigencia aplica desde el comienzo de ese día hasta el siguiente cambio, incluso si hay varias actualizaciones? | P0; D007/D020. |
 | Q26 | ¿El costo usado para margen es estándar, promedio, último costo, FIFO u otra política? | P0; D020. |
-| Q27 | ¿Cómo se registran compras, devoluciones, traslados, mermas y ajustes para reconciliar la evolución del stock? | P1; snapshots no incluyen movimientos. D021. |
 | Q28 | ¿Existe un catálogo de surtido tienda–SKU con fechas de alta, baja y cierres temporales? | P0; D010. |
 | Q29 | ¿Una fila ausente significa producto fuera de surtido, falta de extracción u otra condición? | P0; D010/D021. |
 | Q30 | ¿Qué sistema permite distinguir stock físico, reservado, en tránsito y disponible para vender? | P1; D011. |
@@ -106,7 +101,7 @@ La revisión de [sales](../02_exploracion/resultados_sales.md#11-validación-de-
 
 La consigna pide resolver las ambigüedades de sus cuatro métricas con criterio propio. Se propone documentar corte 2026-03-31, semestre octubre–marzo, trimestre enero–marzo, MoM abril–marzo y una definición explícita de rotación y margen. Estas decisiones no se agregan como preguntas que obliguen al reclutador a diseñar la solución.
 
-Se solicitaría al cliente únicamente la semántica, completitud y referencias de control de las fuentes. Si no responde, mostrar escenarios y cobertura, conservar desconocidos y evitar afirmar resultados globales con datos parciales. Ninguna pregunta de este archivo ha sido enviada por correo.
+Se solicitaría al cliente únicamente la semántica, completitud y referencias de control de las fuentes. Si no responde, mostrar escenarios y cobertura, conservar desconocidos y evitar afirmar resultados globales con datos parciales. No doy por enviadas ni respondidas las consultas restantes.
 
 ## Evidencia del EDA aislado de exchange rates
 
@@ -131,8 +126,8 @@ En [mi informe de inventario](../02_exploracion/resultados_inventory.md) y [03_i
 | Q06 / D009; P0 | Hay 4,417 textos N/A, distintos de los 11,726 ceros. Necesito saber si significan fallo de lectura, saldo no disponible u otra condición y cómo recuperar el dato; no los sustituyo por cero. |
 | Q07/Q28/Q29 / D010/D021; P0 | Los 1,268 pares observados cubren 182 días, pero 1,532 pares del escenario cartesiano de tiendas y productos nunca aparecen. Necesito surtido autorizado, vigencias y motivo de ausencia; este conteo no acredita productos activos faltantes ni ventas sin snapshot. |
 | Q08/Q30 / D011; P0 | Observo tres rachas de cuatro ceros diarios en enero–marzo de 2026. Necesito hora de corte y definición de stock físico, reservado y disponible antes de confirmar quiebres operativos. |
-| Q03/Q16/Q24–Q26 / D007/D016/D020; P0 | Hay 282 vigencias de costo en 70 productos, sin campo de tienda, unidad física ni base fiscal. Necesito confirmar alcance global, unidad comparable, impuestos/gastos, método de costo y momento de aplicación. |
-| Q04/Q05 / D008; P0; Q22/Q23 / D019; P1 | De 65 equivalencias, cinco tienen ERP nulo, 38 handle nulo y diez productos del catálogo carecen de una referencia ERP informada. Necesito maestro autorizado, responsable y vigencias; un handle informado no garantiza costo conciliable. |
+| Q03/Q16/Q26 / D007/D016/D020; P0 | Hay 282 vigencias de costo en 70 productos, sin campo de tienda, unidad física ni base fiscal. Necesito confirmar unidad física comparable, impuestos/gastos y método de costo. |
+| Q05 / D008; P0; Q22/Q23 / D019; P1 | De 65 equivalencias, cinco tienen ERP nulo, 38 handle nulo y diez productos del catálogo carecen de una referencia ERP informada. Necesito responsable y vigencias de la lista disponible; un handle informado no garantiza costo conciliable. |
 | Q21 / D016; P1 | Hay 23 nombres compartidos por 57 productos ERP. Necesito los atributos de presentación o variante; no uso nombre como clave. |
 | Q27/Q49/Q50 / D021/D026; P1 | Metadata declara snapshots sin movimientos y marca de generación sin zona explícita. Necesito movimientos, corte, lote y controles de extracción para reconciliar evolución y certificar integridad. |
 
@@ -157,9 +152,9 @@ Sin respuesta propongo contar registros, mantener estado comercial sin confirmar
 
 ## Evidencia del EDA conjunto
 
-Actualizo el respaldo de las consultas existentes con [la conciliación actual](../02_exploracion/resultados_conjunto.md), sin añadir identificadores ni dar preguntas por enviadas o respondidas. Q04/Q05/Q22/Q23 conservan la cobertura incompleta de producto: 12,349 registros físicos y 2,988 online no llegan a ERP por enlace exacto. Q07/Q08/Q28–Q30 se apoyan ahora en el cruce del semestre: 12,687 registros I con ERP carecen de snapshot, 213 tienen saldo desconocido y 565 coinciden con saldo cero. La coincidencia diaria no confirma un quiebre operativo.
+Actualizo el respaldo de las consultas existentes con [la conciliación actual](../02_exploracion/resultados_conjunto.md), sin añadir identificadores ni dar preguntas por enviadas o respondidas. Q05/Q22/Q23 conservan la cobertura incompleta de producto: 12,349 registros físicos y 2,988 online no llegan a ERP por enlace exacto. Q07/Q08/Q28–Q30 se apoyan ahora en el cruce del semestre: 12,687 registros I con ERP carecen de snapshot, 213 tienen saldo desconocido y 565 coinciden con saldo cero. La coincidencia diaria no confirma un quiebre operativo.
 
-Para Q03/Q16/Q24–Q26, todos los movimientos con ERP exacto tienen vigencia previa de costo, pero unidad, base fiscal y política siguen sin confirmar. Q10/Q37/Q38/Q40 mantienen evento temporal y redondeo: la cobertura diaria FX es completa para las órdenes extranjeras; los escenarios de redondeo por registro y al final difieren en −0.01 MXN para EUR y −0.16 MXN para USD. Q35/Q36 siguen sin un enlace de cumplimiento o referencia transaccional POS–online; no asigno tienda ni afirmo ausencia de doble conteo. Centralizo prioridades y tratamientos en las dudas existentes.
+Para Q03/Q16/Q26, todos los movimientos con ERP exacto tienen vigencia previa de costo, pero unidad, base fiscal y política siguen sin confirmar. Q10/Q37/Q38/Q40 mantienen evento temporal y redondeo: la cobertura diaria FX es completa para las órdenes extranjeras; los escenarios de redondeo por registro y al final difieren en −0.01 MXN para EUR y −0.16 MXN para USD. Q35/Q36 siguen sin un enlace de cumplimiento o referencia transaccional POS–online; no asigno tienda ni afirmo ausencia de doble conteo. Centralizo prioridades y tratamientos en las dudas existentes.
 
 ## Conclusión
 

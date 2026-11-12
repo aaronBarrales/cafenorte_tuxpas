@@ -10,11 +10,38 @@ El [documento original](docs/01_reto/TX%20Challenge%20Data%20Solutions%20Enginee
 
 ## Estado
 
+**Entrega implementada el 12 de noviembre de 2026.** Tengo el [ETL](scripts/pipeline.py), sus [pruebas](scripts/test_pipeline.py), el [modelo y las reglas](docs/03_negocio/MODELO_ETL.md), las [respuestas calculadas](docs/03_negocio/RESPUESTAS_NEGOCIO.md), la [propuesta AWS](docs/03_negocio/PROPUESTA_TECNICA.md) y el [guion y correo preparado](docs/04_seguimiento/ENTREGA.md). Registro un cambio de versión de sales en [VERSION_FUENTES](docs/04_seguimiento/VERSION_FUENTES.md). Los informes de exploración conservan su versión original.
+
+## Ejecutar la entrega
+
+Uso Python 3.12, pandas para transformar los tres formatos y SQLite para consultas sin servidor: el volumen cabe en memoria y prefiero una instalación pequeña y auditable. Desde la raíz, con los cuatro originales dentro de datos/:
+
+```powershell
+python -m venv .venv
+.venv/Scripts/python -m pip install -r requirements.txt
+.venv/Scripts/python scripts/pipeline.py
+.venv/Scripts/python -m unittest discover -s scripts -p test_pipeline.py -v
+.venv/Scripts/python scripts/validar_entrega.py
+```
+
+El pipeline resuelve rutas desde su propio archivo, también admite `--datos` y `--salida`. Genera `outputs/etl/modelo.sqlite`, `RESPUESTAS.md`, ocho CSV de resultados y cobertura y `manifiesto.json`. Los datos y resultados locales están fuera de Git; la documentación incluye una instantánea agregada sin datos personales. Para regenerar esa instantánea copio `outputs/etl/RESPUESTAS.md` a `docs/03_negocio/RESPUESTAS_NEGOCIO.md` después de validar. Puedo consultar las tablas mediante el módulo sqlite3 de Python o cualquier cliente SQLite. No necesito cuenta AWS para la demo.
+
+## Interpretación de las cuatro métricas
+
+Mi corte es 2026-03-31. Uso octubre–marzo para rotación, enero–marzo para quiebres y abril–marzo para crecimiento y margen. Investigué el [catálogo del SAT](https://wwwmat.sat.gob.mx/consultas/35025/formato-de-factura-electronica-%28anexo-20%29): I significa ingreso, E egreso, N nómina, P pago y T traslado. Infiero esta interpretación para el POS, que no tiene diccionario confirmado. Calculo ingresos físicos como I menos E; N/P/T se conservan con contribución cero. No interpreto E como devolución física automática. El costo unitario global en MXN y su aplicación desde vigencia hasta el siguiente cambio sí están confirmados en la respuesta compartida.
+
+1. Rotación: unidades I entre inventario promedio, con la misma población tienda–SKU y todos los días del semestre conocidos. Es un ranking parcial de ventas brutas en unidades, bajo equivalencia de unidades; excluyo online sin almacén asignable. No invento correspondencias ni convierto stock desconocido en cero.
+2. Quiebres: cuatro o más días consecutivos observados con stock cero por tienda–SKU dentro del trimestre. Huecos y N/A interrumpen la racha. No pruebo agotamiento intradía.
+3. MoM: variación porcentual de importes MXN contra el mes anterior, sin saltar meses. Base ausente o cero produce no disponible. Convierto online por tasa del día, MXN=1 y redondeo HALF_UP por registro; trato las órdenes exportadas como elegibles porque no tienen estatus. Mantengo canales separados sin afirmar ausencia de duplicación.
+4. Margen: importe de línea menos cantidad por costo unitario vigente. Presento operaciones negativas y acumulados negativos por SKU y tienda; online figura sin almacén. No uso costo futuro ni cero ante ausencia de equivalencia. Impuestos y unidad física limitan la comparabilidad: es margen operativo estimado, no utilidad contable.
+
+Conservo todas las filas, cantidades e importes originales; verifico claves y uniones m:1. El modelo deriva columnas sin corregir fuentes y excluye los datos personales de Shopify desde la lectura. La base se publica tras completar controles; cada ejecución reconstruye la carga completa y no duplica la anterior. Las [reglas detalladas](docs/03_negocio/MODELO_ETL.md) explican campos, granularidad, excepciones y límites.
+
 Hallazgos clave resumidos en [HALLAZGOS.md](docs/04_seguimiento/HALLAZGOS.md), actualizado conforme avance el análisis.
 
 Para retomar el trabajo, leer primero [CONTINUIDAD.md](docs/04_seguimiento/CONTINUIDAD.md): hallazgos, supuestos, cambios de fuentes y próximos pasos. Se actualizará al avanzar el proyecto.
 
-Existe una exploración previa de las cuatro fuentes en el [EDA integral histórico](docs/05_antecedentes/EDA_COMPLETO.md); su hash de sales difiere del actual. Tengo completos los cuatro notebooks aislados y el [EDA conjunto actual](notebooks/05_conjunto.ipynb), con su [informe de conectores](docs/02_exploracion/resultados_conjunto.md). La conciliación exploratoria está validada técnicamente; el pipeline, sus pruebas y la propuesta técnica siguen pendientes. Consulta las [preguntas priorizadas](docs/03_negocio/PREGUNTAS_CLIENTE.md) y el [plan de entrega](docs/04_seguimiento/PLAN_ENTREGA.md). Fecha límite: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México.
+Existe una exploración previa de las cuatro fuentes en el [EDA integral histórico](docs/05_antecedentes/EDA_COMPLETO.md); su hash de sales difiere del actual. Tengo completos los cuatro notebooks aislados y el [EDA conjunto actual](notebooks/05_conjunto.ipynb), con su [informe de conectores](docs/02_exploracion/resultados_conjunto.md). La conciliación exploratoria está validada técnicamente; el ETL, las pruebas y la propuesta están implementados en la entrega indicada arriba. Consulta las [preguntas priorizadas](docs/03_negocio/PREGUNTAS_CLIENTE.md) y el [plan de entrega](docs/04_seguimiento/PLAN_ENTREGA.md). Fecha límite: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México.
 
 Consulta los [resultados del análisis aislado de ventas](docs/02_exploracion/resultados_sales.md), el [índice de informes](docs/02_exploracion/README.md) y [el registro de dudas y supuestos](docs/03_negocio/DUDAS.md). El [análisis inicial de ventas](docs/05_antecedentes/analisis_sales.md) conserva el perfil histórico. Para reproducir el perfil sin dependencias externas, ejecuta `python scripts/perfil_sales.py` desde la raíz del proyecto.
 

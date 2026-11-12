@@ -424,12 +424,12 @@ Construyo rachas por tienda–SKU con fechas consecutivas y saldo numérico cero
 
 **Qué me dice:** de las 65 equivalencias, 5 tienen ERP nulo y 38 tienen handle nulo. No se repiten las claves no nulas. Hay 10 productos del catálogo sin referencia ERP informada en las equivalencias; eso no demuestra que no existan o no se vendan en otros canales. Encuentro 23 nombres compartidos por 57 productos.
 
-**Por qué importa:** llegar a un handle no garantiza llegar a ERP y costos. Necesito equivalencias autorizadas y vigentes (Q04/Q05/Q22/Q23 / D008/D019). No uno nulos entre sí, no deduplico por nombre ni adopto inferencias por sufijo. El JSON aislado no permite contar los SKU o handles que realmente faltan en las otras fuentes.
+**Por qué importa:** llegar a un handle no garantiza llegar a ERP y costos. Necesito gobernar las equivalencias disponibles y conservar sus excepciones (Q05/Q22/Q23 / D008/D019). No uno nulos entre sí, no deduplico por nombre ni adopto inferencias por sufijo. El JSON aislado no permite contar los SKU o handles que realmente faltan en las otras fuentes.
 
 ## 7. Historial de costos
 
 
-**Leyenda:** Todos los historiales; entradas cuenta versiones de costo y claves adicionales excluye la primera. La cobertura es potencial bajo última vigencia anterior o igual, sin afirmar método contable ni costo por unidad confirmado. No incluyo el índice de pandas.
+**Leyenda:** Todos los historiales; entradas cuenta versiones de costo y claves adicionales excluye la primera. La cobertura es potencial bajo última vigencia anterior o igual, sin afirmar método contable ni equivalencia física de unidades. No incluyo el índice de pandas.
 
 | Medida | Resultado |
 |---|---|
@@ -449,7 +449,7 @@ Construyo rachas por tienda–SKU con fechas consecutivas y saldo numérico cero
 
 
 
-**Leyenda:** Todas las versiones de costo; Observaciones cuenta vigencias y el resto expresa MXN por la unidad de costo pendiente de confirmar. Media y percentiles no se ponderan por tiempo, compras ni ventas y no representan el costo vigente promedio. No incluyo el índice de pandas.
+**Leyenda:** Todas las versiones de costo; Observaciones cuenta vigencias y el resto expresa MXN por unidad de catálogo; equivalencia física pendiente. Media y percentiles no se ponderan por tiempo, compras ni ventas y no representan el costo vigente promedio. No incluyo el índice de pandas.
 
 | Estadístico | Costo registrado |
 |---|---|
@@ -487,7 +487,7 @@ Construyo rachas por tienda–SKU con fechas consecutivas y saldo numérico cero
 
 **Qué me dice:** encuentro 282 vigencias para 70 productos; no detecto claves SKU–vigencia repetidas, costos inválidos o no positivos. Hay 212 cambios comparables: 117 aumentos y 95 bajadas. Todos los productos observados tienen una vigencia no posterior a su primer snapshot; bajo el escenario de última vigencia anterior o igual no habría huecos temporales iniciales.
 
-**Por qué importa y límite:** puedo preparar una búsqueda temporal sin inventar costos. No confirma costo unitario, impuestos, gastos, política contable ni alcance por tienda (Q03/Q16/Q24–Q26 / D007/D016/D020). La media de todas las versiones no es el costo vigente medio ni el promedio ponderado de compras. Una variación extrema no demuestra error de captura. No calculo margen ni importo ventas en este análisis.
+**Por qué importa y límite:** puedo preparar una búsqueda temporal sin inventar costos. El costo unitario global en MXN y su vigencia están establecidos; quedan pendientes impuestos, gastos, unidad física y política contable (Q03/Q16/Q26 / D007/D016/D020). La media de todas las versiones no es el costo vigente medio ni el promedio ponderado de compras. Una variación extrema no demuestra error de captura. No calculo margen ni importo ventas en este análisis.
 
 ## 8. Dudas y próximos pasos
 
@@ -500,8 +500,8 @@ Conecto la evidencia con [las preguntas existentes](../03_negocio/PREGUNTAS_CLIE
 | P0 | Q06 / D009: significado y recuperación de N/A | 4,417 saldos desconocidos | Conservar desconocidos y reportar cobertura; no imputar cero ni atravesarlos como continuidad demostrada. |
 | P0 | Q07/Q28/Q29 / D010/D021: surtido, vigencias y ausencia de filas | 1,268 pares observados frente a 2,800 posibles | Usar pares observados y declarar población excluida; conciliar ventas después y no inventar surtido. |
 | P0 | Q08/Q30 / D011: momento de captura y físico frente a disponible | 3 rachas trimestrales de al menos cuatro ceros diarios | Informar secuencias observadas, límites por desconocidos y ausencia de validación intradía. |
-| P0 | Q03/Q16/Q24–Q26 / D007/D016/D020: unidad, base, alcance y política de costo | Historial global por producto sin campo de tienda, unidad ni base fiscal | Proponer última vigencia no posterior al día, explicitar base no validada y no imputar costo cero. |
-| P0 | Q04/Q05 / D008: maestro y autoridad de equivalencias | ERP nulos y productos del catálogo sin equivalencia informada | Usar enlaces exactos completos y reportar no conciliados sin inferir por nombre o sufijo. |
+| P0 | Q03/Q16/Q26 / D007/D016/D020: unidad física, base fiscal y política de costo | Historial global por producto sin campo de tienda, unidad ni base fiscal | Proponer última vigencia no posterior al día, explicitar base no validada y no imputar costo cero. |
+| P0 | Q05 / D008: maestro y autoridad de equivalencias | ERP nulos y productos del catálogo sin equivalencia informada | Usar enlaces exactos completos y reportar no conciliados sin inferir por nombre o sufijo. |
 | P1 | Q21/Q22/Q23 / D016/D019: variantes, vigencia y mantenimiento de claves | Nombres repetidos y mapeos sin fechas de vigencia | Conservar ERP como identidad y separar equivalencias declaradas de propuestas. |
 | P1 | Q27/Q49/Q50 / D021/D026: movimientos y control de extracción | Metadata declara solo snapshots y no aporta lote ni control de origen | Conservar manifiesto local y huella; no reconciliar movimientos inexistentes ni afirmar integridad del ERP. |
 
@@ -511,6 +511,10 @@ Mi siguiente paso es completar la exploración aislada de e-commerce y conciliar
 
 - [Notebook de inventory](../../notebooks/03_inventory.ipynb).
 - [Preguntas al cliente](../03_negocio/PREGUNTAS_CLIENTE.md#evidencia-del-eda-aislado-de-inventory).
+
+## Interpretación actual del costo
+
+La respuesta que compartí establece costo unitario en MXN, global para las tiendas y aplicable desde fecha_vigencia hasta el siguiente cambio. Uso la última vigencia no futura; unidad física y base fiscal comparable conservan sus límites. No recalculo aquí las salidas históricas por esta aclaración semántica.
 
 ## Conclusión
 

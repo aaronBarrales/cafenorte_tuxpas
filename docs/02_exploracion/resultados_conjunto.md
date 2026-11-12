@@ -157,7 +157,7 @@ Conservo todos los comprobantes en el diagnóstico global y separo I en el semes
 
 Expando cost_history en `vigencia` (fecha_vigencia interpretada) y `costo_num` (costo_mxn numérico); detengo el análisis si encuentro fechas desconocidas, claves repetidas o costos no positivos. Con `merge_asof` busco por ERP la última vigencia menor o igual al día del registro, aceptando coincidencia en el mismo día. `dias_desde_vigencia` es día del movimiento menos vigencia; mide antigüedad, no vencimiento. No uso un costo futuro ni el costo actual para todo el histórico.
 
-`estado_costo` distingue sin ERP, sin vigencia previa y costo temporal encontrado. Supongo para este diagnóstico que la vigencia comienza ese día y el costo es global; no confirmo base fiscal, unidad o método contable. No calculo margen hasta que esas bases sean comparables.
+`estado_costo` distingue sin ERP, sin vigencia previa y costo temporal encontrado. Aplico el costo unitario global en MXN desde su vigencia hasta el siguiente cambio; no confirmo base fiscal, unidad física ni método contable. No calculo margen hasta que esas bases sean comparables.
 
 **Clave temporal del historial usado en el cruce**
 
@@ -246,6 +246,10 @@ Mi análisis no establece una relación transaccional POS–online: no hay una r
 
 - [Notebook del análisis conjunto](../../notebooks/05_conjunto.ipynb).
 - [Preguntas al cliente](../03_negocio/PREGUNTAS_CLIENTE.md#evidencia-del-eda-conjunto).
+
+## Interpretación actual del costo
+
+La respuesta que compartí establece costo unitario en MXN, global para las tiendas y aplicable desde fecha_vigencia hasta el siguiente cambio. Uso la última vigencia no futura; unidad física y base fiscal comparable conservan sus límites. No recalculo aquí las salidas históricas por esta aclaración semántica.
 
 ## Conclusión
 

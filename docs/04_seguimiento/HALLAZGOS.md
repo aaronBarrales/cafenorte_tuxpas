@@ -75,6 +75,10 @@ Tengo [el quinto notebook](../../notebooks/05_conjunto.ipynb) y [su informe](../
 
 La ventana común de las cuatro fuentes es octubre de 2025 a marzo de 2026. En el escenario I del semestre, 12,687 registros con ERP carecen de snapshot, 213 enlazan a saldo desconocido y 565 a cero; no convierto ausencia en cero ni extrapolo rotación. Todas las órdenes extranjeras encuentran FX del día. El vínculo online–tienda, las unidades y la base financiera siguen limitando las métricas; el detalle técnico queda en el informe conjunto.
 
+## Entrega actual
+
+Tengo las cuatro métricas calculadas y sus excepciones visibles en [respuestas de negocio](../03_negocio/RESPUESTAS_NEGOCIO.md). La rotación exige cobertura completa, el quiebre mide ceros observados y el margen usa costo unitario vigente confirmado. Registro la nueva huella de sales por separado; no presento los informes exploratorios anteriores como recalculados.
+
 ## Conclusión
 
 Distingo los hallazgos estructurales de las interpretaciones comerciales pendientes. Uso este resumen para orientar los siguientes pasos, sin confundir coincidencias temporales, mapeos propuestos o márgenes candidatos con hechos confirmados del negocio.

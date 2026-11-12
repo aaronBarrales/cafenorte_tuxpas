@@ -9,6 +9,7 @@ Estas convenciones aplican a todos los archivos del proyecto. Antes de crear o m
 | `datos/` | Fuentes originales. No sobrescribir ni corregir los archivos de entrada. Mantenerlos fuera de Git según `.gitignore`. |
 | `notebooks/` | Exploración interactiva; un notebook por fuente y análisis conjunto de conciliación. |
 | `scripts/` | Perfiles reproducibles, exportaciones y validaciones ejecutables. |
+| `scripts/pipeline.py` y `scripts/test_pipeline.py` | ETL analítico ejecutable y pruebas de sus reglas y límites. |
 | `outputs/` | Reportes, exportaciones y demás resultados generados; fuera de Git. |
 | `docs/README.md` | Entrada principal a la documentación, ruta de lectura e inventario de documentos. |
 | `docs/01_reto/` | Enunciado original, transcripción y requisitos de entrega. |

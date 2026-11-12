@@ -75,6 +75,10 @@ Estos documentos conservan evidencia previa y propuestas entre fuentes. No son i
 
 No crear documentos para fases todavía no implementadas. Cuando exista una nueva categoría de trabajo, definir su ubicación en [AGENTS.md](../AGENTS.md) y actualizar este índice y los enlaces afectados.
 
+## Entrega funcional — 12 de noviembre de 2026
+
+Mi ruta de revisión final es [modelo y reglas](03_negocio/MODELO_ETL.md), [cuatro respuestas calculadas](03_negocio/RESPUESTAS_NEGOCIO.md), [propuesta AWS](03_negocio/PROPUESTA_TECNICA.md), [guion y correo](04_seguimiento/ENTREGA.md) y [versión actual de fuentes](04_seguimiento/VERSION_FUENTES.md). El README principal contiene los comandos de ejecución y pruebas.
+
 ## Conclusión
 
 Organizo la lectura desde los requisitos hasta los resultados y el seguimiento. Distingo los informes actuales de los antecedentes para consultar cada documento con su alcance y vigencia correspondientes.

@@ -2,7 +2,7 @@
 
 Registro iniciado el 7 de noviembre de 2026. Registro únicamente dudas abiertas con su evidencia, impacto y tratamiento propuesto. Una hipótesis no equivale a una regla confirmada.
 
-Banco completo de consultas: [PREGUNTAS_CLIENTE.md](PREGUNTAS_CLIENTE.md), 60 preguntas con diez prioritarias. Evidencia integral: [EDA completo](../05_antecedentes/EDA_COMPLETO.md). Fecha límite que definí: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México.
+Banco de consultas abiertas: [PREGUNTAS_CLIENTE.md](PREGUNTAS_CLIENTE.md); conservo los identificadores sin renumerarlos. Evidencia integral: [EDA completo](../05_antecedentes/EDA_COMPLETO.md). Fecha límite que definí: martes 10 de noviembre de 2026 antes de las 12:00 p. m., hora de Ciudad de México.
 
 ## D009 Obtención de datos y frecuencia de actualización
 
@@ -20,21 +20,6 @@ Banco completo de consultas: [PREGUNTAS_CLIENTE.md](PREGUNTAS_CLIENTE.md), 60 pr
 
 **Resolución y evidencia de confirmación:** pendientes.
 
-## D001 Qué representa tipo_comprobante en sales
-
-**Origen:** pregunta que planteé. **Estado:** abierta. **Prioridad:** alta.
-
-**Pregunta:** ¿Qué representa la columna `tipo_comprobante` de `sales.csv`? ¿Usa el catálogo de tipos de CFDI del SAT o un catálogo propio del POS? ¿Cómo debe afectar cada código a los ingresos y a las unidades vendidas?
-
-**Evidencia observada:** aparecen `I` (82,518 filas), `E` (3,079), `N` (288), `P` (451) y `T` (154). Todos tienen cantidades e importes positivos. Los códigos por sí solos no indican el signo analítico que corresponde aplicar.
-
-**Referencia externa:** esas letras coinciden con Ingreso, Egreso, Nómina, Pago y Traslado en la documentación del SAT. Esta coincidencia es una hipótesis sobre la fuente, no confirma el diccionario del POS. Fuente: [SAT, Formato de Factura Anexo 20](https://wwwmat.sat.gob.mx/cs/Satellite?c=ConsultaInfo&childpagename=SatTyR%2FConsultaInfo%2FSAT_LandingConsultaInformacion&cid=1462228635025&packedargs=d%3DTouch&pagename=TySWrapper).
-
-**Impacto:** sumar todos los registros como ventas podría incluir movimientos ajenos a las ventas y sumar egresos con signo equivocado. Tampoco se puede asumir que todo egreso implica devolución física de inventario.
-
-**Tratamiento actual:** conservar código, cantidad e importe originales. El perfil reporta sumas por código, sin presentarlas como ventas netas. Antes de las métricas, documentar una interpretación explícita y comprobar su impacto. Si no hay respuesta del cliente, resolver la ambigüedad como un supuesto justificado del reto.
-
-**Resolución y evidencia de confirmación:** pendientes.
 
 ## D002 Qué mide monto
 
@@ -74,13 +59,6 @@ Banco completo de consultas: [PREGUNTAS_CLIENTE.md](PREGUNTAS_CLIENTE.md), 60 pr
 
 **Tratamiento actual:** conservar la fecha y hora sin asignar una zona no confirmada.
 
-## D005 Fecha de corte de las ventanas del reto
-
-**Estado:** supuesto propuesto; cobertura conjunta comprobada, definición de ventana pendiente. **Prioridad:** alta.
-
-Los datos de ventas terminan el 31 de marzo de 2026. Se propone usar un corte explícito basado en la cobertura de las fuentes, en lugar de la fecha de ejecución, para que los resultados sean reproducibles. Falta decidir si el último trimestre es calendario completo o tres meses móviles; la cobertura conjunta se documenta en el informe actual.
-
-**Tratamiento actual:** no aplicar todavía ventanas de negocio. Registrar la decisión y sus límites en el README antes de producir las cuatro respuestas. Esta ambigüedad se resolverá con criterio documentado, conforme al reto.
 
 ## D006 Origen y variación del precio observado por SKU
 
@@ -104,21 +82,17 @@ El SKU tiene 1,175 registros en total. Aun limitando el análisis a los 1,116 re
 
 La revisión de `inventory.json` encontró `tiendas_info` con `tienda_id`, `ciudad`, `region` y `timezone`. Sí existe un catálogo de zonas horarias por tienda. Queda pendiente validar su cobertura y confirmar si `fecha_hora` del POS está registrada en esa hora local; el catálogo por sí solo no lo demuestra.
 
-## D007 Base y vigencia de los costos del ERP
+## D007 Base comparable del costo
 
-**Origen:** investigación de `ERP-PROV-MX-057-C`. **Estado:** abierta. **Prioridad:** alta.
+**Estado:** abierta en unidad física, impuestos y gastos incluidos. **Prioridad:** alta. **Conexión:** Q03, Q16 y Q26.
 
-¿`costo_mxn` representa costo por unidad? ¿Qué unidad e impuestos incluye? ¿Cada `fecha_vigencia` marca el inicio de un costo aplicable hasta el siguiente cambio? ¿El costo es global o varía por tienda?
-
-**Evidencia:** el producto corresponde a `CN-00057`, Premium Cafe Grano, y tiene cinco costos con vigencia entre 2024-10-01 y 2025-11-30. Las entradas tienen fecha, costo y proveedor, sin tienda, unidad de medida ni fin explícito de vigencia. Ver [historial investigado](../05_antecedentes/producto_ERP-PROV-MX-057-C.md).
-
-**Tratamiento propuesto:** cruce temporal por SKU con la última vigencia no posterior a la operación, bajo supuesto documentado de costo unitario global. No usar costos futuros ni sustituir costos ausentes por cero. Confirmar la base antes de presentar márgenes como definitivos.
+¿Qué unidad física, impuestos y gastos incluye el costo y qué método de valoración representa? La ausencia de esos campos limita la comparación con el importe cobrado. Mi tratamiento es usar cantidad por costo vigente, conservar los valores originales y presentar un margen estimado, condicionado a bases comparables.
 
 ## D008 Handles ausentes y cobertura del mapeo de productos
 
 **Origen:** identifiqué `handle: null` para `ERP-PROV-MX-015-D`. **Estado:** abierta. **Prioridad:** alta para conciliación con e-commerce.
 
-**Pregunta:** ¿Los handles nulos representan productos que no se venden en Shopify o correspondencias incompletas? ¿Existe una clave alternativa confiable para conciliar esas órdenes? ¿Hay otras correspondencias fuera del archivo?
+**Pregunta:** ¿Los handles nulos representan productos que no se venden en Shopify o correspondencias incompletas?
 
 **Evidencia:** `sku_mappings` tiene 65 registros: 38 con handle nulo y 27 con handle informado. En esta muestra no se encontraron duplicados entre las claves no nulas de cada campo `sku_pos`, `sku_erp` y `handle`. El catálogo contiene 70 productos, por lo que no debemos equiparar automáticamente el número de mapeos con el catálogo completo. No se ha realizado aún la conciliación exhaustiva de cobertura entre conjuntos.
 
@@ -138,7 +112,7 @@ Se revisaron las 11 columnas de e-commerce y no contienen una lista de precios f
 
 ## D009 a D029 Dudas surgidas de la exploración completa
 
-Estado: abiertas, salvo las comprobaciones técnicas expresamente indicadas. Los tratamientos son propuestas para avanzar, no respuestas del cliente.
+Estado: asuntos abiertos; el costo unitario y su vigencia se aplican en el modelo y no forman parte de los pendientes. Los tratamientos son propuestas para avanzar, no respuestas del cliente.
 
 | ID | Pregunta o asunto | Evidencia o impacto | Tratamiento propuesto |
 |---|---|---|---|
@@ -174,7 +148,7 @@ Vinculo D013 con [Q10, Q38 y Q39 y su evidencia](PREGUNTAS_CLIENTE.md#evidencia-
 
 ## Evidencia aislada de inventario — 9 de noviembre de 2026
 
-Conecto [mi informe actual](../02_exploracion/resultados_inventory.md) con [las preguntas existentes](PREGUNTAS_CLIENTE.md#evidencia-del-eda-aislado-de-inventory), sin duplicar identificadores. D009 conserva la duda sobre los 4,417 N/A; D010/D021 requieren surtido y significado de ausencias, aunque los 1,268 pares observados sí tienen filas en los 182 días. D011 requiere hora de corte y definición del saldo para interpretar tres rachas de cuatro ceros en el trimestre final. D007/D020 requieren base y política de las 282 vigencias de costo; D008/D019 requieren autoridad y vigencia de mapeos con ERP o handle nulos. D016 conserva la duda sobre presentaciones y unidades detrás de nombres compartidos. Sin respuesta propongo conservar desconocidos sin extender rachas a través de ellos, limitar el universo a pares observados y declarar exclusiones, informar rachas sin confirmar quiebres intradía y evaluar la última vigencia no posterior al día como escenario de costo. No invento surtido cartesiano, movimientos, claves por nombre o sufijo ni costo cero. No he recibido respuestas del cliente; los números de ventas sin inventario en entradas históricas son evidencia entre fuentes y no resultados de este análisis aislado.
+Conecto [mi informe actual](../02_exploracion/resultados_inventory.md) con [las preguntas existentes](PREGUNTAS_CLIENTE.md#evidencia-del-eda-aislado-de-inventory), sin duplicar identificadores. D009 conserva la duda sobre los 4,417 N/A; D010/D021 requieren surtido y significado de ausencias, aunque los 1,268 pares observados sí tienen filas en los 182 días. D011 requiere hora de corte y definición del saldo para interpretar tres rachas de cuatro ceros en el trimestre final. D007/D020 requieren base y política de las 282 vigencias de costo; D008/D019 requieren autoridad y vigencia de mapeos con ERP o handle nulos. D016 conserva la duda sobre presentaciones y unidades detrás de nombres compartidos. Sin respuesta propongo conservar desconocidos sin extender rachas a través de ellos, limitar el universo a pares observados y declarar exclusiones, informar rachas sin confirmar quiebres intradía y evaluar la última vigencia no posterior al día como escenario de costo. No invento surtido cartesiano, movimientos, claves por nombre o sufijo ni costo cero. Mantengo abiertos únicamente los asuntos no cubiertos por la respuesta compartida; los números de ventas sin inventario en entradas históricas son evidencia entre fuentes y no resultados de este análisis aislado.
 
 ## Evidencia aislada actual de ecommerce — 9 de noviembre de 2026
 
@@ -184,9 +158,9 @@ Conecto [mi informe](../02_exploracion/resultados_ecommerce.md) con [Q09/Q16/Q31
 
 Conecto [el informe conjunto](../02_exploracion/resultados_conjunto.md) con las dudas existentes, sin crear consultas duplicadas ni atribuir respuestas al cliente. La validación técnica de claves no resuelve su semántica ni aprueba tratamientos financieros.
 
-- **P0; D008/D019; Q04/Q05/Q22/Q23:** por igualdad literal llegan a ERP 74,141 registros físicos y 6,959 online. Quedan 12,349 físicos y 2,988 online sin ERP conciliado. Mantengo todas las filas y no aplico las propuestas por nombre y sufijo. Siguen abiertos maestro autorizado, unidad de variante, responsables y vigencias de equivalencias.
+- **P0; D008/D019; Q05/Q22/Q23:** por igualdad literal llegan a ERP 74,141 registros físicos y 6,959 online. Quedan 12,349 físicos y 2,988 online sin ERP conciliado. Mantengo todas las filas y no aplico las propuestas por nombre y sufijo. Siguen abiertas unidad de variante, responsables y vigencias de equivalencias; conservo las excepciones sin inventar enlaces.
 - **P0; D010/D011/D021; Q07/Q08/Q27–Q30:** la ventana común con snapshots es 2025-10-01 a 2026-03-31. Entre los registros I de ese período, 12,687 tienen ERP pero no snapshot, 213 enlazan a saldo desconocido y 565 a cero. Propongo población compatible para rotación, sin rellenar ausencias; siguen abiertos surtido y significado/hora del snapshot. No atribuyo ventas online a una tienda sin cumplimiento identificado (D022; Q35/Q36).
-- **P0; D007/D016/D020; Q03/Q16/Q24–Q26:** cada movimiento con ERP exacto encuentra una última vigencia no futura. No elimina la duda de unidad, impuestos, alcance global ni política contable; propongo conservar esas condiciones antes del margen.
+- **P0; D007/D016/D020; Q03/Q16/Q26:** cada movimiento con ERP exacto encuentra una última vigencia no futura. No elimina la duda de unidad física, impuestos ni política contable; propongo conservar esas condiciones antes del margen.
 - **P0; D013/D023; Q10/Q37/Q38/Q40:** todas las filas online extranjeras encuentran tasa del día. En el escenario Decimal con ROUND_HALF_UP, sumar redondeos por registro difiere de redondear al final en −0.01 MXN para EUR y −0.16 MXN para USD. Mantengo sin confirmar evento de conversión, zona, proveedor y etapa de redondeo; no interpreto esas diferencias técnicas como descuadre contable.
 - **P0; D005/D004/D012/D022; Q01/Q09/Q12/Q14/Q34–Q36:** la presencia global diaria común de las cuatro fuentes abarca 182 días, pero no confirma completitud por par ni estatus comercial. Propongo corte 2026-03-31 y ventanas explícitas; la decisión de trimestre calendario o móvil, elegibilidad, zona y control de duplicación entre canales sigue abierta. No uso producto compartido como enlace entre transacciones.
 
