@@ -406,6 +406,10 @@ La IA añadió conclusiones específicas a los Markdown propios del proyecto y g
 
 Concentro el código entregado en el ETL, sus pruebas y el validador independiente. Retiré nueve auxiliares de exploración y generación de documentos, junto con las dependencias exclusivas de PDF; conservo los notebooks, informes y PDF terminados. Ajusté README, convenciones, navegación y comandos afectados, distinguiendo las referencias históricas de las instrucciones vigentes. La IA comprobó que los tres scripts esenciales y todos los notebooks permanecen idénticos a la versión auditada; las diez pruebas y el contraste independiente de las cuatro métricas pasan. La revisión de navegación detectó una referencia antigua a D005 y la sustituyó por las ventanas ya definidas en el modelo. Actualizo el ZIP desde el nuevo commit para que contenga la misma estructura simplificada.
 
+## Preparación de entrevista y guion de consulta — 13 de noviembre de 2026
+
+Pedí convertir mi guion de presentación a PDF, explicar los CSV y aclarar el significado de las cuatro preguntas de negocio. La propuesta inicial fue un recorrido de demostración; amplié la consulta para comprender métricas y archivos. La IA contrastó el enunciado, las exportaciones y el código del pipeline y generó `outputs/entrega/Guion_entrevista_CafeNorte.pdf`, de cinco páginas, con el guion, ejemplos didácticos y el mapa de los nueve CSV. Diferenció centavos de MXN, ingresos en pesos y cobertura global frente a ventanas analíticas. ReportLab generó el PDF; PyMuPDF renderizó sus cinco páginas y la IA inspeccionó visualmente su composición. No se modificaron fuentes, reglas ni resultados ni se volvieron a ejecutar las pruebas del ETL. Esta preparación no acredita mi revisión personal ni una entrevista realizada.
+
 ## Conclusión
 
 Mi aportación documentada está en las preguntas que orientan la investigación, las hipótesis que pido contrastar y las correcciones con las que ajusto el análisis y su presentación. Uso la IA para agilizar implementación y comprobaciones; conservo su atribución y la evidencia para poder defender qué resultados están sustentados y qué decisiones requieren todavía mi revisión.

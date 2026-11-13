@@ -37,7 +37,7 @@ Resuelvo rutas desde el script; puedo ejecutarlo desde otra carpeta o indicar `-
 .venv/Scripts/python -c "import sqlite3; c=sqlite3.connect('outputs/etl/modelo.sqlite'); print(c.execute('SELECT * FROM quiebres_tiendas').fetchall()); c.close()"
 ```
 
-Conservo la propuesta PDF de dos páginas y la guía PDF de estudio en `outputs/entrega/`; sus documentos Markdown están en `docs/`. Los PDF terminados se adjuntan según la [lista de entrega](docs/04_seguimiento/ENTREGA.md).
+Conservo la propuesta PDF de dos páginas, la guía PDF de estudio y el guion de entrevista de cinco páginas (`outputs/entrega/Guion_entrevista_CafeNorte.pdf`) en `outputs/entrega/`; sus documentos Markdown están en `docs/`. Los PDF terminados se adjuntan según la [lista de entrega](docs/04_seguimiento/ENTREGA.md).
 
 Mantengo únicamente tres scripts ejecutables: [pipeline.py](scripts/pipeline.py) para ejecutar el ETL, [test_pipeline.py](scripts/test_pipeline.py) para probar sus reglas y [validar_entrega.py](scripts/validar_entrega.py) para contrastar los resultados de manera independiente.
 
